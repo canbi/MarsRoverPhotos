@@ -15,6 +15,7 @@
 		36F8B3C12860AD48000902D1 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3C02860AD48000902D1 /* Photo.swift */; };
 		36F8B3C32860AE62000902D1 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3C22860AE62000902D1 /* Camera.swift */; };
 		36F8B3C52860B14C000902D1 /* Rover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3C42860B14C000902D1 /* Rover.swift */; };
+		36F8B3C82860B498000902D1 /* Manifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3C72860B498000902D1 /* Manifest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		36F8B3C02860AD48000902D1 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		36F8B3C22860AE62000902D1 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		36F8B3C42860B14C000902D1 /* Rover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rover.swift; sourceTree = "<group>"; };
+		36F8B3C72860B498000902D1 /* Manifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manifest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 		36B447AA2860A79F00D8DDA8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				36F8B3C72860B498000902D1 /* Manifest.swift */,
 				36F8B3C02860AD48000902D1 /* Photo.swift */,
 				36F8B3C22860AE62000902D1 /* Camera.swift */,
 				36F8B3C42860B14C000902D1 /* Rover.swift */,
@@ -160,6 +163,7 @@
 			files = (
 				36B4479F2860A6F600D8DDA8 /* ContentView.swift in Sources */,
 				36F8B3C32860AE62000902D1 /* Camera.swift in Sources */,
+				36F8B3C82860B498000902D1 /* Manifest.swift in Sources */,
 				36B4479D2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift in Sources */,
 				36F8B3C12860AD48000902D1 /* Photo.swift in Sources */,
 				36F8B3C52860B14C000902D1 /* Rover.swift in Sources */,
