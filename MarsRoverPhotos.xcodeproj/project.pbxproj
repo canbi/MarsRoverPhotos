@@ -19,6 +19,10 @@
 		36F8B3CE2860F45E000902D1 /* RoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3CD2860F45E000902D1 /* RoverViewModel.swift */; };
 		36F8B3D12860F52B000902D1 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3D02860F52B000902D1 /* NetworkingManager.swift */; };
 		36F8B3D32860F588000902D1 /* JSONDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3D22860F588000902D1 /* JSONDataService.swift */; };
+		36F8B3D72860FF1A000902D1 /* ImageDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3D62860FF1A000902D1 /* ImageDataService.swift */; };
+		36F8B3D928610031000902D1 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3D828610031000902D1 /* LocalFileManager.swift */; };
+		36F8B3DB2861015D000902D1 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3DA2861015D000902D1 /* ImageView.swift */; };
+		36F8B3DD28610193000902D1 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3DC28610193000902D1 /* ImageViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +39,11 @@
 		36F8B3CD2860F45E000902D1 /* RoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoverViewModel.swift; sourceTree = "<group>"; };
 		36F8B3D02860F52B000902D1 /* NetworkingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		36F8B3D22860F588000902D1 /* JSONDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDataService.swift; sourceTree = "<group>"; };
+		36F8B3D62860FF1A000902D1 /* ImageDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataService.swift; sourceTree = "<group>"; };
+		36F8B3D828610031000902D1 /* LocalFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
+		36F8B3DA2861015D000902D1 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		36F8B3DC28610193000902D1 /* ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
+		36F8B3DE28610735000902D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +77,8 @@
 		36B4479B2860A6F600D8DDA8 /* MarsRoverPhotos */ = {
 			isa = PBXGroup;
 			children = (
+				36F8B3DE28610735000902D1 /* Info.plist */,
+				36F8B3D42860FF03000902D1 /* Utilities */,
 				36F8B3CF2860F51E000902D1 /* Service */,
 				36F8B3CA2860F43C000902D1 /* ViewModel */,
 				36F8B3C92860F434000902D1 /* View */,
@@ -102,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				36F8B3CB2860F456000902D1 /* RoverView.swift */,
+				36F8B3DA2861015D000902D1 /* ImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -110,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				36F8B3CD2860F45E000902D1 /* RoverViewModel.swift */,
+				36F8B3DC28610193000902D1 /* ImageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -117,10 +130,19 @@
 		36F8B3CF2860F51E000902D1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				36F8B3D02860F52B000902D1 /* NetworkingManager.swift */,
 				36F8B3D22860F588000902D1 /* JSONDataService.swift */,
+				36F8B3D62860FF1A000902D1 /* ImageDataService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		36F8B3D42860FF03000902D1 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				36F8B3D828610031000902D1 /* LocalFileManager.swift */,
+				36F8B3D02860F52B000902D1 /* NetworkingManager.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,7 +216,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36F8B3DB2861015D000902D1 /* ImageView.swift in Sources */,
 				36F8B3C32860AE62000902D1 /* Camera.swift in Sources */,
+				36F8B3D928610031000902D1 /* LocalFileManager.swift in Sources */,
+				36F8B3D72860FF1A000902D1 /* ImageDataService.swift in Sources */,
 				36F8B3CC2860F456000902D1 /* RoverView.swift in Sources */,
 				36F8B3C82860B498000902D1 /* Manifest.swift in Sources */,
 				36B4479D2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift in Sources */,
@@ -203,6 +228,7 @@
 				36F8B3D12860F52B000902D1 /* NetworkingManager.swift in Sources */,
 				36F8B3C12860AD48000902D1 /* Photo.swift in Sources */,
 				36F8B3C52860B14C000902D1 /* Rover.swift in Sources */,
+				36F8B3DD28610193000902D1 /* ImageViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +360,7 @@
 				DEVELOPMENT_TEAM = 32L9LV3KSY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MarsRoverPhotos/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -363,6 +390,7 @@
 				DEVELOPMENT_TEAM = 32L9LV3KSY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MarsRoverPhotos/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

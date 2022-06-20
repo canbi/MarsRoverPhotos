@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct RoverView: View {
-    @ObservedObject var vm: RoverViewModel = RoverViewModel(rover: .curiosity)
+    @StateObject var vm: RoverViewModel = RoverViewModel(rover: .curiosity)
     
     var body: some View {
         List {
             ForEach(vm.roverImages, id: \.id) { image in
-                Text(image.camera.fullName.rawValue)
+                LazyHStack {
+                    ImageView(photo: image)
+                        .frame(width: 40, height: 40)
+                    Text(image.camera.fullName.rawValue)
+                }
+                
             }
         }
     }

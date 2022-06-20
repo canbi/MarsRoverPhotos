@@ -18,6 +18,13 @@ struct Camera: Codable {
         case roverID = "rover_id"
         case fullName = "full_name"
     }
+    
+    static var previewData: Camera {
+        return .init(id: 1,
+                     name: .fhaz,
+                     roverID: 1,
+                     fullName: .panoramicCamera)
+    }
 }
 
 enum CameraFullName: String, Codable {

@@ -20,6 +20,14 @@ struct Rover: Codable {
         case launchDate = "launch_date"
         case status
     }
+    
+    static var previewData: Rover {
+        return .init(id: 1,
+                     name: .curiosity,
+                     landingDate: "11-11-2011",
+                     launchDate: "11-11-2011",
+                     status: "dummy")
+    }
 }
 
 enum RoverType: String, Codable {
