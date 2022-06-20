@@ -8,8 +8,9 @@ The app uses [NASA Open APIs](https://api.nasa.gov/index.html#browseAPI)
 ### Implemented Features and TO-DOs
 - [x]  Main Data Structure
 - [x]  Manifest Data Structure
-- []  Image querying with Earth Date
-- []  Image querying with Martian Sol
+- [x]  Networking with Combine and URLSession
+- []  Data querying by Earth Date
+- []  Image querying by Martian Sol
 - []  Filtering with Camera Types
 - []  Save to Photos
 - []  Image Favorites tab
