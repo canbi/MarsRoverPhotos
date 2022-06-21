@@ -28,9 +28,11 @@
 		36F8B3E728619462000902D1 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3E628619462000902D1 /* Navigation.swift */; };
 		36F8B3E928619481000902D1 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3E828619481000902D1 /* Binding.swift */; };
 		36F8B3EF28619752000902D1 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3EC28619752000902D1 /* CustomTabBarView.swift */; };
-		36F8B3F028619752000902D1 /* TabBarItemsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3ED28619752000902D1 /* TabBarItemsPreferenceKey.swift */; };
-		36F8B3F128619752000902D1 /* CustomTabBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3EE28619752000902D1 /* CustomTabBarContainerView.swift */; };
 		36F8B3F328619775000902D1 /* NavBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3F228619775000902D1 /* NavBarItem.swift */; };
+		36F8B3F62861D78F000902D1 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3F52861D78F000902D1 /* BackButton.swift */; };
+		36F8B3F82861D79D000902D1 /* ZoomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3F72861D79D000902D1 /* ZoomButton.swift */; };
+		36F8B3FA2861D8C3000902D1 /* ImageZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3F92861D8C3000902D1 /* ImageZoomView.swift */; };
+		36F8B3FC2861EAE8000902D1 /* TestImageDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3FB2861EAE8000902D1 /* TestImageDataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,9 +59,11 @@
 		36F8B3E628619462000902D1 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		36F8B3E828619481000902D1 /* Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
 		36F8B3EC28619752000902D1 /* CustomTabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
-		36F8B3ED28619752000902D1 /* TabBarItemsPreferenceKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemsPreferenceKey.swift; sourceTree = "<group>"; };
-		36F8B3EE28619752000902D1 /* CustomTabBarContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarContainerView.swift; sourceTree = "<group>"; };
 		36F8B3F228619775000902D1 /* NavBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarItem.swift; sourceTree = "<group>"; };
+		36F8B3F52861D78F000902D1 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		36F8B3F72861D79D000902D1 /* ZoomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomButton.swift; sourceTree = "<group>"; };
+		36F8B3F92861D8C3000902D1 /* ImageZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageZoomView.swift; sourceTree = "<group>"; };
+		36F8B3FB2861EAE8000902D1 /* TestImageDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestImageDataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,7 @@
 				36F8B3CB2860F456000902D1 /* RoverView.swift */,
 				36F8B3DA2861015D000902D1 /* ImageView.swift */,
 				36F8B3E128618FAC000902D1 /* DetailView.swift */,
+				36F8B3F92861D8C3000902D1 /* ImageZoomView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -152,6 +157,7 @@
 			children = (
 				36F8B3D22860F588000902D1 /* JSONDataService.swift */,
 				36F8B3D62860FF1A000902D1 /* ImageDataService.swift */,
+				36F8B3FB2861EAE8000902D1 /* TestImageDataService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -177,6 +183,7 @@
 		36F8B3EA2861972F000902D1 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				36F8B3F42861D781000902D1 /* CustomButtons */,
 				36F8B3EB28619752000902D1 /* CustomTabBar */,
 			);
 			path = Component;
@@ -187,10 +194,17 @@
 			children = (
 				36F8B3F228619775000902D1 /* NavBarItem.swift */,
 				36F8B3EC28619752000902D1 /* CustomTabBarView.swift */,
-				36F8B3ED28619752000902D1 /* TabBarItemsPreferenceKey.swift */,
-				36F8B3EE28619752000902D1 /* CustomTabBarContainerView.swift */,
 			);
 			path = CustomTabBar;
+			sourceTree = "<group>";
+		};
+		36F8B3F42861D781000902D1 /* CustomButtons */ = {
+			isa = PBXGroup;
+			children = (
+				36F8B3F52861D78F000902D1 /* BackButton.swift */,
+				36F8B3F72861D79D000902D1 /* ZoomButton.swift */,
+			);
+			path = CustomButtons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +223,8 @@
 			dependencies = (
 			);
 			name = MarsRoverPhotos;
+			packageProductDependencies = (
+			);
 			productName = MarsRoverPhotos;
 			productReference = 36B447992860A6F600D8DDA8 /* MarsRoverPhotos.app */;
 			productType = "com.apple.product-type.application";
@@ -237,6 +253,8 @@
 				Base,
 			);
 			mainGroup = 36B447902860A6F600D8DDA8;
+			packageReferences = (
+			);
 			productRefGroup = 36B4479A2860A6F600D8DDA8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -266,25 +284,27 @@
 			files = (
 				36F8B3DB2861015D000902D1 /* ImageView.swift in Sources */,
 				36F8B3C32860AE62000902D1 /* Camera.swift in Sources */,
+				36F8B3F62861D78F000902D1 /* BackButton.swift in Sources */,
 				36F8B3D928610031000902D1 /* LocalFileManager.swift in Sources */,
+				36F8B3FC2861EAE8000902D1 /* TestImageDataService.swift in Sources */,
 				36F8B3E228618FAC000902D1 /* DetailView.swift in Sources */,
 				36F8B3D72860FF1A000902D1 /* ImageDataService.swift in Sources */,
 				36F8B3CC2860F456000902D1 /* RoverView.swift in Sources */,
 				36F8B3F328619775000902D1 /* NavBarItem.swift in Sources */,
 				36F8B3C82860B498000902D1 /* Manifest.swift in Sources */,
 				36B4479D2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift in Sources */,
+				36F8B3F82861D79D000902D1 /* ZoomButton.swift in Sources */,
 				36F8B3D32860F588000902D1 /* JSONDataService.swift in Sources */,
 				36F8B3EF28619752000902D1 /* CustomTabBarView.swift in Sources */,
 				36F8B3CE2860F45E000902D1 /* RoverViewModel.swift in Sources */,
 				36F8B3D12860F52B000902D1 /* NetworkingManager.swift in Sources */,
 				36F8B3E928619481000902D1 /* Binding.swift in Sources */,
 				36F8B3E728619462000902D1 /* Navigation.swift in Sources */,
+				36F8B3FA2861D8C3000902D1 /* ImageZoomView.swift in Sources */,
 				36F8B3C12860AD48000902D1 /* Photo.swift in Sources */,
 				36F8B3C52860B14C000902D1 /* Rover.swift in Sources */,
-				36F8B3F028619752000902D1 /* TabBarItemsPreferenceKey.swift in Sources */,
 				36F8B3E428618FB4000902D1 /* DetailViewModel.swift in Sources */,
 				36F8B3DD28610193000902D1 /* ImageViewModel.swift in Sources */,
-				36F8B3F128619752000902D1 /* CustomTabBarContainerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

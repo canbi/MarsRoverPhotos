@@ -36,7 +36,6 @@ struct CustomTabBarView_Previews: PreviewProvider {
 }
 
 extension CustomTabBarView {
-    
     private func switchToTab(tab: NavBarItem) {
         selection = tab
     }

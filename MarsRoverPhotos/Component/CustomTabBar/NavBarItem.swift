@@ -13,9 +13,9 @@ enum NavBarItem: Hashable {
     
     var color: Color {
         switch self {
-        case .curiosity: return .red//Color.theme.tabFirst
-        case .opportunity: return .blue//Color.theme.tabSecond
-        case .spirit: return .green//Color.theme.tabThird
+        case .curiosity: return .red
+        case .opportunity: return .blue
+        case .spirit: return .green
         }
     }
     

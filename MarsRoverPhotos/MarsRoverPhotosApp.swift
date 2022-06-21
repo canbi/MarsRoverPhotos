@@ -10,20 +10,30 @@ import SwiftUI
 @main
 struct MarsRoverPhotosApp: App {
     @State private var tabSelection: NavBarItem = .curiosity
+    var dataService1 = JSONDataService()
+    var dataService2 = JSONDataService()
+    var dataService3 = JSONDataService()
+    
+    init(){
+    }
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                CustomTabBarContainerView(selection: $tabSelection) {
-                    RoverView(rover: .curiosity)
-                        .tabBarItem(tab: .curiosity, selection: $tabSelection)
-                    
-                    RoverView(rover: .opportunity)
-                        .tabBarItem(tab: .opportunity, selection: $tabSelection)
-                    
-                    RoverView(rover: .spirit)
-                        .tabBarItem(tab: .spirit, selection: $tabSelection)
+                TabView(selection: $tabSelection) {
+                    RoverView(rover: .curiosity, dataService: dataService1)
+                        .tag(NavBarItem.curiosity)
+                    RoverView(rover: .opportunity, dataService: dataService2)
+                        .tag(NavBarItem.opportunity)
+                    RoverView(rover: .spirit, dataService: dataService3)
+                        .tag(NavBarItem.spirit)
                 }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
                 .navigationBarHidden(true)
+                .overlay(alignment: .bottom) {
+                    CustomTabBarView(tabs: [.curiosity,.opportunity,.spirit], selection: $tabSelection, localSelection: .curiosity)
+                }
             }
         }
     }

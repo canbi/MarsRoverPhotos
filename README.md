@@ -12,8 +12,8 @@ The app uses [NASA Open APIs](https://api.nasa.gov/index.html#browseAPI)
 - [x]  Downloading and caching images
 - [x]  Custom NavigationLink for lazy loading
 - [x]  ScrollView with Lazy Loading
+- [x]  Custom Tab Bar built upon TabView
 - []  Image Zoom Pop-up
-- []  Tab Bar (Curiosity, Opportunity, Spirit)
 - []  Data querying by Earth Date
 - []  Image querying by Martian Sol
 - []  Filtering with Camera Types
