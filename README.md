@@ -9,13 +9,16 @@ The app uses [NASA Open APIs](https://api.nasa.gov/index.html#browseAPI)
 - [x]  Main Data Structure
 - [x]  Manifest Data Structure
 - [x]  Networking with Combine and URLSession
+- [x]  Downloading and caching images
+- [x]  Custom NavigationLink for lazy loading
+- [x]  ScrollView with Lazy Loading
+- []  Image Zoom Pop-up
+- []  Tab Bar (Curiosity, Opportunity, Spirit)
 - []  Data querying by Earth Date
 - []  Image querying by Martian Sol
 - []  Filtering with Camera Types
 - []  Save to Photos
 - []  Image Favorites tab
-- []  Tab Bar (Curiosity, Opportunity, Spirit)
-- []  Image Zoom Pop-up
 - []  Mission Manifest information about each rover
 - []  Setting camera types with mission manifest api
 - []  Offline usage capability with CoreData and Directory File

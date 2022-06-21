@@ -10,10 +10,15 @@ import Foundation
 
 class RoverViewModel: ObservableObject {
     let rover: RoverType
-    @Published var roverImages: [Photo] = []
     
-    private var cancellables = Set<AnyCancellable>()
+    // Data
     private let dataService = JSONDataService()
+    @Published var roverImages: [Photo] = []
+    private var cancellables = Set<AnyCancellable>()
+    
+    // Detail View
+    @Published var selectedImage: Photo? = nil
+    @Published var showDetailView: Bool = false
     
     init(rover: RoverType){
         self.rover = rover

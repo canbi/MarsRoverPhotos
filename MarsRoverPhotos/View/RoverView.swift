@@ -9,18 +9,29 @@ import SwiftUI
 
 struct RoverView: View {
     @StateObject var vm: RoverViewModel = RoverViewModel(rover: .curiosity)
-    
+
     var body: some View {
-        List {
-            ForEach(vm.roverImages, id: \.id) { image in
-                LazyHStack {
+        ScrollView {
+            LazyVStack {
+                ForEach(vm.roverImages, id: \.id) { image in
                     ImageView(photo: image)
-                        .frame(width: 40, height: 40)
-                    Text(image.camera.fullName.rawValue)
+                        .frame(width: 200, height: 200)
+                        .onTapGesture {
+                            segue(photo: image)
+                        }
                 }
-                
             }
         }
+        .background{
+            NavigationLink(isActive: $vm.showDetailView) {
+                Text("Destination")
+            } label: { EmptyView() }
+        }
+    }
+    
+    private func segue(photo: Photo) {
+        vm.selectedImage = photo
+        vm.showDetailView.toggle()
     }
 }
 
