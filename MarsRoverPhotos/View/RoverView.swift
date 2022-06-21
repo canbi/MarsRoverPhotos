@@ -17,26 +17,24 @@ struct RoverView: View {
     
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 6) {
-                TitleView(title: vm.rover.rawValue)
+            LazyVStack(spacing: 6, pinnedViews: .sectionHeaders) {
+                TitleView(vm.rover.rawValue)
                     .padding(.top, 44)
                 
                 RoverImageView
                 
                 RoverInformationView
                 
-                Spacer().frame(height:10)
-                
-                TitleView(title: "Photographs")
-                    .padding(.bottom)
-                
-                ForEach(vm.roverImages, id: \.id) { photo in
-                    ImageView(photo: photo)
-                        .frame(maxWidth: .infinity, minHeight: 300)
-                        .onTapGesture { vm.selectedImage = photo }
-                        .cornerRadius(16)
+                Section(header: SectionHeader, footer: SectionFooter) {
+                    ForEach(vm.roverImages, id: \.id) { photo in
+                        ImageView(photo: photo)
+                            .frame(maxWidth: .infinity, minHeight: 300)
+                            .onTapGesture { vm.selectedImage = photo }
+                            .cornerRadius(16)
+                    }
                 }
             }
+            Spacer().frame(height: 100)
         }
         .navigationDestination(for: $vm.selectedImage) { photo in
             DetailView(photo: photo)
@@ -44,12 +42,28 @@ struct RoverView: View {
     }
 }
 
+//MARK: Filter
 extension RoverView {
-    private func TitleView(title: String) -> some View {
+    
+}
+
+extension RoverView {
+    private func TitleView(_ title: String) -> some View {
         HStack {
             Text(title)
+                .foregroundColor(vm.rover.color)
                 .font(.largeTitle)
                 .fontWeight(.heavy)
+                .padding(.leading)
+            Spacer()
+        }
+    }
+    
+    private func SubtitleView(_ subtitle: String) -> some View {
+        HStack {
+            Text(subtitle)
+                .foregroundColor(vm.rover.color)
+                .font(.body)
                 .padding(.leading)
             Spacer()
         }
@@ -67,27 +81,27 @@ extension RoverView {
         Group {
             if let roverManifest = vm.roverManifest {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
-                    GroupBox(label: Label("Max Sol", systemImage: "sun.max.fill")) {
+                    GroupBox(label: Label("Max Sol", systemImage: "sun.max.fill").foregroundColor(vm.rover.color)) {
                         Text("\(roverManifest.maxSol)")
                     }
                     
-                    GroupBox(label: Label("Max Date", systemImage: "calendar")) {
+                    GroupBox(label: Label("Max Date", systemImage: "calendar").foregroundColor(vm.rover.color)) {
                         Text(roverManifest.maxDate)
                     }
                     
-                    GroupBox(label: Label("Total Photos", systemImage: "photo.on.rectangle.angled")) {
+                    GroupBox(label: Label("Total Photos", systemImage: "photo.on.rectangle.angled").foregroundColor(vm.rover.color)) {
                         Text("\(roverManifest.totalPhotos)")
                     }
                     
-                    GroupBox(label: Label("Status", systemImage: "heart.fill")) {
+                    GroupBox(label: Label("Status", systemImage: "heart.fill").foregroundColor(vm.rover.color)) {
                         Text(roverManifest.status.capitalized)
                     }
                     
-                    GroupBox(label: Label("Launch Date", systemImage: "airplane.departure")) {
+                    GroupBox(label: Label("Launch Date", systemImage: "airplane.departure").foregroundColor(vm.rover.color)) {
                         Text(roverManifest.launchDate)
                     }
                     
-                    GroupBox(label: Label("Landing Date", systemImage: "airplane.arrival")) {
+                    GroupBox(label: Label("Landing Date", systemImage: "airplane.arrival").foregroundColor(vm.rover.color)) {
                         Text(roverManifest.landingDate)
                     }
                 }
@@ -99,6 +113,33 @@ extension RoverView {
                     .frame(height:100)
             }
         }
+    }
+    
+    private var SectionHeader: some View {
+        HStack {
+            TitleView("Photographs")
+            Spacer()
+            Button {
+                print("filter button")
+            } label: {
+                Image(systemName: "line.3.horizontal.circle")
+                    .font(Font.title.weight(.bold))
+                    .font(.largeTitle)
+                    .tint(vm.rover.color)
+                    .padding()
+            }
+            
+        }
+        .padding(.top, 30)
+        .padding(.bottom)
+    }
+    
+    private var SectionFooter: some View {
+        VStack{
+            TitleView("Done")
+            SubtitleView("You have visited all the available photographs. Change filters to explore!")
+        }
+        .opacity(vm.roverImages.isEmpty ? 0 : 1)
     }
 }
 

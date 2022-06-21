@@ -46,27 +46,27 @@ struct DetailView: View {
 extension DetailView {
     private var PhotoInformationView: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), alignment: .top)]) {
-            GroupBox(label: Label("Rover", systemImage: "sun.max.fill")) {
+            GroupBox(label: Label("Rover", systemImage: "sun.max.fill").foregroundColor(vm.roverType.color)) {
                 Text(vm.photo.rover.name.rawValue)
             }
             
-            GroupBox(label: Label("Rover Status", systemImage: "calendar")) {
+            GroupBox(label: Label("Rover Status", systemImage: "calendar").foregroundColor(vm.roverType.color)) {
                 Text(vm.photo.rover.status.capitalized)
             }
             
-            GroupBox(label: Label("Taken Sol", systemImage: "calendar")) {
+            GroupBox(label: Label("Taken Sol", systemImage: "calendar").foregroundColor(vm.roverType.color)) {
                 Text("\(vm.photo.sol)")
             }
             
-            GroupBox(label: Label("Taken Earth Date", systemImage: "calendar")) {
+            GroupBox(label: Label("Taken Earth Date", systemImage: "calendar").foregroundColor(vm.roverType.color)) {
                 Text(vm.photo.earthDate)
             }
             
-            GroupBox(label: Label("Camera Code", systemImage: "calendar")) {
+            GroupBox(label: Label("Camera Code", systemImage: "calendar").foregroundColor(vm.roverType.color)) {
                 Text(vm.photo.camera.name.rawValue)
             }
             
-            GroupBox(label: Label("Camera Name", systemImage: "calendar")) {
+            GroupBox(label: Label("Camera Name", systemImage: "calendar").foregroundColor(vm.roverType.color)) {
                 Text(vm.photo.camera.fullName.rawValue)
             }
         }

@@ -11,7 +11,6 @@ struct CardGroupBoxStyle: GroupBoxStyle {
     func makeBody(configuration: Configuration) -> some View {
         VStack(spacing: 2) {
             configuration.label
-                .foregroundColor(.red)
             configuration.content
         }
         .frame(minWidth: 100)

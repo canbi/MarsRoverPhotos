@@ -11,6 +11,7 @@ import UIKit
 
 class DetailViewModel: ObservableObject {
     let photo: Photo
+    let roverType: RoverType
     private let fileManager: LocalFileManagerImage = .instance
     
     @Published var clickedImage: UIImage? = nil
@@ -18,6 +19,7 @@ class DetailViewModel: ObservableObject {
     
     init(photo: Photo){
         self.photo = photo
+        self.roverType = RoverType(rawValue: photo.rover.name.rawValue) ?? .curiosity
     }
     
     func getImage(){

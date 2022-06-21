@@ -5,7 +5,7 @@
 //  Created by Can Bi on 20.06.2022.
 //
 
-import Foundation
+import SwiftUI
 
 struct Rover: Codable {
     let id: Int
@@ -34,6 +34,14 @@ enum RoverType: String, Codable {
     case curiosity = "Curiosity"
     case opportunity = "Opportunity"
     case spirit = "Spirit"
+    
+    var color: Color {
+        switch self {
+        case .curiosity: return .red
+        case .opportunity: return .blue
+        case .spirit: return .green
+        }
+    }
     
     var cameraAvability: [CameraName] {
         switch self {
