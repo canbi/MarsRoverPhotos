@@ -11,6 +11,7 @@
 		36B447A12860A6F700D8DDA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36B447A02860A6F700D8DDA8 /* Assets.xcassets */; };
 		36B447A42860A6F700D8DDA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36B447A32860A6F700D8DDA8 /* Preview Assets.xcassets */; };
 		36B447B02860A9A100D8DDA8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 36B447AF2860A9A100D8DDA8 /* README.md */; };
+		36E7CE3F28621955001D3D87 /* CardGroupBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E7CE3E28621955001D3D87 /* CardGroupBoxStyle.swift */; };
 		36F8B3C12860AD48000902D1 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3C02860AD48000902D1 /* Photo.swift */; };
 		36F8B3C32860AE62000902D1 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3C22860AE62000902D1 /* Camera.swift */; };
 		36F8B3C52860B14C000902D1 /* Rover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3C42860B14C000902D1 /* Rover.swift */; };
@@ -40,6 +41,7 @@
 		36B447A02860A6F700D8DDA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		36B447A32860A6F700D8DDA8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		36B447AF2860A9A100D8DDA8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		36E7CE3E28621955001D3D87 /* CardGroupBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGroupBoxStyle.swift; sourceTree = "<group>"; };
 		36F8B3C02860AD48000902D1 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		36F8B3C22860AE62000902D1 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		36F8B3C42860B14C000902D1 /* Rover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rover.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		36B4479B2860A6F600D8DDA8 /* MarsRoverPhotos */ = {
 			isa = PBXGroup;
 			children = (
+				36E7CE3D28621948001D3D87 /* Style */,
 				36F8B3DE28610735000902D1 /* Info.plist */,
 				36F8B3E52861944D000902D1 /* Extension */,
 				36F8B3D42860FF03000902D1 /* Utilities */,
@@ -127,6 +130,14 @@
 				36F8B3C42860B14C000902D1 /* Rover.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		36E7CE3D28621948001D3D87 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				36E7CE3E28621955001D3D87 /* CardGroupBoxStyle.swift */,
+			);
+			path = Style;
 			sourceTree = "<group>";
 		};
 		36F8B3C92860F434000902D1 /* View */ = {
@@ -293,6 +304,7 @@
 				36F8B3D32860F588000902D1 /* JSONDataService.swift in Sources */,
 				36F8B3EF28619752000902D1 /* CustomTabBarView.swift in Sources */,
 				36F8B3CE2860F45E000902D1 /* RoverViewModel.swift in Sources */,
+				36E7CE3F28621955001D3D87 /* CardGroupBoxStyle.swift in Sources */,
 				36F8B3D12860F52B000902D1 /* NetworkingManager.swift in Sources */,
 				36F8B3E928619481000902D1 /* Binding.swift in Sources */,
 				36F8B3E728619462000902D1 /* Navigation.swift in Sources */,

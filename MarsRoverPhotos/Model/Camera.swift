@@ -28,6 +28,7 @@ struct Camera: Codable {
 }
 
 enum CameraFullName: String, Codable {
+    case entryCamera = "Entry Camera"
     case frontHazardAvoidanceCamera = "Front Hazard Avoidance Camera"
     case rearHazardAvoidanceCamera = "Rear Hazard Avoidance Camera"
     case mastCamera = "Mast Camera"
@@ -40,6 +41,7 @@ enum CameraFullName: String, Codable {
 }
 
 enum CameraName: String, Codable {
+    case entry = "ENTRY"
     case fhaz = "FHAZ"
     case rhaz = "RHAZ"
     case mast = "MAST"
@@ -52,6 +54,7 @@ enum CameraName: String, Codable {
     
     var fullName: CameraFullName {
         switch self {
+        case .entry: return .entryCamera
         case .fhaz: return .frontHazardAvoidanceCamera
         case .rhaz: return .rearHazardAvoidanceCamera
         case .mast: return .mastCamera

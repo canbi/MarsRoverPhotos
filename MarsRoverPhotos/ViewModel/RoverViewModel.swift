@@ -14,6 +14,11 @@ class RoverViewModel: ObservableObject {
     // Data
     private var dataService: JSONDataService
     @Published var roverImages: [Photo] = []
+    @Published var roverManifest: PhotoManifest? {
+        didSet {
+            
+        }
+    }
     private var cancellables = Set<AnyCancellable>()
     
     // Detail View
@@ -23,13 +28,20 @@ class RoverViewModel: ObservableObject {
         self.rover = rover
         self.dataService = dataService
         addSubscribers()
-        dataService.getPhotosBySol(rover: rover, sol: 100)
+        dataService.getInformation(of: rover)
+        dataService.getPhotosBySol(rover: rover, sol: 1000)
     }
     
     func addSubscribers() {
         dataService.$allPhotos
             .sink { [weak self] (returnedPhotos) in
                 self?.roverImages = returnedPhotos
+            }
+            .store(in: &cancellables)
+        
+        dataService.$manifest
+            .sink { [weak self] (returnedManifest) in
+                self?.roverManifest = returnedManifest
             }
             .store(in: &cancellables)
     }
