@@ -18,7 +18,6 @@ class RoverViewModel: ObservableObject {
     
     // Detail View
     @Published var selectedImage: Photo? = nil
-    @Published var showDetailView: Bool = false
     
     init(rover: RoverType){
         self.rover = rover

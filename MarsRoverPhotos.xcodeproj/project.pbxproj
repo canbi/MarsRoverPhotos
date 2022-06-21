@@ -23,6 +23,10 @@
 		36F8B3D928610031000902D1 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3D828610031000902D1 /* LocalFileManager.swift */; };
 		36F8B3DB2861015D000902D1 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3DA2861015D000902D1 /* ImageView.swift */; };
 		36F8B3DD28610193000902D1 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3DC28610193000902D1 /* ImageViewModel.swift */; };
+		36F8B3E228618FAC000902D1 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3E128618FAC000902D1 /* DetailView.swift */; };
+		36F8B3E428618FB4000902D1 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3E328618FB4000902D1 /* DetailViewModel.swift */; };
+		36F8B3E728619462000902D1 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3E628619462000902D1 /* Navigation.swift */; };
+		36F8B3E928619481000902D1 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3E828619481000902D1 /* Binding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +48,10 @@
 		36F8B3DA2861015D000902D1 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		36F8B3DC28610193000902D1 /* ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
 		36F8B3DE28610735000902D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		36F8B3E128618FAC000902D1 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		36F8B3E328618FB4000902D1 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		36F8B3E628619462000902D1 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		36F8B3E828619481000902D1 /* Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +85,7 @@
 		36B4479B2860A6F600D8DDA8 /* MarsRoverPhotos */ = {
 			isa = PBXGroup;
 			children = (
+				36F8B3E52861944D000902D1 /* Extension */,
 				36F8B3DE28610735000902D1 /* Info.plist */,
 				36F8B3D42860FF03000902D1 /* Utilities */,
 				36F8B3CF2860F51E000902D1 /* Service */,
@@ -114,6 +123,7 @@
 			children = (
 				36F8B3CB2860F456000902D1 /* RoverView.swift */,
 				36F8B3DA2861015D000902D1 /* ImageView.swift */,
+				36F8B3E128618FAC000902D1 /* DetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -123,6 +133,7 @@
 			children = (
 				36F8B3CD2860F45E000902D1 /* RoverViewModel.swift */,
 				36F8B3DC28610193000902D1 /* ImageViewModel.swift */,
+				36F8B3E328618FB4000902D1 /* DetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -143,6 +154,15 @@
 				36F8B3D02860F52B000902D1 /* NetworkingManager.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		36F8B3E52861944D000902D1 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				36F8B3E628619462000902D1 /* Navigation.swift */,
+				36F8B3E828619481000902D1 /* Binding.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +239,7 @@
 				36F8B3DB2861015D000902D1 /* ImageView.swift in Sources */,
 				36F8B3C32860AE62000902D1 /* Camera.swift in Sources */,
 				36F8B3D928610031000902D1 /* LocalFileManager.swift in Sources */,
+				36F8B3E228618FAC000902D1 /* DetailView.swift in Sources */,
 				36F8B3D72860FF1A000902D1 /* ImageDataService.swift in Sources */,
 				36F8B3CC2860F456000902D1 /* RoverView.swift in Sources */,
 				36F8B3C82860B498000902D1 /* Manifest.swift in Sources */,
@@ -226,8 +247,11 @@
 				36F8B3D32860F588000902D1 /* JSONDataService.swift in Sources */,
 				36F8B3CE2860F45E000902D1 /* RoverViewModel.swift in Sources */,
 				36F8B3D12860F52B000902D1 /* NetworkingManager.swift in Sources */,
+				36F8B3E928619481000902D1 /* Binding.swift in Sources */,
+				36F8B3E728619462000902D1 /* Navigation.swift in Sources */,
 				36F8B3C12860AD48000902D1 /* Photo.swift in Sources */,
 				36F8B3C52860B14C000902D1 /* Rover.swift in Sources */,
+				36F8B3E428618FB4000902D1 /* DetailViewModel.swift in Sources */,
 				36F8B3DD28610193000902D1 /* ImageViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

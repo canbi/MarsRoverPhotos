@@ -32,6 +32,6 @@ class ImageViewModel: ObservableObject {
                 self?.image = returnedImage
             }
             .store(in: &cancellables)
-
+        
     }
 }
