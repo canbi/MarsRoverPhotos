@@ -8,7 +8,9 @@
 import Foundation
 import Combine
 
-class JSONDataService {
+class JSONDataService: ObservableObject {
+    static var previewInstance = JSONDataService()
+    
     @Published var allPhotos: [Photo] = []
     
     var photoSubscription: AnyCancellable?

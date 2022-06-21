@@ -10,8 +10,9 @@ import SwiftUI
 struct RoverView: View {
     @StateObject var vm: RoverViewModel
     
-    init(rover: RoverType){
-        self._vm = StateObject(wrappedValue: RoverViewModel(rover: rover))
+    init(rover: RoverType, dataService: JSONDataService){
+        self._vm = StateObject(wrappedValue: RoverViewModel(rover: rover,
+                                                            dataService: dataService))
     }
     
     var body: some View {
@@ -33,6 +34,6 @@ struct RoverView: View {
 
 struct RoverView_Previews: PreviewProvider {
     static var previews: some View {
-        RoverView(rover: .curiosity)
+        RoverView(rover: .curiosity, dataService: .previewInstance)
     }
 }

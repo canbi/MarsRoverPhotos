@@ -12,15 +12,16 @@ class RoverViewModel: ObservableObject {
     let rover: RoverType
     
     // Data
-    private let dataService = JSONDataService()
+    private var dataService: JSONDataService
     @Published var roverImages: [Photo] = []
     private var cancellables = Set<AnyCancellable>()
     
     // Detail View
     @Published var selectedImage: Photo? = nil
     
-    init(rover: RoverType){
+    init(rover: RoverType, dataService: JSONDataService){
         self.rover = rover
+        self.dataService = dataService
         addSubscribers()
         dataService.getPhotosBySol(rover: rover, sol: 100)
     }
