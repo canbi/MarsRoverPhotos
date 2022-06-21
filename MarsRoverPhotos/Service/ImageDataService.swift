@@ -20,7 +20,7 @@ class ImageDataService {
     
     init(photo: Photo) {
         self.photo = photo
-        self.imageName = photo.uuid
+        self.imageName = String(photo.id)
         getImage()
     }
     

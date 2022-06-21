@@ -12,7 +12,6 @@ struct MarsPhotos: Codable {
 }
 
 struct Photo: Codable {
-    let uuid: String = UUID().uuidString
     let id: Int
     let sol: Int
     let camera: Camera

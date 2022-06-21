@@ -27,6 +27,10 @@
 		36F8B3E428618FB4000902D1 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3E328618FB4000902D1 /* DetailViewModel.swift */; };
 		36F8B3E728619462000902D1 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3E628619462000902D1 /* Navigation.swift */; };
 		36F8B3E928619481000902D1 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3E828619481000902D1 /* Binding.swift */; };
+		36F8B3EF28619752000902D1 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3EC28619752000902D1 /* CustomTabBarView.swift */; };
+		36F8B3F028619752000902D1 /* TabBarItemsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3ED28619752000902D1 /* TabBarItemsPreferenceKey.swift */; };
+		36F8B3F128619752000902D1 /* CustomTabBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3EE28619752000902D1 /* CustomTabBarContainerView.swift */; };
+		36F8B3F328619775000902D1 /* NavBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3F228619775000902D1 /* NavBarItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +56,10 @@
 		36F8B3E328618FB4000902D1 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		36F8B3E628619462000902D1 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		36F8B3E828619481000902D1 /* Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
+		36F8B3EC28619752000902D1 /* CustomTabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
+		36F8B3ED28619752000902D1 /* TabBarItemsPreferenceKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemsPreferenceKey.swift; sourceTree = "<group>"; };
+		36F8B3EE28619752000902D1 /* CustomTabBarContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarContainerView.swift; sourceTree = "<group>"; };
+		36F8B3F228619775000902D1 /* NavBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,13 +93,14 @@
 		36B4479B2860A6F600D8DDA8 /* MarsRoverPhotos */ = {
 			isa = PBXGroup;
 			children = (
-				36F8B3E52861944D000902D1 /* Extension */,
 				36F8B3DE28610735000902D1 /* Info.plist */,
+				36F8B3E52861944D000902D1 /* Extension */,
 				36F8B3D42860FF03000902D1 /* Utilities */,
 				36F8B3CF2860F51E000902D1 /* Service */,
 				36F8B3CA2860F43C000902D1 /* ViewModel */,
 				36F8B3C92860F434000902D1 /* View */,
 				36B447AA2860A79F00D8DDA8 /* Model */,
+				36F8B3EA2861972F000902D1 /* Component */,
 				36B4479C2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift */,
 				36B447A02860A6F700D8DDA8 /* Assets.xcassets */,
 				36B447A22860A6F700D8DDA8 /* Preview Content */,
@@ -163,6 +172,25 @@
 				36F8B3E828619481000902D1 /* Binding.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		36F8B3EA2861972F000902D1 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				36F8B3EB28619752000902D1 /* CustomTabBar */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		36F8B3EB28619752000902D1 /* CustomTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				36F8B3F228619775000902D1 /* NavBarItem.swift */,
+				36F8B3EC28619752000902D1 /* CustomTabBarView.swift */,
+				36F8B3ED28619752000902D1 /* TabBarItemsPreferenceKey.swift */,
+				36F8B3EE28619752000902D1 /* CustomTabBarContainerView.swift */,
+			);
+			path = CustomTabBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,17 +270,21 @@
 				36F8B3E228618FAC000902D1 /* DetailView.swift in Sources */,
 				36F8B3D72860FF1A000902D1 /* ImageDataService.swift in Sources */,
 				36F8B3CC2860F456000902D1 /* RoverView.swift in Sources */,
+				36F8B3F328619775000902D1 /* NavBarItem.swift in Sources */,
 				36F8B3C82860B498000902D1 /* Manifest.swift in Sources */,
 				36B4479D2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift in Sources */,
 				36F8B3D32860F588000902D1 /* JSONDataService.swift in Sources */,
+				36F8B3EF28619752000902D1 /* CustomTabBarView.swift in Sources */,
 				36F8B3CE2860F45E000902D1 /* RoverViewModel.swift in Sources */,
 				36F8B3D12860F52B000902D1 /* NetworkingManager.swift in Sources */,
 				36F8B3E928619481000902D1 /* Binding.swift in Sources */,
 				36F8B3E728619462000902D1 /* Navigation.swift in Sources */,
 				36F8B3C12860AD48000902D1 /* Photo.swift in Sources */,
 				36F8B3C52860B14C000902D1 /* Rover.swift in Sources */,
+				36F8B3F028619752000902D1 /* TabBarItemsPreferenceKey.swift in Sources */,
 				36F8B3E428618FB4000902D1 /* DetailViewModel.swift in Sources */,
 				36F8B3DD28610193000902D1 /* ImageViewModel.swift in Sources */,
+				36F8B3F128619752000902D1 /* CustomTabBarContainerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

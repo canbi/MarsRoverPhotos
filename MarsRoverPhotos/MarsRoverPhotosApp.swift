@@ -9,11 +9,21 @@ import SwiftUI
 
 @main
 struct MarsRoverPhotosApp: App {
+    @State private var tabSelection: NavBarItem = .curiosity
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                RoverView()
-                    .navigationBarHidden(true)
+                CustomTabBarContainerView(selection: $tabSelection) {
+                    RoverView(rover: .curiosity)
+                        .tabBarItem(tab: .curiosity, selection: $tabSelection)
+                    
+                    RoverView(rover: .opportunity)
+                        .tabBarItem(tab: .opportunity, selection: $tabSelection)
+                    
+                    RoverView(rover: .spirit)
+                        .tabBarItem(tab: .spirit, selection: $tabSelection)
+                }
+                .navigationBarHidden(true)
             }
         }
     }

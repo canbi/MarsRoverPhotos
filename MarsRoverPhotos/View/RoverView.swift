@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct RoverView: View {
-    @StateObject var vm: RoverViewModel = RoverViewModel(rover: .curiosity)
+    @StateObject var vm: RoverViewModel
+    
+    init(rover: RoverType){
+        self._vm = StateObject(wrappedValue: RoverViewModel(rover: rover))
+    }
     
     var body: some View {
         ScrollView {
@@ -29,6 +33,6 @@ struct RoverView: View {
 
 struct RoverView_Previews: PreviewProvider {
     static var previews: some View {
-        RoverView()
+        RoverView(rover: .curiosity)
     }
 }
