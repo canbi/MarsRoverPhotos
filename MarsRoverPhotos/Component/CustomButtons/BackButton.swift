@@ -26,7 +26,6 @@ struct BackButton: View {
                 .cornerRadius(16)
                 .padding()
         }
-        .offset(y:-10)
     }
 }
 

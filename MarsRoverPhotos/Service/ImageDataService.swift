@@ -15,7 +15,7 @@ class ImageDataService {
     private var imageSubscription: AnyCancellable?
     
     private let photo: Photo
-    private let fileManager: LocalFileManagerImage = LocalFileManagerImage(folderName: "images", appFolder: .cachesDirectory)
+    private let fileManager: LocalFileManagerImage = .instance
     private let imageName: String
     
     init(photo: Photo) {

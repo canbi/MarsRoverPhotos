@@ -17,15 +17,17 @@ struct ImageView: View {
     }
     
     var body: some View {
-        if let image = vm.image {
-            Image(uiImage: image)
-                .resizable()
-                .scaledToFit()
-        } else if vm.isLoading {
-            ProgressView()
-        } else {
-            Image(systemName: "questionmark")
-                .foregroundColor(.primary)
+        Group {
+            if let image = vm.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+            } else if vm.isLoading {
+                ProgressView()
+            } else {
+                Image(systemName: "questionmark")
+                    .foregroundColor(.primary)
+            }
         }
     }
 }

@@ -119,6 +119,8 @@ class LocalFileManagerJSON: LocalFileManager, ObservableObject {
 
 
 class LocalFileManagerImage: LocalFileManager, ObservableObject {
+    static var instance = LocalFileManagerImage(folderName: "images", appFolder: .cachesDirectory)
+    
     let type: String = "jpg"
     
     func saveImage(image: UIImage, name: String, compressionQuality: Double = 0.8) -> String {

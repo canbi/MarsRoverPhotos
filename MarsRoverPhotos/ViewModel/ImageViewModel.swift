@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Foundation
+import SwiftUI
 import UIKit
 
 class ImageViewModel: ObservableObject {
@@ -14,24 +14,23 @@ class ImageViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
     private let photo: Photo
-    private let dataService: ImageDataService
+    private let imageDataService: ImageDataService
     private var cancellables = Set<AnyCancellable>()
     
     init(photo: Photo){
         self.photo = photo
-        self.dataService = ImageDataService(photo: photo)
+        self.imageDataService = ImageDataService(photo: photo)
         addSubscribers()
         self.isLoading = true
     }
     
     private func addSubscribers(){
-        dataService.$image
+        imageDataService.$image
             .sink { [weak self] (_) in
                 self?.isLoading = false
             } receiveValue: { [weak self] (returnedImage) in
                 self?.image = returnedImage
             }
             .store(in: &cancellables)
-        
     }
 }

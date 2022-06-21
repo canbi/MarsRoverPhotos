@@ -11,8 +11,17 @@ import UIKit
 
 class DetailViewModel: ObservableObject {
     let photo: Photo
+    private let fileManager: LocalFileManagerImage = .instance
+    
+    @Published var clickedImage: UIImage? = nil
+    @Published var showingZoomImageView: Bool = false
     
     init(photo: Photo){
         self.photo = photo
+    }
+    
+    func getImage(){
+        clickedImage = fileManager.getImage(name: String(photo.id))
+        showingZoomImageView.toggle()
     }
 }

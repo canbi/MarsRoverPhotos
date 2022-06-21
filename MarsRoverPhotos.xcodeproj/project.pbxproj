@@ -32,7 +32,6 @@
 		36F8B3F62861D78F000902D1 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3F52861D78F000902D1 /* BackButton.swift */; };
 		36F8B3F82861D79D000902D1 /* ZoomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3F72861D79D000902D1 /* ZoomButton.swift */; };
 		36F8B3FA2861D8C3000902D1 /* ImageZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3F92861D8C3000902D1 /* ImageZoomView.swift */; };
-		36F8B3FC2861EAE8000902D1 /* TestImageDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3FB2861EAE8000902D1 /* TestImageDataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,7 +62,6 @@
 		36F8B3F52861D78F000902D1 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		36F8B3F72861D79D000902D1 /* ZoomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomButton.swift; sourceTree = "<group>"; };
 		36F8B3F92861D8C3000902D1 /* ImageZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageZoomView.swift; sourceTree = "<group>"; };
-		36F8B3FB2861EAE8000902D1 /* TestImageDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestImageDataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +155,6 @@
 			children = (
 				36F8B3D22860F588000902D1 /* JSONDataService.swift */,
 				36F8B3D62860FF1A000902D1 /* ImageDataService.swift */,
-				36F8B3FB2861EAE8000902D1 /* TestImageDataService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -286,7 +283,6 @@
 				36F8B3C32860AE62000902D1 /* Camera.swift in Sources */,
 				36F8B3F62861D78F000902D1 /* BackButton.swift in Sources */,
 				36F8B3D928610031000902D1 /* LocalFileManager.swift in Sources */,
-				36F8B3FC2861EAE8000902D1 /* TestImageDataService.swift in Sources */,
 				36F8B3E228618FAC000902D1 /* DetailView.swift in Sources */,
 				36F8B3D72860FF1A000902D1 /* ImageDataService.swift in Sources */,
 				36F8B3CC2860F456000902D1 /* RoverView.swift in Sources */,
