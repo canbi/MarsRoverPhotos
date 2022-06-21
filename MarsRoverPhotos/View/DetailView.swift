@@ -28,6 +28,7 @@ struct DetailView: View {
                 .overlay(alignment: .topLeading) {
                     BackButton { dismiss() }
                         .padding(.top, 24)
+                        .padding(.leading, -6)
                 }
             
             Spacer().frame(height: 20)

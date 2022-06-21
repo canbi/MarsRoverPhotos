@@ -18,13 +18,18 @@ struct BackButton: View {
         Button {
             action()
         } label: {
-            Image(systemName: "xmark")
-                .font(.headline)
-                .padding(14)
-                .foregroundColor(.white)
-                .background(.red)
-                .cornerRadius(16)
-                .padding()
+            HStack{
+                Image(systemName: "chevron.left")
+                    .font(.headline)
+                    
+                Text("Back")
+            }
+            .padding(12)
+            .foregroundColor(.white)
+            .background(.red)
+            .cornerRadius(16)
+            .padding()
+            .scaleEffect(0.8)
         }
     }
 }

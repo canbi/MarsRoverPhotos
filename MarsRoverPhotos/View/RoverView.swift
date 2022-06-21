@@ -28,23 +28,22 @@ struct RoverView: View {
                 Section(header: SectionHeader, footer: SectionFooter) {
                     ForEach(vm.roverImages, id: \.id) { photo in
                         ImageView(photo: photo)
-                            .frame(maxWidth: .infinity, minHeight: 300)
-                            .onTapGesture { vm.selectedImage = photo }
                             .cornerRadius(16)
+                            .frame(maxWidth: .infinity, minHeight: 250)
+                            .onTapGesture { vm.selectedImage = photo }
                     }
                 }
             }
+            .sheet(isPresented: $vm.showingFilterViewSheet) {
+                FilterView(roverVM: vm)
+            }
+            
             Spacer().frame(height: 100)
         }
         .navigationDestination(for: $vm.selectedImage) { photo in
             DetailView(photo: photo)
         }
     }
-}
-
-//MARK: Filter
-extension RoverView {
-    
 }
 
 extension RoverView {
@@ -116,19 +115,24 @@ extension RoverView {
     }
     
     private var SectionHeader: some View {
-        HStack {
-            TitleView("Photographs")
-            Spacer()
-            Button {
-                print("filter button")
-            } label: {
-                Image(systemName: "line.3.horizontal.circle")
-                    .font(Font.title.weight(.bold))
-                    .font(.largeTitle)
-                    .tint(vm.rover.color)
-                    .padding()
+        VStack(alignment:.leading, spacing: 0) {
+            HStack {
+                TitleView("Photographs")
+                Spacer()
+                Button {
+                    vm.showingFilterViewSheet.toggle()
+                } label: {
+                    Image(systemName: "line.3.horizontal.circle")
+                        .font(Font.title.weight(.bold))
+                        .font(.largeTitle)
+                        .tint(vm.rover.color)
+                        .padding()
+                }
             }
-            
+            Text(vm.selectedDateType == .sol ? "Sol \(String(vm.sol))" : "Earth Date \(vm.earthDate.formatted(.dateTime.day().month().year()))")
+                .font(.caption)
+                .padding(.leading)
+                .padding(.top, -10)
         }
         .padding(.top, 30)
         .padding(.bottom)

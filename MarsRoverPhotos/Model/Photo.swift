@@ -35,3 +35,13 @@ struct Photo: Codable {
                      rover: .previewData)
     }
 }
+
+extension Photo: Comparable {
+    static func == (lhs: Photo, rhs: Photo) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    static func <(lhs: Photo, rhs: Photo) -> Bool {
+        return lhs.id < rhs.id
+    }
+}

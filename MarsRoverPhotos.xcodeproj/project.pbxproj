@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3687C1CE286250CA004616D4 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C1CD286250CA004616D4 /* FilterView.swift */; };
+		3687C1D0286250DF004616D4 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C1CF286250DF004616D4 /* FilterViewModel.swift */; };
 		36B4479D2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B4479C2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift */; };
 		36B447A12860A6F700D8DDA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36B447A02860A6F700D8DDA8 /* Assets.xcassets */; };
 		36B447A42860A6F700D8DDA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36B447A32860A6F700D8DDA8 /* Preview Assets.xcassets */; };
@@ -36,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3687C1CD286250CA004616D4 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		3687C1CF286250DF004616D4 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		36B447992860A6F600D8DDA8 /* MarsRoverPhotos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsRoverPhotos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B4479C2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarsRoverPhotosApp.swift; sourceTree = "<group>"; };
 		36B447A02860A6F700D8DDA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 				36F8B3DA2861015D000902D1 /* ImageView.swift */,
 				36F8B3E128618FAC000902D1 /* DetailView.swift */,
 				36F8B3F92861D8C3000902D1 /* ImageZoomView.swift */,
+				3687C1CD286250CA004616D4 /* FilterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 				36F8B3CD2860F45E000902D1 /* RoverViewModel.swift */,
 				36F8B3DC28610193000902D1 /* ImageViewModel.swift */,
 				36F8B3E328618FB4000902D1 /* DetailViewModel.swift */,
+				3687C1CF286250DF004616D4 /* FilterViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -292,8 +298,10 @@
 			files = (
 				36F8B3DB2861015D000902D1 /* ImageView.swift in Sources */,
 				36F8B3C32860AE62000902D1 /* Camera.swift in Sources */,
+				3687C1D0286250DF004616D4 /* FilterViewModel.swift in Sources */,
 				36F8B3F62861D78F000902D1 /* BackButton.swift in Sources */,
 				36F8B3D928610031000902D1 /* LocalFileManager.swift in Sources */,
+				3687C1CE286250CA004616D4 /* FilterView.swift in Sources */,
 				36F8B3E228618FAC000902D1 /* DetailView.swift in Sources */,
 				36F8B3D72860FF1A000902D1 /* ImageDataService.swift in Sources */,
 				36F8B3CC2860F456000902D1 /* RoverView.swift in Sources */,
