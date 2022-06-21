@@ -15,7 +15,6 @@ struct CardGroupBoxStyle: GroupBoxStyle {
             configuration.content
         }
         .frame(minWidth: 100)
-        .fixedSize(horizontal: true, vertical: true)
         .font(.caption)
         .padding(8)
         .background(Color(UIColor.secondarySystemBackground))

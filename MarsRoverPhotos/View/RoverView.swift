@@ -9,10 +9,6 @@ import SwiftUI
 
 struct RoverView: View {
     @StateObject var vm: RoverViewModel
-    let columns = [
-            GridItem(.adaptive(minimum: 100))
-        ]
-    
     
     init(rover: RoverType, dataService: JSONDataService){
         self._vm = StateObject(wrappedValue: RoverViewModel(rover: rover,
@@ -25,9 +21,9 @@ struct RoverView: View {
                 TitleView(title: vm.rover.rawValue)
                     .padding(.top, 44)
                 
-                RoverImage
+                RoverImageView
                 
-                RoverInformation
+                RoverInformationView
                 
                 Spacer().frame(height:10)
                 
@@ -59,7 +55,7 @@ extension RoverView {
         }
     }
     
-    var RoverImage: some View {
+    private var RoverImageView: some View {
         Image(vm.rover.rawValue.lowercased())
             .resizable()
             .scaledToFit()
@@ -67,10 +63,10 @@ extension RoverView {
             .padding(.leading)
     }
     
-    var RoverInformation: some View {
+    private var RoverInformationView: some View {
         Group {
             if let roverManifest = vm.roverManifest {
-                LazyVGrid(columns: columns) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
                     GroupBox(label: Label("Max Sol", systemImage: "sun.max.fill")) {
                         Text("\(roverManifest.maxSol)")
                     }
