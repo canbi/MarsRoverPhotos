@@ -10,6 +10,7 @@
 		361F03732862E1D100F98BA9 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F03722862E1D100F98BA9 /* Date.swift */; };
 		3687C1CE286250CA004616D4 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C1CD286250CA004616D4 /* FilterView.swift */; };
 		3687C1D0286250DF004616D4 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C1CF286250DF004616D4 /* FilterViewModel.swift */; };
+		369B9D0E2863B20A00C9BF1D /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B9D0D2863B20A00C9BF1D /* Endpoint.swift */; };
 		36B4479D2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B4479C2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift */; };
 		36B447A12860A6F700D8DDA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36B447A02860A6F700D8DDA8 /* Assets.xcassets */; };
 		36B447A42860A6F700D8DDA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36B447A32860A6F700D8DDA8 /* Preview Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		361F03722862E1D100F98BA9 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		3687C1CD286250CA004616D4 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		3687C1CF286250DF004616D4 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
+		369B9D0D2863B20A00C9BF1D /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		36B447992860A6F600D8DDA8 /* MarsRoverPhotos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsRoverPhotos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B4479C2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarsRoverPhotosApp.swift; sourceTree = "<group>"; };
 		36B447A02860A6F700D8DDA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			children = (
 				36F8B3D22860F588000902D1 /* JSONDataService.swift */,
 				36F8B3D62860FF1A000902D1 /* ImageDataService.swift */,
+				369B9D0D2863B20A00C9BF1D /* Endpoint.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36F8B3DB2861015D000902D1 /* ImageView.swift in Sources */,
+				369B9D0E2863B20A00C9BF1D /* Endpoint.swift in Sources */,
 				36F8B3C32860AE62000902D1 /* Camera.swift in Sources */,
 				3687C1D0286250DF004616D4 /* FilterViewModel.swift in Sources */,
 				36F8B3F62861D78F000902D1 /* BackButton.swift in Sources */,

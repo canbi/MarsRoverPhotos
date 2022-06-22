@@ -16,11 +16,11 @@ class JSONDataService: ObservableObject {
     
     var photoSubscription: AnyCancellable?
     var manifestSubscription: AnyCancellable?
-    let apiKey = "uQPlVSrS0oUIfSchWEDkY05YMg4ipTEau5YpXw0k"
     
-    func getPhotosBySol(rover: RoverType, sol: Int) {
-        //TODO: CREATE URL WITH CUSTOM BODY
-        guard let url = URL(string: "https://api.nasa.gov/mars-photos/api/v1/rovers/\(rover.rawValue.lowercased())/photos?sol=\(sol)&api_key=\(apiKey)") else { return }
+    func getPhotosBySol(rover: RoverType, sol: Int, cameraType: CameraName, sortingType: SortingTypes) {
+        let endpoint = Endpoint.getPhotos(rover: rover, sol: sol, cameraType: cameraType)
+
+        guard let url = endpoint.url else { return }
         
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.yyyyMMdd)
@@ -29,33 +29,34 @@ class JSONDataService: ObservableObject {
             .decode(type: MarsPhotos.self, decoder: decoder)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedPhotos) in
-                self?.allPhotos = returnedPhotos.photos
-                self?.photoSubscription?.cancel()
+                guard let self = self else { return }
+                self.allPhotos = self.sortAccordingToType(returnedPhotos.photos, sortType: sortingType)
+                self.photoSubscription?.cancel()
             })
     }
     
-    func getPhotosByEarthDate(rover: RoverType, earthDate: Date) {
-        //TODO: CREATE URL WITH CUSTOM BODY
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let formattedDate = formatter.string(from: earthDate)
+    func getPhotosByEarthDate(rover: RoverType, earthDate: Date, cameraType: CameraName, sortingType: SortingTypes) {
+        let endpoint = Endpoint.getPhotos(rover: rover, earthDate: earthDate, cameraType: cameraType)
         
-        guard let url = URL(string: "https://api.nasa.gov/mars-photos/api/v1/rovers/\(rover.rawValue.lowercased())/photos?earth_date=\(formattedDate)&api_key=\(apiKey)") else { return }
+        guard let url = endpoint.url else { return }
         
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.yyyyMMdd)
-
+        
         photoSubscription = NetworkingManager.download(url: url)
             .decode(type: MarsPhotos.self, decoder: decoder)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedPhotos) in
-                self?.allPhotos = returnedPhotos.photos
-                self?.photoSubscription?.cancel()
+                guard let self = self else { return }
+                self.allPhotos = self.sortAccordingToType(returnedPhotos.photos, sortType: sortingType)
+                self.photoSubscription?.cancel()
             })
     }
     
     func getInformation(of rover: RoverType){
-        guard let url = URL(string: "https://api.nasa.gov/mars-photos/api/v1/manifests/\(rover.rawValue.lowercased())?&api_key=\(apiKey)") else { return }
+        let endpoint = Endpoint.getInformation(rover: rover)
+        
+        guard let url = endpoint.url else { return }
         
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.yyyyMMdd)
@@ -67,5 +68,16 @@ class JSONDataService: ObservableObject {
                 self?.manifest = returnedManifest.photoManifest
                 self?.manifestSubscription?.cancel()
             })
+    }
+    
+    func sortAccordingToType(_ willSort: [Photo], sortType: SortingTypes) -> [Photo] {
+        switch sortType {
+        case .ascending:
+            return willSort
+        case .descending:
+            return willSort.sorted{ $0 > $1}
+        case .random:
+            return willSort.shuffled()
+        }
     }
 }

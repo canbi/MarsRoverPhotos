@@ -117,7 +117,7 @@ extension RoverView {
     private var SectionHeader: some View {
         VStack(alignment:.leading, spacing: 0) {
             HStack {
-                TitleView("Photographs")
+                TitleView("Photos")
                 Spacer()
                 Button {
                     vm.showingFilterViewSheet.toggle()
@@ -129,21 +129,36 @@ extension RoverView {
                         .padding()
                 }
             }
-            Text(vm.selectedDateType == .sol ? "Sol \(String(vm.sol))" : "Earth Date \(vm.earthDate.formatted(.dateTime.day().month().year()))")
-                .font(.caption)
-                .padding(.leading)
-                .padding(.top, -10)
+            Group {
+                if !vm.roverImages.isEmpty {
+                    Text(vm.selectedDateType == .sol ? "Sol \(String(vm.sol))" : "Earth Date \(vm.earthDate.formatted(.dateTime.day().month().year()))") + Text(", \(vm.selectedCameraType.rawValue),  \(vm.sorting.rawValue)")
+                }
+            }
+            .font(.caption)
+            .padding(.leading)
+            .padding(.top, -10)
         }
         .padding(.top, 30)
         .padding(.bottom)
     }
     
     private var SectionFooter: some View {
-        VStack{
-            TitleView("Done")
-            SubtitleView("You have visited all the available photographs. Change filters to explore!")
+        Group {
+            if vm.roverImages.isEmpty && vm.isLoaded {
+                VStack{
+                    TitleView("Nothing")
+                    SubtitleView("There are no available photos. Change filters to explore!")
+                }
+            } else if vm.isLoaded {
+                VStack{
+                    TitleView("Done")
+                    SubtitleView("You have visited all the available photos. Change filters to explore!")
+                }
+            }
         }
-        .opacity(vm.roverImages.isEmpty ? 0 : 1)
+        .onChange(of: vm.roverImages) { _ in
+            vm.isLoaded = true
+        }
     }
 }
 

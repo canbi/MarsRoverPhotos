@@ -30,8 +30,8 @@ class RoverViewModel: ObservableObject {
     private var dataService: JSONDataService
     @Published var roverImages: [Photo] = [] {
         didSet {
-            earthDate = roverImages.first?.earthDate ?? Date.now
-            sol = roverImages.first?.sol ?? 1000
+            earthDate = roverImages.first?.earthDate ?? earthDate
+            sol = roverImages.first?.sol ?? sol
         }
     }
     @Published var roverManifest: PhotoManifest?
@@ -40,32 +40,37 @@ class RoverViewModel: ObservableObject {
     // Controls
     @Published var selectedImage: Photo? = nil
     @Published var showingFilterViewSheet: Bool = false
+    @Published var isLoaded: Bool = false
     
     // Filters
     @Published var sorting: SortingTypes = .ascending
     @Published var sol: Int = 1000
     @Published var selectedDateType: DateTypes = .sol
     @Published var earthDate: Date = .now
-    
+    @Published var selectedCameraType: CameraName = .all
     
     init(rover: RoverType, dataService: JSONDataService){
         self.rover = rover
         self.dataService = dataService
         addSubscribers()
         dataService.getInformation(of: rover)
-        dataService.getPhotosBySol(rover: rover, sol: sol)
+        dataService.getPhotosBySol(rover: rover, sol: sol, cameraType: .all, sortingType: .ascending)
     }
     
-    func filterImagesByEarthDate(_ date: Date){
+    func filterImagesByEarthDate(_ date: Date, cameraType: CameraName, sortingType: SortingTypes){
         earthDate = date
         selectedDateType = .earthDate
-        dataService.getPhotosByEarthDate(rover: rover, earthDate: date)
+        selectedCameraType = cameraType
+        sorting = sortingType
+        dataService.getPhotosByEarthDate(rover: rover, earthDate: date, cameraType: cameraType, sortingType: sortingType)
     }
     
-    func filterImagesByMartianSol(_ martianSol: Int){
+    func filterImagesByMartianSol(_ martianSol: Int, cameraType: CameraName, sortingType: SortingTypes){
         sol = martianSol
         selectedDateType = .sol
-        dataService.getPhotosBySol(rover: rover, sol: martianSol)
+        selectedCameraType = cameraType
+        sorting = sortingType
+        dataService.getPhotosBySol(rover: rover, sol: martianSol, cameraType: cameraType, sortingType: sortingType)
     }
     
     func filterImagesBySorting(_ sortingType: SortingTypes){

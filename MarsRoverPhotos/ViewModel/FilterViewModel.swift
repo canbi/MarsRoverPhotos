@@ -14,39 +14,40 @@ class FilterViewModel: ObservableObject {
     var startingDate: Date { roverVM.roverManifest?.landingDate ?? Date.now}
     var lastDate: Date { roverVM.roverManifest?.maxDate ?? Date.now}
     
-    @Published var martianSol: Int { didSet { isAnythingChanges = true }}
-    @Published var earthDate: Date { didSet { isAnythingChanges = true }}
-    @Published var sortingType: SortingTypes { didSet { isAnythingChanges = true }}
-    @Published var selectedDateType: DateTypes { didSet { isAnythingChanges = true }}
+    @Published var martianSol: Int
+    @Published var earthDate: Date
+    @Published var sortingType: SortingTypes
+    @Published var selectedDateType: DateTypes
+    @Published var selectedCameraType:  CameraName
+
+    var isAnythingChanged: Bool { !isSortingSame || !isDateFilterSame || !isCameraTypeSame }
     
-    @Published var isAnythingChanges: Bool = false
-    
+    var isSortingSame: Bool { sortingType == roverVM.sorting }
+    var isDateFilterSame: Bool { martianSol == roverVM.sol && earthDate == roverVM.earthDate }
+    var isCameraTypeSame: Bool { selectedCameraType == roverVM.selectedCameraType }
+
     init(roverVM: RoverViewModel){
         self.roverVM = roverVM
         self._martianSol = Published(initialValue: roverVM.sol)
         self._earthDate = Published(initialValue: roverVM.earthDate)
         self._sortingType = Published(initialValue: roverVM.sorting)
         self._selectedDateType = Published(initialValue: roverVM.selectedDateType)
+        self._selectedCameraType = Published(initialValue: roverVM.selectedCameraType)
     }
     
     func applyFilter(){
-        if selectedDateType == .earthDate {
-            if earthDate != roverVM.earthDate {
-                roverVM.filterImagesByEarthDate(earthDate)
-            }
-            else {
-                roverVM.selectedDateType = .earthDate
-            }
-        } else if selectedDateType == .sol {
-            if martianSol != roverVM.sol {
-                roverVM.filterImagesByMartianSol(martianSol)
-            } else {
-                roverVM.selectedDateType = .sol
-            }
+        guard isAnythingChanged else {return}
+        
+        guard !isDateFilterSame || !isCameraTypeSame else {
+            print("sadece sorting yapıldı")
+            roverVM.filterImagesBySorting(sortingType)
+            return
         }
         
-        if sortingType != roverVM.sorting || sortingType == .random {
-            roverVM.filterImagesBySorting(sortingType)
+        if selectedDateType == .earthDate {
+            roverVM.filterImagesByEarthDate(earthDate, cameraType: selectedCameraType, sortingType: sortingType)
+        } else if selectedDateType == .sol {
+            roverVM.filterImagesByMartianSol(martianSol, cameraType: selectedCameraType, sortingType: sortingType)
         }
     }
 }

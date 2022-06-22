@@ -21,40 +21,43 @@ struct FilterView: View {
             List {
                 ImageSortingSection
                 DateSection
+                CameraSection
             }
             .font(.headline)
             .accentColor(.blue)
             .listStyle(GroupedListStyle())
-            .navigationTitle("Settings")
+            .navigationTitle("Filters")
+            .navigationBarHidden(false)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     BackButton { dismiss() }
                     .padding(.leading, -24)
                 }
             }
-            .overlay(Button(action: {
-                vm.applyFilter()
-                dismiss()
-            }, label: {
-                Text("Apply Filter")
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(RoundedRectangle(cornerRadius: 16).foregroundColor(.red))
-                    .padding()
-            })
-                .opacity(vm.isAnythingChanges ? 1 : 0)
-                .disabled(vm.isAnythingChanges ? false : true)
-                     ,alignment: .bottom
-            )
+            .overlay(ApplyFilterButton,alignment: .bottom)
         }
     }
 }
 
 extension FilterView {
+    private var ApplyFilterButton: some View {
+        Button(action: {
+            vm.applyFilter()
+            dismiss()
+        }, label: {
+            Text("Apply Filter")
+                .foregroundColor(.white)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(RoundedRectangle(cornerRadius: 16).foregroundColor(.red))
+                .padding()
+        })
+        .opacity(vm.isAnythingChanged ? 1 : 0)
+        .disabled(vm.isAnythingChanged ? false : true)
+    }
     
     private var ImageSortingSection: some View {
-        Section(header: Text("Image Sorting")) {
+        Section(header: Text("Image Sorting".uppercased())) {
             VStack(alignment: .leading) {
                 Picker("", selection: $vm.sortingType) {
                     ForEach(SortingTypes.allCases) { type in
@@ -69,7 +72,7 @@ extension FilterView {
     }
     
     private var DateSection: some View {
-        Section(header: Text("Date Filter")) {
+        Section(header: Text("Date Filter".uppercased())) {
             VStack(alignment: .leading) {
                 Picker("", selection: $vm.selectedDateType) {
                     ForEach(DateTypes.allCases) { type in
@@ -97,6 +100,18 @@ extension FilterView {
                 }
             }
             .padding(.vertical)
+        }
+    }
+    
+    private var CameraSection: some View {
+        Section(header: Text("Camera Filter".uppercased())) {
+            Picker("Camera Type", selection: $vm.selectedCameraType) {
+                ForEach(vm.roverVM.rover.cameraAvability) { type in
+                    Text(type.rawValue)
+                        .navigationBarHidden(true)
+                }
+            }
+            .pickerStyle(.automatic)
         }
     }
 }

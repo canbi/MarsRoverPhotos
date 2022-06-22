@@ -28,6 +28,7 @@ struct Camera: Codable {
 }
 
 enum CameraFullName: String, Codable {
+    case allCameras = "All Cameras"
     case entryCamera = "Entry Camera"
     case frontHazardAvoidanceCamera = "Front Hazard Avoidance Camera"
     case rearHazardAvoidanceCamera = "Rear Hazard Avoidance Camera"
@@ -40,7 +41,8 @@ enum CameraFullName: String, Codable {
     case miniatureThermalEmissionSpectrometerMiniTES = "Miniature Thermal Emission Spectrometer (Mini-TES)"
 }
 
-enum CameraName: String, Codable {
+enum CameraName: String, Codable, CaseIterable, Identifiable {
+    case all = "All Cameras"
     case entry = "ENTRY"
     case fhaz = "FHAZ"
     case rhaz = "RHAZ"
@@ -54,6 +56,7 @@ enum CameraName: String, Codable {
     
     var fullName: CameraFullName {
         switch self {
+        case .all: return .allCameras
         case .entry: return .entryCamera
         case .fhaz: return .frontHazardAvoidanceCamera
         case .rhaz: return .rearHazardAvoidanceCamera
@@ -66,4 +69,6 @@ enum CameraName: String, Codable {
         case .minites: return .miniatureThermalEmissionSpectrometerMiniTES
         }
     }
+    
+    var id: Self { self }
 }
