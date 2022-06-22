@@ -9,11 +9,9 @@ import SwiftUI
 
 struct ImageView: View {
     @StateObject var vm: ImageViewModel
-    var photo: Photo
     
-    init(photo: Photo) {
-        self.photo = photo
-        self._vm = StateObject(wrappedValue: ImageViewModel(photo: photo))
+    init(photo: Photo, showCameraInfo: Bool = false) {
+        self._vm = StateObject(wrappedValue: ImageViewModel(photo: photo, showCameraInfo: showCameraInfo))
     }
     
     var body: some View {
@@ -22,6 +20,14 @@ struct ImageView: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
+                    .overlay(
+                        GroupBox(label: Label("Camera", systemImage: "camera").foregroundColor(vm.roverType.color)) {
+                            Text(vm.cameraName.rawValue)
+                        }
+                        .opacity(vm.showCameraInfo ? 0.9 : 0)
+                        .groupBoxStyle(CardGroupBoxStyle())
+                        .padding([.bottom,.trailing])
+                        , alignment: .bottomTrailing)
             } else if vm.isLoading {
                 ProgressView()
             } else {

@@ -12,13 +12,17 @@ import UIKit
 class ImageViewModel: ObservableObject {
     @Published var image: UIImage? = nil
     @Published var isLoading: Bool = false
+    var cameraName: CameraName { photo.camera.name }
+    var roverType: RoverType { photo.rover.name }
+    let showCameraInfo: Bool
     
     private let photo: Photo
     private let imageDataService: ImageDataService
     private var cancellables = Set<AnyCancellable>()
     
-    init(photo: Photo){
+    init(photo: Photo, showCameraInfo: Bool){
         self.photo = photo
+        self.showCameraInfo = showCameraInfo
         self.imageDataService = ImageDataService(photo: photo)
         addSubscribers()
         self.isLoading = true

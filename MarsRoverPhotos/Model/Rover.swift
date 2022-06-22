@@ -10,8 +10,8 @@ import SwiftUI
 struct Rover: Codable {
     let id: Int
     let name: RoverType
-    let landingDate: String
-    let launchDate: String
+    let landingDate: Date
+    let launchDate: Date
     let status: String
 
     enum CodingKeys: String, CodingKey {
@@ -24,8 +24,8 @@ struct Rover: Codable {
     static var previewData: Rover {
         return .init(id: 1,
                      name: .curiosity,
-                     landingDate: "11-11-2011",
-                     launchDate: "11-11-2011",
+                     landingDate: Date.now,
+                     launchDate: Date.now,
                      status: "dummy")
     }
 }

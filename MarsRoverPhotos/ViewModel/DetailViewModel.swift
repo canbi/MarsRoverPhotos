@@ -11,14 +11,16 @@ import UIKit
 
 class DetailViewModel: ObservableObject {
     let photo: Photo
+    let manifest: PhotoManifest
     let roverType: RoverType
     private let fileManager: LocalFileManagerImage = .instance
     
     @Published var clickedImage: UIImage? = nil
     @Published var showingZoomImageView: Bool = false
     
-    init(photo: Photo){
+    init(photo: Photo, manifest: PhotoManifest){
         self.photo = photo
+        self.manifest = manifest
         self.roverType = RoverType(rawValue: photo.rover.name.rawValue) ?? .curiosity
     }
     

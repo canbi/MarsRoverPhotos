@@ -17,7 +17,7 @@ enum SortingTypes: String,CaseIterable, Identifiable {
 }
 
 enum DateTypes: String, CaseIterable, Identifiable {
-    case sol = "Sol"
+    case sol = "Martian Sol"
     case earthDate = "Earth Date"
     
     var id: Self { self }
@@ -28,7 +28,11 @@ class RoverViewModel: ObservableObject {
     
     // Data
     private var dataService: JSONDataService
-    @Published var roverImages: [Photo] = []
+    @Published var roverImages: [Photo] = [] {
+        didSet {
+            earthDate = roverImages.first?.earthDate ?? Date.now
+        }
+    }
     @Published var roverManifest: PhotoManifest?
     private var cancellables = Set<AnyCancellable>()
     
@@ -54,9 +58,13 @@ class RoverViewModel: ObservableObject {
             dataService.getPhotosBySol(rover: rover, sol: sol)
         }
     }
-    var maximumSol: Int { roverManifest?.maxSol ?? 1000 }
     @Published var selectedDateType: DateTypes = .sol
-    @Published var earthDate: Date = .now
+    @Published var earthDate: Date = .now {
+        didSet {
+            dataService.getPhotosByEarthDate(rover: rover, earthDate: earthDate)
+        }
+    }
+    
     
     init(rover: RoverType, dataService: JSONDataService){
         self.rover = rover

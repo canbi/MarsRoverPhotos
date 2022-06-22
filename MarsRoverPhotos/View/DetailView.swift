@@ -11,8 +11,8 @@ struct DetailView: View {
     @StateObject var vm: DetailViewModel
     @Environment(\.dismiss) var dismiss
     
-    init(photo: Photo){
-        self._vm = StateObject(wrappedValue: DetailViewModel(photo: photo))
+    init(photo: Photo, manifest: PhotoManifest){
+        self._vm = StateObject(wrappedValue: DetailViewModel(photo: photo, manifest: manifest))
     }
     
     var body: some View {
@@ -46,28 +46,36 @@ struct DetailView: View {
 
 extension DetailView {
     private var PhotoInformationView: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), alignment: .top)]) {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 95), spacing: 10, alignment: .top)]) {
             GroupBox(label: Label("Rover", systemImage: "sun.max.fill").foregroundColor(vm.roverType.color)) {
                 Text(vm.photo.rover.name.rawValue)
             }
             
-            GroupBox(label: Label("Rover Status", systemImage: "calendar").foregroundColor(vm.roverType.color)) {
+            GroupBox(label: Label("Rover Status", systemImage: "heart.fill").foregroundColor(vm.roverType.color)) {
                 Text(vm.photo.rover.status.capitalized)
             }
             
+            GroupBox(label: Label("Launch Date", systemImage: "airplane.departure").foregroundColor(vm.roverType.color)) {
+                Text("\(vm.manifest.launchDate.formatted(.dateTime.day().month().year()))")
+            }
+            
+            GroupBox(label: Label("Landing Date", systemImage: "airplane.arrival").foregroundColor(vm.roverType.color)) {
+                Text("\(vm.manifest.landingDate.formatted(.dateTime.day().month().year()))")
+            }
+            
             GroupBox(label: Label("Taken Sol", systemImage: "calendar").foregroundColor(vm.roverType.color)) {
-                Text("\(vm.photo.sol)")
+                Text(String(vm.photo.sol))
             }
             
             GroupBox(label: Label("Taken Earth Date", systemImage: "calendar").foregroundColor(vm.roverType.color)) {
-                Text(vm.photo.earthDate)
+                Text("\(vm.photo.earthDate.formatted(.dateTime.day().month().year()))")
             }
             
-            GroupBox(label: Label("Camera Code", systemImage: "calendar").foregroundColor(vm.roverType.color)) {
+            GroupBox(label: Label("Camera Code", systemImage: "camera").foregroundColor(vm.roverType.color)) {
                 Text(vm.photo.camera.name.rawValue)
             }
             
-            GroupBox(label: Label("Camera Name", systemImage: "calendar").foregroundColor(vm.roverType.color)) {
+            GroupBox(label: Label("Camera Name", systemImage: "camera.badge.ellipsis").foregroundColor(vm.roverType.color)) {
                 Text(vm.photo.camera.fullName.rawValue)
             }
         }
@@ -78,6 +86,6 @@ extension DetailView {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(photo: .previewData)
+        DetailView(photo: .previewData, manifest: .previewData)
     }
 }

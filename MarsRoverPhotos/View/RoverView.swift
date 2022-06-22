@@ -27,7 +27,7 @@ struct RoverView: View {
                 
                 Section(header: SectionHeader, footer: SectionFooter) {
                     ForEach(vm.roverImages, id: \.id) { photo in
-                        ImageView(photo: photo)
+                        ImageView(photo: photo, showCameraInfo: true)
                             .cornerRadius(16)
                             .frame(maxWidth: .infinity, minHeight: 250)
                             .onTapGesture { vm.selectedImage = photo }
@@ -41,7 +41,7 @@ struct RoverView: View {
             Spacer().frame(height: 100)
         }
         .navigationDestination(for: $vm.selectedImage) { photo in
-            DetailView(photo: photo)
+            DetailView(photo: photo, manifest: vm.roverManifest!)
         }
     }
 }
@@ -79,13 +79,13 @@ extension RoverView {
     private var RoverInformationView: some View {
         Group {
             if let roverManifest = vm.roverManifest {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 95), spacing: 10)]) {
                     GroupBox(label: Label("Max Sol", systemImage: "sun.max.fill").foregroundColor(vm.rover.color)) {
-                        Text("\(roverManifest.maxSol)")
+                        Text("\(String(roverManifest.maxSol))")
                     }
                     
                     GroupBox(label: Label("Max Date", systemImage: "calendar").foregroundColor(vm.rover.color)) {
-                        Text(roverManifest.maxDate)
+                        Text("\(roverManifest.maxDate.formatted(.dateTime.day().month().year()))")
                     }
                     
                     GroupBox(label: Label("Total Photos", systemImage: "photo.on.rectangle.angled").foregroundColor(vm.rover.color)) {
@@ -97,11 +97,11 @@ extension RoverView {
                     }
                     
                     GroupBox(label: Label("Launch Date", systemImage: "airplane.departure").foregroundColor(vm.rover.color)) {
-                        Text(roverManifest.launchDate)
+                        Text("\(roverManifest.launchDate.formatted(.dateTime.day().month().year()))")
                     }
                     
                     GroupBox(label: Label("Landing Date", systemImage: "airplane.arrival").foregroundColor(vm.rover.color)) {
-                        Text(roverManifest.landingDate)
+                        Text("\(roverManifest.landingDate.formatted(.dateTime.day().month().year()))")
                     }
                 }
                 .groupBoxStyle(CardGroupBoxStyle())

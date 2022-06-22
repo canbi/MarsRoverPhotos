@@ -18,9 +18,10 @@ struct Manifest: Codable {
 
 // MARK: - PhotoManifest
 struct PhotoManifest: Codable {
-    let name, landingDate, launchDate, status: String
+    let name, status: String
+    let landingDate, launchDate: Date
     let maxSol: Int
-    let maxDate: String
+    let maxDate: Date
     let totalPhotos: Int
     let photos: [ManifestPhoto]
 
@@ -33,6 +34,17 @@ struct PhotoManifest: Codable {
         case maxDate = "max_date"
         case totalPhotos = "total_photos"
         case photos
+    }
+    
+    static var previewData: PhotoManifest {
+        return .init(name: "Preview",
+                     status: "Preview",
+                     landingDate: .now,
+                     launchDate: .now,
+                     maxSol: 12,
+                     maxDate: .now,
+                     totalPhotos: 12,
+                     photos: [])
     }
 }
 

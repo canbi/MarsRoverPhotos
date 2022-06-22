@@ -34,6 +34,6 @@ struct ImageZoomView: View {
     var body: some View {
         PhotoDetailView(image: image)
             .ignoresSafeArea()
-            .overlay(BackButton { dismiss() }, alignment: .topLeading)
+            .overlay(BackButton { dismiss() }.padding(.leading, -6), alignment: .topLeading)
     }
 }

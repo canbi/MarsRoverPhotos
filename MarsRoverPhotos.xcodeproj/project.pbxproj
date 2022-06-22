@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		361F03732862E1D100F98BA9 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F03722862E1D100F98BA9 /* Date.swift */; };
 		3687C1CE286250CA004616D4 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C1CD286250CA004616D4 /* FilterView.swift */; };
 		3687C1D0286250DF004616D4 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C1CF286250DF004616D4 /* FilterViewModel.swift */; };
 		36B4479D2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B4479C2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		361F03722862E1D100F98BA9 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		3687C1CD286250CA004616D4 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		3687C1CF286250DF004616D4 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		36B447992860A6F600D8DDA8 /* MarsRoverPhotos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsRoverPhotos.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +192,7 @@
 			children = (
 				36F8B3E628619462000902D1 /* Navigation.swift */,
 				36F8B3E828619481000902D1 /* Binding.swift */,
+				361F03722862E1D100F98BA9 /* Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				36F8B3CC2860F456000902D1 /* RoverView.swift in Sources */,
 				36F8B3F328619775000902D1 /* NavBarItem.swift in Sources */,
 				36F8B3C82860B498000902D1 /* Manifest.swift in Sources */,
+				361F03732862E1D100F98BA9 /* Date.swift in Sources */,
 				36B4479D2860A6F600D8DDA8 /* MarsRoverPhotosApp.swift in Sources */,
 				36F8B3F82861D79D000902D1 /* ZoomButton.swift in Sources */,
 				36F8B3D32860F588000902D1 /* JSONDataService.swift in Sources */,

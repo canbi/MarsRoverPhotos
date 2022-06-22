@@ -16,8 +16,8 @@ The app uses [NASA Open APIs](https://api.nasa.gov/index.html#browseAPI)
 - [x]  Image Zoom Pop-up
 - [x]  Mission Manifest information about each rover
 - [x]  Rover images
-- []  Data querying by Earth Date
-- []  Image querying by Martian Sol
+- [x]  Filtering with Earth Date
+- [x]  Filtering with Martian Sol
 - []  Filtering with Camera Types
 - []  Save to Photos
 - []  Image Favorites tab

@@ -13,7 +13,7 @@ struct CardGroupBoxStyle: GroupBoxStyle {
             configuration.label
             configuration.content
         }
-        .frame(minWidth: 100)
+        .frame(minWidth: 95)
         .font(.caption)
         .padding(8)
         .background(Color(UIColor.secondarySystemBackground))

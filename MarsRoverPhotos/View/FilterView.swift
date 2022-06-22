@@ -64,25 +64,26 @@ extension FilterView {
                 .labelsHidden()
                 .pickerStyle(.segmented)
                 
+                Spacer().frame(height: 15)
+                
                 HStack {
                     if vm.roverVM.selectedDateType == .sol {
-                        Slider(value: IntDoubleBinding($vm.roverVM.sol).doubleValue, in: 0...Double(vm.roverVM.maximumSol), step: 1.0)
+                        Slider(value: IntDoubleBinding($vm.roverVM.sol).doubleValue, in: 0...Double(vm.maximumSol), step: 1.0)
                         Text(String(vm.roverVM.sol) + " Sol")
                             .padding(8)
                             .background(Color(UIColor.tertiarySystemBackground))
                             .cornerRadius(12)
                     }
                     else {
-                        //TODO: Api call with earth date with correct Date Formatter
-                        //TODO: Decode json with correct Date Formatter
+                        Text("Select a date")
+                        DatePicker(selection: $vm.roverVM.earthDate, in: vm.startingDate...vm.lastDate, displayedComponents: .date){}
+                        
                     }
                 }
             }
             .padding(.vertical)
         }
     }
-    
-    
 }
 
 
