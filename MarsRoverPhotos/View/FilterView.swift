@@ -32,6 +32,21 @@ struct FilterView: View {
                     .padding(.leading, -24)
                 }
             }
+            .overlay(Button(action: {
+                vm.applyFilter()
+                dismiss()
+            }, label: {
+                Text("Apply Filter")
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(RoundedRectangle(cornerRadius: 16).foregroundColor(.red))
+                    .padding()
+            })
+                .opacity(vm.isAnythingChanges ? 1 : 0)
+                .disabled(vm.isAnythingChanges ? false : true)
+                     ,alignment: .bottom
+            )
         }
     }
 }
@@ -41,7 +56,7 @@ extension FilterView {
     private var ImageSortingSection: some View {
         Section(header: Text("Image Sorting")) {
             VStack(alignment: .leading) {
-                Picker("", selection: $vm.roverVM.sorting) {
+                Picker("", selection: $vm.sortingType) {
                     ForEach(SortingTypes.allCases) { type in
                         Text(type.rawValue)
                     }
@@ -56,7 +71,7 @@ extension FilterView {
     private var DateSection: some View {
         Section(header: Text("Date Filter")) {
             VStack(alignment: .leading) {
-                Picker("", selection: $vm.roverVM.selectedDateType) {
+                Picker("", selection: $vm.selectedDateType) {
                     ForEach(DateTypes.allCases) { type in
                         Text(type.rawValue)
                     }
@@ -67,16 +82,16 @@ extension FilterView {
                 Spacer().frame(height: 15)
                 
                 HStack {
-                    if vm.roverVM.selectedDateType == .sol {
-                        Slider(value: IntDoubleBinding($vm.roverVM.sol).doubleValue, in: 0...Double(vm.maximumSol), step: 1.0)
-                        Text(String(vm.roverVM.sol) + " Sol")
+                    if vm.selectedDateType == .sol {
+                        Slider(value: IntDoubleBinding($vm.martianSol).doubleValue, in: 0...Double(vm.maximumSol), step: 1.0)
+                        Text(String(vm.martianSol) + " Sol")
                             .padding(8)
                             .background(Color(UIColor.tertiarySystemBackground))
                             .cornerRadius(12)
                     }
                     else {
                         Text("Select a date")
-                        DatePicker(selection: $vm.roverVM.earthDate, in: vm.startingDate...vm.lastDate, displayedComponents: .date){}
+                        DatePicker(selection: $vm.earthDate, in: vm.startingDate...vm.lastDate, displayedComponents: .date){}
                         
                     }
                 }

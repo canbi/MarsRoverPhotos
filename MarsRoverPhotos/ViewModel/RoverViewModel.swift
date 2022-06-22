@@ -31,6 +31,7 @@ class RoverViewModel: ObservableObject {
     @Published var roverImages: [Photo] = [] {
         didSet {
             earthDate = roverImages.first?.earthDate ?? Date.now
+            sol = roverImages.first?.sol ?? 1000
         }
     }
     @Published var roverManifest: PhotoManifest?
@@ -41,29 +42,10 @@ class RoverViewModel: ObservableObject {
     @Published var showingFilterViewSheet: Bool = false
     
     // Filters
-    @Published var sorting: SortingTypes = .ascending {
-        didSet {
-            switch sorting {
-            case .ascending:
-                roverImages.sort{ $0 < $1}
-            case .descending:
-                roverImages.sort{ $0 > $1}
-            case .random:
-                roverImages.shuffle()
-            }
-        }
-    }
-    @Published var sol: Int = 1000 {
-        didSet {
-            dataService.getPhotosBySol(rover: rover, sol: sol)
-        }
-    }
+    @Published var sorting: SortingTypes = .ascending
+    @Published var sol: Int = 1000
     @Published var selectedDateType: DateTypes = .sol
-    @Published var earthDate: Date = .now {
-        didSet {
-            dataService.getPhotosByEarthDate(rover: rover, earthDate: earthDate)
-        }
-    }
+    @Published var earthDate: Date = .now
     
     
     init(rover: RoverType, dataService: JSONDataService){
@@ -72,6 +54,31 @@ class RoverViewModel: ObservableObject {
         addSubscribers()
         dataService.getInformation(of: rover)
         dataService.getPhotosBySol(rover: rover, sol: sol)
+    }
+    
+    func filterImagesByEarthDate(_ date: Date){
+        earthDate = date
+        selectedDateType = .earthDate
+        dataService.getPhotosByEarthDate(rover: rover, earthDate: date)
+    }
+    
+    func filterImagesByMartianSol(_ martianSol: Int){
+        sol = martianSol
+        selectedDateType = .sol
+        dataService.getPhotosBySol(rover: rover, sol: martianSol)
+    }
+    
+    func filterImagesBySorting(_ sortingType: SortingTypes){
+        sorting = sortingType
+        
+        switch sorting {
+        case .ascending:
+            roverImages.sort{ $0 < $1}
+        case .descending:
+            roverImages.sort{ $0 > $1}
+        case .random:
+            roverImages.shuffle()
+        }
     }
     
     func addSubscribers() {
