@@ -37,9 +37,9 @@ enum RoverType: String, Codable {
     
     var color: Color {
         switch self {
-        case .curiosity: return .red
-        case .opportunity: return .blue
-        case .spirit: return .green
+        case .curiosity: return Color.theme.tabCuriosity
+        case .opportunity: return Color.theme.tabOpportunity
+        case .spirit: return Color.theme.tabSpirit
         }
     }
     

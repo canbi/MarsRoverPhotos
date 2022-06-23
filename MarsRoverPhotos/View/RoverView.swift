@@ -18,8 +18,10 @@ struct RoverView: View {
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 6, pinnedViews: .sectionHeaders) {
-                TitleView(vm.rover.rawValue)
-                    .padding(.top, 44)
+                PageHeader
+                    .sheet(isPresented: $vm.showingSettingsViewSheet) {
+                        SettingsView()
+                    }
                 
                 RoverImageView
                 
@@ -33,10 +35,11 @@ struct RoverView: View {
                             .onTapGesture { vm.selectedImage = photo }
                     }
                 }
+                .sheet(isPresented: $vm.showingFilterViewSheet) {
+                    FilterView(roverVM: vm)
+                }
             }
-            .sheet(isPresented: $vm.showingFilterViewSheet) {
-                FilterView(roverVM: vm)
-            }
+            
             
             Spacer().frame(height: 100)
         }
@@ -47,6 +50,24 @@ struct RoverView: View {
 }
 
 extension RoverView {
+    private var PageHeader: some View {
+        HStack {
+            TitleView(vm.rover.rawValue)
+            Spacer()
+            Button {
+                vm.showingSettingsViewSheet.toggle()
+            } label: {
+                Image(systemName: "gear")
+                    .font(Font.title.weight(.bold))
+                    .font(.largeTitle)
+                    .tint(vm.rover.color)
+                    .padding()
+            }
+        }
+        .padding(.top, 44)
+    }
+    
+    
     private func TitleView(_ title: String) -> some View {
         HStack {
             Text(title)

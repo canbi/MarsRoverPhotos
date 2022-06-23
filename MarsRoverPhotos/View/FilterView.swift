@@ -24,7 +24,7 @@ struct FilterView: View {
                 CameraSection
             }
             .font(.headline)
-            .accentColor(.blue)
+            .accentColor(.blue) //TODO: page color
             .listStyle(GroupedListStyle())
             .navigationTitle("Filters")
             .navigationBarHidden(false)

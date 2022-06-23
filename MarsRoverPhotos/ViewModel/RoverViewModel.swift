@@ -40,6 +40,7 @@ class RoverViewModel: ObservableObject {
     // Controls
     @Published var selectedImage: Photo? = nil
     @Published var showingFilterViewSheet: Bool = false
+    @Published var showingSettingsViewSheet: Bool = false
     @Published var isLoaded: Bool = false
     
     // Filters
