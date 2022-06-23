@@ -30,10 +30,11 @@ struct PhotoDetailView: UIViewRepresentable {
 struct ImageZoomView: View {
     @Environment(\.dismiss) var dismiss
     var image: UIImage
+    let tintColor: Color
     
     var body: some View {
         PhotoDetailView(image: image)
             .ignoresSafeArea()
-            .overlay(BackButton { dismiss() }.padding(.leading, -6), alignment: .topLeading)
+            .overlay(BackButton(color: tintColor) { dismiss() }.padding(.leading, -6), alignment: .topLeading)
     }
 }

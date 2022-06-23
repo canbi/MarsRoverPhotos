@@ -11,7 +11,10 @@ struct DetailView: View {
     @StateObject var vm: DetailViewModel
     @Environment(\.dismiss) var dismiss
     
-    @State private var showShareSheet = false
+    var tintColor: Color {
+        RoverType(rawValue: vm.photo.rover.name.rawValue)?.color ?? .red
+    }
+    
     
     init(photo: Photo, manifest: PhotoManifest){
         self._vm = StateObject(wrappedValue: DetailViewModel(photo: photo, manifest: manifest))
@@ -25,10 +28,10 @@ struct DetailView: View {
                     ZoomButton(action: vm.zoomImage)
                 }
                 .sheet(isPresented: $vm.showingZoomImageView, content: {
-                    ImageZoomView(image: vm.clickedImage!)
+                    ImageZoomView(image: vm.clickedImage!, tintColor: tintColor)
                 })
                 .overlay(alignment: .topLeading) {
-                    BackButton { dismiss() }
+                    BackButton(color: tintColor) { dismiss() }
                         .padding(.top, 24)
                         .padding(.leading, -6)
                 }
@@ -51,7 +54,7 @@ struct DetailView: View {
 extension DetailView {
     private var ShareButton: some View {
         Button(action: {
-            self.showShareSheet.toggle()
+            vm.showShareSheet.toggle()
         }, label: {
             HStack {
                 Image(systemName: "square.and.arrow.up")
@@ -60,10 +63,10 @@ extension DetailView {
             .foregroundColor(.white)
             .padding()
             .frame(maxWidth: .infinity)
-            .background(RoundedRectangle(cornerRadius: 16).foregroundColor(.red))
+            .background(RoundedRectangle(cornerRadius: 16).foregroundColor(tintColor))
             .padding()
             
-        }).sheet(isPresented: $showShareSheet) {
+        }).sheet(isPresented: $vm.showShareSheet) {
             let photo = vm.getImage()!
             let itemSource = ShareActivityItemSource(shareText: vm.imageShareName, shareImage: photo)
             ShareSheet(activityItems: [photo, itemSource])

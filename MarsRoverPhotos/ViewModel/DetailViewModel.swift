@@ -21,6 +21,7 @@ class DetailViewModel: ObservableObject {
     
     @Published var clickedImage: UIImage? = nil
     @Published var showingZoomImageView: Bool = false
+    @Published var showShareSheet = false
     
     init(photo: Photo, manifest: PhotoManifest){
         self.photo = photo

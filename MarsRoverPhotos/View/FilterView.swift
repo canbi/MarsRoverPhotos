@@ -12,7 +12,10 @@ struct FilterView: View {
     @StateObject var vm: FilterViewModel
     @Environment(\.dismiss) var dismiss
     
-    init(roverVM: RoverViewModel){
+    let tintColor: Color
+    
+    init(roverVM: RoverViewModel, tintColor: Color){
+        self.tintColor = tintColor
         self._vm = StateObject(wrappedValue: FilterViewModel(roverVM: roverVM))
     }
     
@@ -24,17 +27,17 @@ struct FilterView: View {
                 CameraSection
             }
             .font(.headline)
-            .accentColor(.blue) //TODO: page color
+            .accentColor(tintColor)
             .listStyle(GroupedListStyle())
             .navigationTitle("Filters")
             .navigationBarHidden(false)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    BackButton { dismiss() }
+                    BackButton(color: tintColor) { dismiss() }
                     .padding(.leading, -24)
                 }
             }
-            .overlay(ApplyFilterButton,alignment: .bottom)
+            .overlay(ApplyFilterButton, alignment: .bottom)
         }
     }
 }
@@ -49,7 +52,7 @@ extension FilterView {
                 .foregroundColor(.white)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(RoundedRectangle(cornerRadius: 16).foregroundColor(.red))
+                .background(RoundedRectangle(cornerRadius: 16).foregroundColor(tintColor))
                 .padding()
         })
         .opacity(vm.isAnythingChanged ? 1 : 0)
@@ -119,6 +122,6 @@ extension FilterView {
 
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
-        FilterView(roverVM: RoverViewModel(rover: .curiosity, dataService: .previewInstance))
+        FilterView(roverVM: RoverViewModel(rover: .curiosity, dataService: .previewInstance), tintColor: .red)
     }
 }

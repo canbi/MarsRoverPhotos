@@ -45,9 +45,9 @@ enum RoverType: String, Codable {
     
     var cameraAvability: [CameraName] {
         switch self {
-        case .curiosity: return [.fhaz, .rhaz, .mast, .chemcam, .mahli, .mardi, .navcam]
-        case .opportunity: return [.fhaz, .rhaz, .navcam, .pancam, .minites]
-        case .spirit: return [.fhaz, .rhaz, .navcam, .pancam, .minites]
+        case .curiosity: return [.all, .fhaz, .rhaz, .mast, .chemcam, .mahli, .mardi, .navcam]
+        case .opportunity: return [.all, .fhaz, .rhaz, .navcam, .pancam, .minites]
+        case .spirit: return [.all, .fhaz, .rhaz, .navcam, .pancam, .minites]
         }
     }
 }

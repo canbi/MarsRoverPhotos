@@ -9,9 +9,11 @@ import SwiftUI
 
 struct BackButton: View {
     var action: () -> Void
+    var color: Color
     
-    init(action: @escaping () -> Void) {
+    init(color: Color,action: @escaping () -> Void) {
         self.action = action
+        self.color = color
     }
     
     var body: some View {
@@ -23,10 +25,11 @@ struct BackButton: View {
                     .font(.headline)
                     
                 Text("Back")
+                    
             }
             .padding(12)
             .foregroundColor(.white)
-            .background(.red)
+            .background(color)
             .cornerRadius(16)
             .padding()
             .scaleEffect(0.8)
@@ -36,7 +39,7 @@ struct BackButton: View {
 
 struct BackButton_Previews: PreviewProvider {
     static var previews: some View {
-        BackButton {
+        BackButton(color: .red) {
             print("hello")
         }
     }

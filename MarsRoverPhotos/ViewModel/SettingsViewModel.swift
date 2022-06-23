@@ -8,28 +8,26 @@
 import SwiftUI
 
 class SettingsViewModel: ObservableObject {
-    @Published var colorCuriosity = Color.theme.tabCuriosity{
-        didSet {
-            Color.theme.tabCuriosity = colorCuriosity
-        }
-    }
-    @Published var colorOpportunity = Color.theme.tabOpportunity {
-        didSet {
-            Color.theme.tabOpportunity = colorOpportunity
-        }
-    }
-    @Published var colorSpirit = Color.theme.tabSpirit {
-        didSet {
-            Color.theme.tabSpirit = colorSpirit
-        }
-    }
+    @Published var colorCuriosity = Color.theme.tabCuriosity
+    @Published var colorOpportunity = Color.theme.tabOpportunity
+    @Published var colorSpirit = Color.theme.tabSpirit
+    
+    var isAnythingChanged: Bool { !isCuriositySame || !isOpportunitySame || !isSpiritSame }
+    
+    var isCuriositySame: Bool { colorCuriosity == Color.theme.tabCuriosity }
+    var isOpportunitySame: Bool { colorOpportunity ==  Color.theme.tabOpportunity }
+    var isSpiritSame: Bool { colorSpirit == Color.theme.tabSpirit }
     
     let personalURL = URL(string: "https://canbi.me")!
     let twitterURL = URL(string: "https://twitter.com/Canbiw")!
     let githubURL = URL(string: "https://github.com/canbi")!
     
-    init(){
-        
+    init(){}
+    
+    func applySettings(){
+        Color.theme.tabOpportunity = colorOpportunity
+        Color.theme.tabSpirit = colorSpirit
+        Color.theme.tabCuriosity = colorCuriosity
     }
     
     func resetTheme(){

@@ -20,7 +20,7 @@ struct RoverView: View {
             LazyVStack(spacing: 6, pinnedViews: .sectionHeaders) {
                 PageHeader
                     .sheet(isPresented: $vm.showingSettingsViewSheet) {
-                        SettingsView()
+                        SettingsView(tintColor: vm.rover.color)
                     }
                 
                 RoverImageView
@@ -36,7 +36,7 @@ struct RoverView: View {
                     }
                 }
                 .sheet(isPresented: $vm.showingFilterViewSheet) {
-                    FilterView(roverVM: vm)
+                    FilterView(roverVM: vm, tintColor: vm.rover.color)
                 }
             }
             
