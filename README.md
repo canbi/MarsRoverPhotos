@@ -18,10 +18,10 @@ The app uses [NASA Open APIs](https://api.nasa.gov/index.html#browseAPI)
 - [x]  Rover images
 - [x]  Filtering with Earth Date
 - [x]  Filtering with Martian Sol
-- []  Filtering with Camera Types
-- []  Save to Photos
+- [x]  Filtering with Camera Types
+- [x]  Save to Photos with Share Sheet
+- [x]  Share button and Share Sheet
 - []  Image Favorites tab
 - []  Setting camera types with mission manifest api
 - []  Offline usage capability with CoreData and Directory File
-- []  Share button
 - []  Settings page

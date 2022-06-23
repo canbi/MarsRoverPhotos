@@ -11,6 +11,8 @@ struct DetailView: View {
     @StateObject var vm: DetailViewModel
     @Environment(\.dismiss) var dismiss
     
+    @State private var showShareSheet = false
+    
     init(photo: Photo, manifest: PhotoManifest){
         self._vm = StateObject(wrappedValue: DetailViewModel(photo: photo, manifest: manifest))
     }
@@ -20,7 +22,7 @@ struct DetailView: View {
             ImageView(photo: vm.photo)
                 .frame(maxWidth: .infinity)
                 .overlay(alignment: .bottomTrailing) {
-                    ZoomButton(action: vm.getImage)
+                    ZoomButton(action: vm.zoomImage)
                 }
                 .sheet(isPresented: $vm.showingZoomImageView, content: {
                     ImageZoomView(image: vm.clickedImage!)
@@ -32,10 +34,12 @@ struct DetailView: View {
                 }
             
             Spacer().frame(height: 20)
-
+            
             PhotoInformationView
             
             Spacer()
+            
+            ShareButton 
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
@@ -45,6 +49,29 @@ struct DetailView: View {
 }
 
 extension DetailView {
+    private var ShareButton: some View {
+        Button(action: {
+            self.showShareSheet.toggle()
+        }, label: {
+            HStack {
+                Image(systemName: "square.and.arrow.up")
+                Text("Share")
+            }
+            .foregroundColor(.white)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(RoundedRectangle(cornerRadius: 16).foregroundColor(.red))
+            .padding()
+            
+        }).sheet(isPresented: $showShareSheet) {
+            let photo = vm.getImage()!
+            let itemSource = ShareActivityItemSource(shareText: vm.imageShareName, shareImage: photo)
+            ShareSheet(activityItems: [photo, itemSource])
+                .ignoresSafeArea()
+        }
+        .padding(.bottom)
+    }
+    
     private var PhotoInformationView: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 95), spacing: 10, alignment: .top)]) {
             GroupBox(label: Label("Rover", systemImage: "sun.max.fill").foregroundColor(vm.roverType.color)) {

@@ -15,6 +15,10 @@ class DetailViewModel: ObservableObject {
     let roverType: RoverType
     private let fileManager: LocalFileManagerImage = .instance
     
+    var imageShareName: String {
+        "\(photo.rover.name.rawValue) \(photo.camera.name.rawValue) \(photo.earthDate.formatted(.dateTime.year().month().day()))"
+    }
+    
     @Published var clickedImage: UIImage? = nil
     @Published var showingZoomImageView: Bool = false
     
@@ -24,8 +28,12 @@ class DetailViewModel: ObservableObject {
         self.roverType = RoverType(rawValue: photo.rover.name.rawValue) ?? .curiosity
     }
     
-    func getImage(){
-        clickedImage = fileManager.getImage(name: String(photo.id))
+    func zoomImage(){
+        clickedImage = getImage()
         showingZoomImageView.toggle()
+    }
+    
+    func getImage() -> UIImage? {
+        fileManager.getImage(name: String(photo.id))
     }
 }
