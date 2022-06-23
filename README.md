@@ -21,7 +21,9 @@ The app uses [NASA Open APIs](https://api.nasa.gov/index.html#browseAPI)
 - [x]  Filtering with Camera Types
 - [x]  Save to Photos with Share Sheet
 - [x]  Share button and Share Sheet
+- [x]  Settings page
+- [x]  Theme color settings
+- [x]  Double tap on tab bar scrolls to top
 - []  Image Favorites tab
 - []  Setting camera types with mission manifest api
 - []  Offline usage capability with CoreData and Directory File
-- []  Settings page

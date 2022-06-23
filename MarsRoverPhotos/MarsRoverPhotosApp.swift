@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct MarsRoverPhotosApp: App {
     @State private var tabSelection: NavBarItem = .curiosity
+    @State var shouldScrollToTop: Bool = false
     var curiosityDataService = JSONDataService()
     var opportunityDataService = JSONDataService()
     var spiritDataService = JSONDataService()
@@ -19,11 +20,11 @@ struct MarsRoverPhotosApp: App {
             NavigationView {
                 ScrollView {
                     TabView(selection: $tabSelection) {
-                        RoverView(rover: .curiosity, dataService: curiosityDataService)
+                        RoverView(rover: .curiosity, shouldScroolToTop: $shouldScrollToTop, dataService: curiosityDataService)
                             .tag(NavBarItem.curiosity)
-                        RoverView(rover: .opportunity, dataService: opportunityDataService)
+                        RoverView(rover: .opportunity, shouldScroolToTop: $shouldScrollToTop, dataService: opportunityDataService)
                             .tag(NavBarItem.opportunity)
-                        RoverView(rover: .spirit, dataService: spiritDataService)
+                        RoverView(rover: .spirit, shouldScroolToTop: $shouldScrollToTop, dataService: spiritDataService)
                             .tag(NavBarItem.spirit)
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -36,7 +37,7 @@ struct MarsRoverPhotosApp: App {
                 .overlay(alignment: .bottom) {
                     CustomTabBarView(tabs: [.curiosity, .opportunity, .spirit],
                                      selection: $tabSelection,
-                                     localSelection: .curiosity)
+                                     localSelection: .curiosity, scrollToTop: $shouldScrollToTop)
                 }
             }
         }

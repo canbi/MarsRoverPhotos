@@ -9,42 +9,52 @@ import SwiftUI
 
 struct RoverView: View {
     @StateObject var vm: RoverViewModel
+    @Binding var shouldScrollToTop: Bool
     
-    init(rover: RoverType, dataService: JSONDataService){
+    init(rover: RoverType, shouldScroolToTop: Binding<Bool>, dataService: JSONDataService){
         self._vm = StateObject(wrappedValue: RoverViewModel(rover: rover,
                                                             dataService: dataService))
+        self._shouldScrollToTop = shouldScroolToTop
     }
     
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 6, pinnedViews: .sectionHeaders) {
-                PageHeader
-                    .sheet(isPresented: $vm.showingSettingsViewSheet) {
-                        SettingsView(tintColor: vm.rover.color)
+        ScrollViewReader { reader in
+            ScrollView {
+                LazyVStack(spacing: 6, pinnedViews: .sectionHeaders) {
+                    PageHeader
+                        .sheet(isPresented: $vm.showingSettingsViewSheet) {
+                            SettingsView(tintColor: vm.rover.color)
+                        }
+                    
+                    RoverImageView
+                    
+                    RoverInformationView
+                    
+                    Section(header: SectionHeader, footer: SectionFooter) {
+                        ForEach(vm.roverImages, id: \.id) { photo in
+                            ImageView(photo: photo, showCameraInfo: true)
+                                .cornerRadius(16)
+                                .frame(maxWidth: .infinity, minHeight: 250)
+                                .onTapGesture { vm.selectedImage = photo }
+                        }
                     }
-                
-                RoverImageView
-                
-                RoverInformationView
-                
-                Section(header: SectionHeader, footer: SectionFooter) {
-                    ForEach(vm.roverImages, id: \.id) { photo in
-                        ImageView(photo: photo, showCameraInfo: true)
-                            .cornerRadius(16)
-                            .frame(maxWidth: .infinity, minHeight: 250)
-                            .onTapGesture { vm.selectedImage = photo }
+                    .sheet(isPresented: $vm.showingFilterViewSheet) {
+                        FilterView(roverVM: vm, tintColor: vm.rover.color)
                     }
                 }
-                .sheet(isPresented: $vm.showingFilterViewSheet) {
-                    FilterView(roverVM: vm, tintColor: vm.rover.color)
+                
+                
+                Spacer().frame(height: 100)
+            }
+            .navigationDestination(for: $vm.selectedImage) { photo in
+                DetailView(photo: photo, manifest: vm.roverManifest!)
+            }
+            .onChange(of: shouldScrollToTop) { _ in
+                withAnimation {  // add animation for scroll to top
+                   reader.scrollTo("top", anchor: .top) // scroll
+                    shouldScrollToTop = false
                 }
             }
-            
-            
-            Spacer().frame(height: 100)
-        }
-        .navigationDestination(for: $vm.selectedImage) { photo in
-            DetailView(photo: photo, manifest: vm.roverManifest!)
         }
     }
 }
@@ -65,6 +75,7 @@ extension RoverView {
             }
         }
         .padding(.top, 44)
+        .id("top")
     }
     
     
@@ -185,6 +196,6 @@ extension RoverView {
 
 struct RoverView_Previews: PreviewProvider {
     static var previews: some View {
-        RoverView(rover: .curiosity, dataService: .previewInstance)
+        RoverView(rover: .curiosity, shouldScroolToTop: .constant(false), dataService: .previewInstance)
     }
 }

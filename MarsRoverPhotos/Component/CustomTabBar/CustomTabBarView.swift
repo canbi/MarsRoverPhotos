@@ -13,6 +13,7 @@ struct CustomTabBarView: View {
     @Binding var selection: NavBarItem
     @Namespace private var namespace
     @State var localSelection: NavBarItem
+    @Binding var scrollToTop: Bool
     
     var body: some View {
         tabBarVersion
@@ -30,7 +31,7 @@ struct CustomTabBarView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             Spacer()
-            CustomTabBarView(tabs: tabs, selection: .constant(tabs.first!), localSelection: tabs.first!)
+            CustomTabBarView(tabs: tabs, selection: .constant(tabs.first!), localSelection: tabs.first!, scrollToTop: .constant(false))
         }
     }
 }
@@ -69,6 +70,12 @@ extension CustomTabBarView {
                     .onTapGesture {
                         switchToTab(tab: tab)
                     }
+                    .simultaneousGesture(
+                        TapGesture(count: 2)
+                            .onEnded { _ in
+                                scrollToTop = true
+                            }
+                    )
             }
         }
         .padding(6)
