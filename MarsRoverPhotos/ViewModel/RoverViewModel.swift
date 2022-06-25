@@ -37,10 +37,16 @@ class RoverViewModel: ObservableObject {
     @Published var roverManifest: PhotoManifest?
     private var cancellables = Set<AnyCancellable>()
     
+    // Core Data
+    var coreDataService: CoreDataDataService!
+    var favoritePhotos: [CDPhotos] = []
+    @Published var favoritePhotosAsPhoto: [Photo] = []
+    
     // Controls
     @Published var selectedImage: Photo? = nil
     @Published var showingFilterViewSheet: Bool = false
     @Published var showingSettingsViewSheet: Bool = false
+    @Published var showingOnlyFavorites: Bool = false
     @Published var isLoaded: Bool = false
     @Binding var shouldScrollToTop: Bool
     
@@ -58,6 +64,11 @@ class RoverViewModel: ObservableObject {
         addSubscribers()
         dataService.getInformation(of: rover)
         dataService.getPhotosBySol(rover: rover, sol: sol, cameraType: .all, sortingType: .ascending)
+    }
+    
+    func setup(coreDataService: CoreDataDataService){
+        self.coreDataService = coreDataService
+        favoritePhotos = coreDataService.accessPhotos(for: rover)
     }
     
     func filterImagesByEarthDate(_ date: Date, cameraType: CameraName, sortingType: SortingTypes){
@@ -101,5 +112,9 @@ class RoverViewModel: ObservableObject {
                 self?.roverManifest = returnedManifest
             }
             .store(in: &cancellables)
+    }
+    
+    func updateFavorites(){
+        favoritePhotos = coreDataService.accessPhotos(for: rover)
     }
 }

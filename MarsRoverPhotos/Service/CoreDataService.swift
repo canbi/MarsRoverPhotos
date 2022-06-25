@@ -11,9 +11,9 @@ import CoreData
 
 class CoreDataDataService: ObservableObject {
     var moc: NSManagedObjectContext
-    @Published var favoritesCuriosity: [CDPhotos]
-    @Published var favoritesOpportunity: [CDPhotos]
-    @Published var favoritesSpirit: [CDPhotos]
+    private var favoritesCuriosity: [CDPhotos]
+    private var favoritesOpportunity: [CDPhotos]
+    private var favoritesSpirit: [CDPhotos]
     
     init(moc: NSManagedObjectContext) {
         self.moc = moc
@@ -57,7 +57,15 @@ class CoreDataDataService: ObservableObject {
         }
     }
     
-    func getPhotos(for roverType: RoverType) -> [CDPhotos] {
+    func accessPhotos(for roverType: RoverType) -> [CDPhotos] {
+        switch roverType {
+        case .curiosity: return favoritesCuriosity
+        case .opportunity: return favoritesOpportunity
+        case .spirit: return favoritesSpirit
+        }
+    }
+    
+    private func getPhotos(for roverType: RoverType) -> [CDPhotos] {
         let fetchRequest: NSFetchRequest<CDPhotos> = CDPhotos.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "roverName = %@", "\(roverType.rawValue)")
         
@@ -73,15 +81,31 @@ class CoreDataDataService: ObservableObject {
         return returnedPhotos
     }
     
-    func savePhoto(for roverType: RoverType, photo: Photo) {
+    func savePhoto(for roverType: RoverType, photo: Photo) -> CDPhotos {
         let newPhoto = CDPhotos(context: self.moc)
-        newPhoto.id = Int16(photo.id)
+        newPhoto.id = Int32(photo.id)
         newPhoto.addFavoritesDate = .now
         newPhoto.roverName = photo.rover.name.rawValue
         newPhoto.earthDate = photo.earthDate
-        newPhoto.sol = Int16(photo.sol)
+        newPhoto.sol = Int32(photo.sol)
         newPhoto.cameraName = photo.camera.name.rawValue
         
         saveMOC()
+        print("saved in coredata")
+        return newPhoto
+    }
+    
+    func deletePhoto(photo: CDPhotos){
+        self.moc.delete(photo)
+        print("remove from coredata")
+        saveMOC()
+    }
+    
+    func getPhoto(in photoList: [CDPhotos], id: Int) -> CDPhotos? {
+        photoList.first(where: { $0.id == Int32(id) })
+    }
+    
+    func isFavorited(in photoList: [CDPhotos], id: Int) -> Bool {
+        return getPhoto(in: photoList, id: id) != nil
     }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RoverView: View {
+    @EnvironmentObject var coreDataService: CoreDataDataService
     @EnvironmentObject var settingManager: SettingManager
     @StateObject var vm: RoverViewModel
     
@@ -27,6 +28,9 @@ struct RoverView: View {
                         .sheet(isPresented: $vm.showingSettingsViewSheet) {
                             SettingsView(tintColor: currentTintColor)
                         }
+                        .onAppear{
+                            vm.setup(coreDataService: coreDataService)
+                        }
                     
                     RoverImageView
                     
@@ -41,7 +45,7 @@ struct RoverView: View {
                 Spacer().frame(height: 100)
             }
             .navigationDestination(for: $vm.selectedImage) { photo in
-                DetailView(photo: photo, manifest: vm.roverManifest!)
+                DetailView(photo: photo, manifest: vm.roverManifest!, roverVM: vm)
             }
             .onChange(of: vm.shouldScrollToTop) { _ in
                 withAnimation {
@@ -72,14 +76,32 @@ extension RoverView {
             
             LazyVGrid(columns: settingManager.gridDesign == .oneColumn ? oneColumns : twoColumns,
                       alignment: .leading, spacing: 10) {
-                ForEach(vm.roverImages, id: \.id) { photo in
-                    ImageView(photo: photo, showCameraInfo: true)
-                        .cornerRadius(16)
-                        .onTapGesture { vm.selectedImage = photo }
+                
+                if vm.showingOnlyFavorites {
+                    ForEach(vm.favoritePhotos, id: \.id) { photo in
+                        //TODO
+                    }
                 }
+                else {
+                    ForEach(vm.roverImages, id: \.id) { photo in
+                        ImageView(photo: photo, showCameraInfo: true)
+                            .overlay(Image(systemName: "heart.fill")
+                                .foregroundColor(.red)
+                                .imageScale(settingManager.gridDesign == .oneColumn ? .large : .medium)
+                                .opacity(coreDataService.isFavorited(in: vm.favoritePhotos, id: photo.id) ? 1 : 0)
+                                .padding([.top,.trailing], 6),
+                                     alignment: .topTrailing)
+                            .cornerRadius(16)
+                            .onTapGesture { vm.selectedImage = photo }
+                    }
+                }
+                
+                
+                
             }
             .padding(.horizontal)
-            .animation(.default, value: settingManager.gridDesign)
+            .animation(.easeInOut, value: settingManager.gridDesign)
+            .animation(.easeInOut, value: vm.showingOnlyFavorites)
         }
     }
     
@@ -172,9 +194,20 @@ extension RoverView {
     
     private var SectionHeader: some View {
         VStack(alignment:.leading, spacing: 0) {
-            HStack {
+            HStack(spacing: 0) {
                 TitleView("Photos")
+                
                 Spacer()
+                
+                Button {
+                    vm.showingOnlyFavorites.toggle()
+                } label: {
+                    Image(systemName: vm.showingOnlyFavorites ? "heart.fill" : "heart")
+                        .font(.title)
+                        .tint(currentTintColor)
+                        .padding(.vertical)
+                        .padding(.horizontal, 8)
+                }
                 
                 Button {
                     settingManager.changeGrid()
@@ -182,7 +215,8 @@ extension RoverView {
                     Image(systemName: settingManager.gridDesign == .oneColumn ? "rectangle.grid.2x2" : "rectangle.grid.1x2")
                         .font(.title)
                         .tint(currentTintColor)
-                        .padding()
+                        .padding(.vertical)
+                        .padding(.horizontal, 8)
                 }
                 
                 Button {
@@ -191,7 +225,8 @@ extension RoverView {
                     Image(systemName: "line.3.horizontal.decrease.circle")
                         .font(.title)
                         .tint(currentTintColor)
-                        .padding()
+                        .padding(.vertical)
+                        .padding(.horizontal, 8)
                 }
             }
             Group {

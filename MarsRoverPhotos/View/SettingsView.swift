@@ -25,6 +25,7 @@ struct SettingsView: View {
         NavigationView {
             List {
                 ColorSettingsSection
+                SaveAndFavoriteSection
                 DeveloperSection
                 Color.clear.listRowBackground(Color.clear)
             }
@@ -85,6 +86,13 @@ extension SettingsView {
                 }
             }
             .padding(.vertical)
+        }
+    }
+    
+    private var SaveAndFavoriteSection: some View {
+        Section(header: Text("Save Settings".uppercased())){
+            Toggle("Save for Offline when favorited", isOn: $vm.saveForOfflineSelection)
+            Toggle("Save to Photos when favorited", isOn: $vm.saveToPhotoSelection)
         }
     }
     

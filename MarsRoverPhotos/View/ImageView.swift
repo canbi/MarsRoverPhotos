@@ -28,7 +28,7 @@ struct ImageView: View {
                                            subtitle: vm.cameraName.rawValue,
                                            iconColor: currentTintColor)
                         .opacity(vm.showCameraInfo ? 0.9 : 0)
-                        .padding([.bottom,.trailing])
+                        .padding([.bottom,.trailing], 6)
                         , alignment: .bottomTrailing)
             } else {
                 ProgressView()

@@ -24,7 +24,8 @@ struct ZoomButton: View {
                 .foregroundColor(.primary)
                 .background(RoundedRectangle(cornerRadius: 14)
                     .fill(Color(UIColor.secondarySystemBackground)))
-                .padding()
+                .padding(.trailing)
+                .padding(.bottom, 8)
         }
     }
 }

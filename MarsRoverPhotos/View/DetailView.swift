@@ -9,28 +9,22 @@ import SwiftUI
 
 struct DetailView: View {
     @EnvironmentObject var settingManager: SettingManager
+    @EnvironmentObject var coreDataService: CoreDataDataService
     @StateObject var vm: DetailViewModel
     @Environment(\.dismiss) var dismiss
     
     var tintColor: Color { settingManager.getTintColor(roverType: vm.roverType) }
     
-    
-    init(photo: Photo, manifest: PhotoManifest){
-        self._vm = StateObject(wrappedValue: DetailViewModel(photo: photo, manifest: manifest))
+    init(photo: Photo, manifest: PhotoManifest, roverVM: RoverViewModel){
+        self._vm = StateObject(wrappedValue: DetailViewModel(photo: photo, manifest: manifest, roverVM: roverVM))
     }
     
     var body: some View {
         VStack(spacing: 0){
             ImageView(photo: vm.photo)
                 .frame(maxWidth: .infinity)
-                .overlay(alignment: .bottomTrailing) {
-                    ZoomButton(action: vm.zoomImage)
-                }
-                .overlay(alignment: .topLeading) {
-                    BackButton(color: tintColor) { dismiss() }
-                        .padding(.top, 24)
-                        .padding(.leading, -6)
-                }
+                .overlay(alignment: .bottomTrailing) { ZoomButton(action: vm.zoomImage) }
+                .overlay(alignment: .top) { ImageTopButtons }
                 .layoutPriority(1000)
             
             PhotoInformationView
@@ -46,10 +40,32 @@ struct DetailView: View {
         .navigationBarHidden(true)
         .navigationTitle("")
         .ignoresSafeArea()
+        .onAppear {
+            vm.setup(settingManager: settingManager, coreDataService: coreDataService)
+        }
     }
 }
 
 extension DetailView {
+    private var ImageTopButtons: some View {
+        HStack(spacing: 0) {
+            BackButton(color: tintColor) { dismiss() }
+                .padding(.top, 24)
+                .padding(.leading, -6)
+            
+            Spacer()
+            
+            Button(action: vm.favoriteButton){
+                Image(systemName: vm.isFavorited ? "heart.fill" : "heart")
+                    .font(.system(size: 30))
+                    .foregroundColor(vm.isFavorited ? .red : .white)
+            }
+            .padding(.top, 32)
+            .padding(.trailing)
+        }
+    }
+    
+    
     private var ShareButton: some View {
         Button(action: {
             vm.showShareSheet.toggle()
@@ -121,6 +137,10 @@ extension DetailView {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(photo: .previewData, manifest: .previewData)
+        DetailView(photo: .previewData,
+                   manifest: .previewData,
+                   roverVM: RoverViewModel(rover: .spirit,
+                                           shouldScrollToTop: .constant(false),
+                                           dataService: .previewInstance))
     }
 }

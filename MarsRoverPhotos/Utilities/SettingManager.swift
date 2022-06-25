@@ -16,20 +16,43 @@ enum GridDesign: String, CaseIterable, Identifiable {
 
 class SettingManager: ObservableObject {
     static private let themeKey: String = "themeKey"
+    static private let saveToPhotosKey: String = "saveToPhotosKey"
+    static private let saveForOfflineKey: String = "saveForOfflineKey"
+    static private let gridDesignKey: String = "gridDesignKey"
+    
+    private let defaults = UserDefaults.standard
     
     var theme: Themes {
         didSet {
-            UserDefaults.standard.set(theme.rawValue, forKey: SettingManager.themeKey)
+            defaults.set(theme.rawValue, forKey: SettingManager.themeKey)
         }
     }
     
     @Published var tabCuriosity: Color
     @Published var tabOpportunity: Color
     @Published var tabSpirit: Color
-    @Published var gridDesign: GridDesign = .oneColumn
+    @Published var gridDesign: GridDesign = .oneColumn {
+        didSet {
+            defaults.set(gridDesign.rawValue, forKey: SettingManager.gridDesignKey)
+        }
+    }
+    @Published var favoritesAlsoSaveToPhotos: Bool = false {
+        didSet {
+            defaults.set(favoritesAlsoSaveToPhotos, forKey: SettingManager.saveToPhotosKey)
+        }
+    }
+    @Published var favoritesAlsoSaveForOffline: Bool = false{
+        didSet {
+            defaults.set(favoritesAlsoSaveForOffline, forKey: SettingManager.saveForOfflineKey)
+        }
+    }
     
     init(){
-        self.theme = Themes(rawValue: (UserDefaults.standard.object(forKey: SettingManager.themeKey) ?? "") as! String) ?? .olympus
+        self.theme = Themes(rawValue: (defaults.string(forKey: SettingManager.themeKey) ?? "")) ?? .olympus
+            
+        self._gridDesign = Published(initialValue: GridDesign(rawValue: (defaults.string(forKey: SettingManager.gridDesignKey) ?? "")) ?? .oneColumn)
+        self._favoritesAlsoSaveToPhotos = Published(initialValue: defaults.bool(forKey: SettingManager.saveToPhotosKey))
+        self._favoritesAlsoSaveForOffline = Published(initialValue: defaults.bool(forKey: SettingManager.saveForOfflineKey))
         
         self._tabCuriosity = Published(initialValue: theme.curiosityColor)
         self._tabOpportunity = Published(initialValue: theme.opportunityColor)
