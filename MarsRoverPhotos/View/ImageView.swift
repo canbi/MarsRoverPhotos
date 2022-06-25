@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct ImageView: View {
+    @EnvironmentObject var colorManager: ColorManager
     @StateObject var vm: ImageViewModel
+    
+    var currentTintColor: Color { colorManager.getTintColor(roverType:vm.roverType) }
     
     init(photo: Photo, showCameraInfo: Bool = false) {
         self._vm = StateObject(wrappedValue: ImageViewModel(photo: photo, showCameraInfo: showCameraInfo))
@@ -21,18 +24,12 @@ struct ImageView: View {
                     .resizable()
                     .scaledToFit()
                     .overlay(
-                        GroupBox(label: Label("Camera", systemImage: "camera").foregroundColor(vm.roverType.color)) {
-                            Text(vm.cameraName.rawValue)
-                        }
+                        CustomGroupBoxMini(iconName: "camera",
+                                           subtitle: vm.cameraName.rawValue,
+                                           iconColor: currentTintColor)
                         .opacity(vm.showCameraInfo ? 0.9 : 0)
-                        .groupBoxStyle(CardGroupBoxStyle())
                         .padding([.bottom,.trailing])
                         , alignment: .bottomTrailing)
-            } else if vm.isLoading {
-                ProgressView()
-            } else {
-                Image(systemName: "questionmark")
-                    .foregroundColor(.primary)
             }
         }
     }

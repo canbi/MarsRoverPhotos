@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct MarsRoverPhotosApp: App {
+    @StateObject var colorManager: ColorManager = ColorManager()
     @State private var tabSelection: NavBarItem = .curiosity
     @State var shouldScrollToTop: Bool = false
     var curiosityDataService = JSONDataService()
@@ -40,6 +41,7 @@ struct MarsRoverPhotosApp: App {
                                      localSelection: .curiosity, scrollToTop: $shouldScrollToTop)
                 }
             }
+            .environmentObject(colorManager)
         }
     }
 }

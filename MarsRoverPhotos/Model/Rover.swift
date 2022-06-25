@@ -34,15 +34,7 @@ enum RoverType: String, Codable {
     case curiosity = "Curiosity"
     case opportunity = "Opportunity"
     case spirit = "Spirit"
-    
-    var color: Color {
-        switch self {
-        case .curiosity: return Color.theme.tabCuriosity
-        case .opportunity: return Color.theme.tabOpportunity
-        case .spirit: return Color.theme.tabSpirit
-        }
-    }
-    
+
     var cameraAvability: [CameraName] {
         switch self {
         case .curiosity: return [.all, .fhaz, .rhaz, .mast, .chemcam, .mahli, .mardi, .navcam]

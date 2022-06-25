@@ -8,31 +8,31 @@
 import SwiftUI
 
 class SettingsViewModel: ObservableObject {
-    @Published var colorCuriosity = Color.theme.tabCuriosity
-    @Published var colorOpportunity = Color.theme.tabOpportunity
-    @Published var colorSpirit = Color.theme.tabSpirit
+    var colorManager: ColorManager?
+    @Published var selectedTheme: Themes = .olympus
     
-    var isAnythingChanged: Bool { !isCuriositySame || !isOpportunitySame || !isSpiritSame }
+    var isAnythingChanged: Bool { !isThemeSame }
     
-    var isCuriositySame: Bool { colorCuriosity == Color.theme.tabCuriosity }
-    var isOpportunitySame: Bool { colorOpportunity ==  Color.theme.tabOpportunity }
-    var isSpiritSame: Bool { colorSpirit == Color.theme.tabSpirit }
+    var isThemeSame: Bool { selectedTheme == colorManager?.theme ?? .olympus }
     
     let personalURL = URL(string: "https://canbi.me")!
     let twitterURL = URL(string: "https://twitter.com/Canbiw")!
     let githubURL = URL(string: "https://github.com/canbi")!
     
-    init(){}
-    
-    func applySettings(){
-        Color.theme.tabOpportunity = colorOpportunity
-        Color.theme.tabSpirit = colorSpirit
-        Color.theme.tabCuriosity = colorCuriosity
+    init(){
     }
     
-    func resetTheme(){
-        colorCuriosity = .red
-        colorOpportunity = .blue
-        colorSpirit = .green
+    func setup(_ colorManager: ColorManager) {
+        self.colorManager = colorManager
+        self._selectedTheme = Published(initialValue: colorManager.theme)
+      }
+    
+    func applySettings(){
+        if let colorManager = colorManager {
+            colorManager.theme = selectedTheme
+            colorManager.tabCuriosity = selectedTheme.curiosityColor
+            colorManager.tabOpportunity = selectedTheme.opportunityColor
+            colorManager.tabSpirit = selectedTheme.spiritColor
+        }
     }
 }

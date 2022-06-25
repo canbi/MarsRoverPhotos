@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct DetailView: View {
+    @EnvironmentObject var colorManager: ColorManager
     @StateObject var vm: DetailViewModel
     @Environment(\.dismiss) var dismiss
     
-    var tintColor: Color {
-        RoverType(rawValue: vm.photo.rover.name.rawValue)?.color ?? .red
-    }
+    var tintColor: Color { colorManager.getTintColor(roverType: vm.roverType) }
     
     
     init(photo: Photo, manifest: PhotoManifest){
@@ -27,18 +26,17 @@ struct DetailView: View {
                 .overlay(alignment: .bottomTrailing) {
                     ZoomButton(action: vm.zoomImage)
                 }
-                .sheet(isPresented: $vm.showingZoomImageView, content: {
-                    ImageZoomView(image: vm.clickedImage!, tintColor: tintColor)
-                })
                 .overlay(alignment: .topLeading) {
                     BackButton(color: tintColor) { dismiss() }
                         .padding(.top, 24)
                         .padding(.leading, -6)
                 }
-            
-            Spacer().frame(height: 20)
+                .layoutPriority(1000)
             
             PhotoInformationView
+                .sheet(isPresented: $vm.showingZoomImageView, content: {
+                    ImageZoomView(image: vm.clickedImage!, tintColor: tintColor)
+                })
             
             Spacer()
             
@@ -76,41 +74,48 @@ extension DetailView {
     }
     
     private var PhotoInformationView: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 95), spacing: 10, alignment: .top)]) {
-            GroupBox(label: Label("Rover", systemImage: "sun.max.fill").foregroundColor(vm.roverType.color)) {
-                Text(vm.photo.rover.name.rawValue)
-            }
+        VStack {
+            CustomGroupHorizontalBox(iconName: "sun.max.fill",
+                                     title: "Rover",
+                                     subtitle: vm.photo.rover.name.rawValue,
+                                     titleColor: tintColor)
             
-            GroupBox(label: Label("Rover Status", systemImage: "heart.fill").foregroundColor(vm.roverType.color)) {
-                Text(vm.photo.rover.status.capitalized)
-            }
+            CustomGroupHorizontalBox(iconName: "heart.fill",
+                                     title: "Rover Status",
+                                     subtitle: vm.photo.rover.status.capitalized,
+                                     titleColor: tintColor)
             
-            GroupBox(label: Label("Launch Date", systemImage: "airplane.departure").foregroundColor(vm.roverType.color)) {
-                Text("\(vm.manifest.launchDate.formatted(.dateTime.day().month().year()))")
-            }
+            CustomGroupHorizontalBox(iconName: "airplane.departure",
+                                     title: "Launch Date",
+                                     subtitle: "\(vm.manifest.launchDate.formatted(.dateTime.day().month().year()))",
+                                     titleColor: tintColor)
             
-            GroupBox(label: Label("Landing Date", systemImage: "airplane.arrival").foregroundColor(vm.roverType.color)) {
-                Text("\(vm.manifest.landingDate.formatted(.dateTime.day().month().year()))")
-            }
+            CustomGroupHorizontalBox(iconName: "airplane.arrival",
+                                     title: "Landing Date",
+                                     subtitle: "\(vm.manifest.landingDate.formatted(.dateTime.day().month().year()))",
+                                     titleColor: tintColor)
             
-            GroupBox(label: Label("Taken Sol", systemImage: "calendar").foregroundColor(vm.roverType.color)) {
-                Text(String(vm.photo.sol))
-            }
+            CustomGroupHorizontalBox(iconName: "calendar",
+                                     title: "Taken Sol",
+                                     subtitle: String(vm.photo.sol),
+                                     titleColor: tintColor)
             
-            GroupBox(label: Label("Taken Earth Date", systemImage: "calendar").foregroundColor(vm.roverType.color)) {
-                Text("\(vm.photo.earthDate.formatted(.dateTime.day().month().year()))")
-            }
+            CustomGroupHorizontalBox(iconName: "calendar",
+                                     title: "Taken Earth Date",
+                                     subtitle: "\(vm.photo.earthDate.formatted(.dateTime.day().month().year()))",
+                                     titleColor: tintColor)
             
-            GroupBox(label: Label("Camera Code", systemImage: "camera").foregroundColor(vm.roverType.color)) {
-                Text(vm.photo.camera.name.rawValue)
-            }
+            CustomGroupHorizontalBox(iconName: "camera",
+                                     title: "Camera Code",
+                                     subtitle: vm.photo.camera.name.rawValue,
+                                     titleColor: tintColor)
             
-            GroupBox(label: Label("Camera Name", systemImage: "camera.badge.ellipsis").foregroundColor(vm.roverType.color)) {
-                Text(vm.photo.camera.fullName.rawValue)
-            }
+            CustomGroupHorizontalBox(iconName: "camera.badge.ellipsis",
+                                     title: "Camera Name",
+                                     subtitle: vm.photo.camera.fullName.rawValue,
+                                     titleColor: tintColor)
         }
-        .groupBoxStyle(CardGroupBoxStyle())
-        .padding(.horizontal)
+        .padding()
     }
 }
 

@@ -11,11 +11,11 @@ import SwiftUI
 enum NavBarItem: Hashable {
     case curiosity, opportunity, spirit
     
-    var color: Color {
+    var roverType: RoverType {
         switch self {
-        case .curiosity: return Color.theme.tabCuriosity
-        case .opportunity: return Color.theme.tabOpportunity
-        case .spirit: return Color.theme.tabSpirit
+        case .curiosity: return RoverType.curiosity
+        case .opportunity: return RoverType.opportunity
+        case .spirit: return RoverType.spirit
         }
     }
     

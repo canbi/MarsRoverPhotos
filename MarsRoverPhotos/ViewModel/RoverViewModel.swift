@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Foundation
+import SwiftUI
 
 enum SortingTypes: String,CaseIterable, Identifiable {
     case ascending = "Ascending"
@@ -42,6 +42,7 @@ class RoverViewModel: ObservableObject {
     @Published var showingFilterViewSheet: Bool = false
     @Published var showingSettingsViewSheet: Bool = false
     @Published var isLoaded: Bool = false
+    @Binding var shouldScrollToTop: Bool
     
     // Filters
     @Published var sorting: SortingTypes = .ascending
@@ -50,9 +51,10 @@ class RoverViewModel: ObservableObject {
     @Published var earthDate: Date = .now
     @Published var selectedCameraType: CameraName = .all
     
-    init(rover: RoverType, dataService: JSONDataService){
+    init(rover: RoverType, shouldScrollToTop: Binding<Bool>, dataService: JSONDataService){
         self.rover = rover
         self.dataService = dataService
+        self._shouldScrollToTop = shouldScrollToTop
         addSubscribers()
         dataService.getInformation(of: rover)
         dataService.getPhotosBySol(rover: rover, sol: sol, cameraType: .all, sortingType: .ascending)

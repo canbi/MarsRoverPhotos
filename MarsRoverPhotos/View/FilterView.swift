@@ -28,7 +28,7 @@ struct FilterView: View {
             }
             .font(.headline)
             .accentColor(tintColor)
-            .listStyle(GroupedListStyle())
+            .listStyle(.automatic)
             .navigationTitle("Filters")
             .navigationBarHidden(false)
             .toolbar {
@@ -122,6 +122,9 @@ extension FilterView {
 
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
-        FilterView(roverVM: RoverViewModel(rover: .curiosity, dataService: .previewInstance), tintColor: .red)
+        FilterView(roverVM: RoverViewModel(rover: .curiosity,
+                                           shouldScrollToTop: .constant(false),
+                                           dataService: .previewInstance),
+                   tintColor: .red)
     }
 }

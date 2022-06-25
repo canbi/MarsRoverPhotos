@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @EnvironmentObject var colorManager: ColorManager
     @StateObject var vm: SettingsViewModel = SettingsViewModel()
     @Environment(\.dismiss) var dismiss
     
@@ -21,7 +22,7 @@ struct SettingsView: View {
             }
             .font(.headline)
             .accentColor(tintColor)
-            .listStyle(GroupedListStyle())
+            .listStyle(.automatic)
             .navigationTitle("Settings")
             .navigationBarHidden(false)
             .toolbar {
@@ -31,6 +32,9 @@ struct SettingsView: View {
                 }
             }
             .overlay(ApplySettingsButton, alignment: .bottom)
+            .onAppear {
+                vm.setup(colorManager)
+            }
         }
     }
 }
@@ -41,7 +45,7 @@ extension SettingsView {
             vm.applySettings()
             dismiss()
         }, label: {
-            Text("Apply Settings")
+            Text("Apply Settings".uppercased())
                 .foregroundColor(.white)
                 .padding()
                 .frame(maxWidth: .infinity)
@@ -54,16 +58,24 @@ extension SettingsView {
     
     private var ColorSettingsSection: some View {
         Section(header: Text("Color Settings")){
-            Group{
-                ColorPicker("Curiosity Theme", selection: $vm.colorCuriosity, supportsOpacity: false)
-                ColorPicker("Opportunity Theme", selection: $vm.colorOpportunity, supportsOpacity: false)
-                ColorPicker("Spirit Theme", selection: $vm.colorSpirit, supportsOpacity: false)
+            ForEach(Themes.allCases) { theme in
+                HStack {
+                    Text(theme.rawValue)
+                        .foregroundColor(vm.selectedTheme == theme ? tintColor : nil)
+                    Spacer()
+                    Group {
+                        theme.curiosityColor
+                        theme.opportunityColor
+                        theme.spiritColor
+                    }
+                    .clipShape(Circle())
+                    .frame(width: 30, height: 30)
+                }
+                .onTapGesture {
+                    vm.selectedTheme = theme
+                }
             }
             .padding(.vertical)
-            
-            Button { vm.resetTheme() } label: {
-                Text("Reset Theme")
-            }
         }
     }
     
@@ -75,9 +87,10 @@ extension SettingsView {
                 .fontWeight(.medium)
                 .foregroundColor(.primary)
                 .fixedSize(horizontal: false, vertical: true)
-            Link("Visit Website 🤙", destination: vm.personalURL)
-            Link("Contact me on Twitter 🤙", destination: vm.twitterURL)
-            Link("See my public projects on GitHub 🤙", destination: vm.githubURL)
+                .padding(.vertical)
+            Link("Visit Website 🖥️", destination: vm.personalURL)
+            Link("Contact me on Twitter 🐦", destination: vm.twitterURL)
+            Link("See my public projects on GitHub 👨‍💻", destination: vm.githubURL)
         }
     }
 }

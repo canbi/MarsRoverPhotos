@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct CustomTabBarView: View {
+    @EnvironmentObject var colorManager: ColorManager
     let tabs: [NavBarItem]
     @Binding var selection: NavBarItem
     @Namespace private var namespace
@@ -48,14 +49,14 @@ extension CustomTabBarView {
             Text(tab.tabTitle)
                 .font(.system(size: 12, weight: .semibold, design: .rounded))
         }
-        .foregroundColor(localSelection == tab ? tab.color : Color.secondary)
+        .foregroundColor(localSelection == tab ? colorManager.getTintColor(roverType: tab.roverType) : Color.secondary)
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
         .background(
             ZStack {
                 if localSelection == tab {
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(tab.color.opacity(0.2))
+                        .fill(colorManager.getTintColor(roverType: tab.roverType).opacity(0.2))
                         .matchedGeometryEffect(id: "background_rectangle", in: namespace)
                 }
             }
