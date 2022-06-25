@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct DetailView: View {
-    @EnvironmentObject var colorManager: ColorManager
+    @EnvironmentObject var settingManager: SettingManager
     @StateObject var vm: DetailViewModel
     @Environment(\.dismiss) var dismiss
     
-    var tintColor: Color { colorManager.getTintColor(roverType: vm.roverType) }
+    var tintColor: Color { settingManager.getTintColor(roverType: vm.roverType) }
     
     
     init(photo: Photo, manifest: PhotoManifest){

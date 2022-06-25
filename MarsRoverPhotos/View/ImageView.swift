@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ImageView: View {
-    @EnvironmentObject var colorManager: ColorManager
+    @EnvironmentObject var settingManager: SettingManager
     @StateObject var vm: ImageViewModel
     
-    var currentTintColor: Color { colorManager.getTintColor(roverType:vm.roverType) }
+    var currentTintColor: Color { settingManager.getTintColor(roverType:vm.roverType) }
     
     init(photo: Photo, showCameraInfo: Bool = false) {
         self._vm = StateObject(wrappedValue: ImageViewModel(photo: photo, showCameraInfo: showCameraInfo))
@@ -30,6 +30,10 @@ struct ImageView: View {
                         .opacity(vm.showCameraInfo ? 0.9 : 0)
                         .padding([.bottom,.trailing])
                         , alignment: .bottomTrailing)
+            } else {
+                ProgressView()
+                    .frame(maxWidth: .infinity)
+                    .frame(height:200, alignment: .center)
             }
         }
     }

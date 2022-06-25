@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct RoverView: View {
-    @EnvironmentObject var colorManager: ColorManager
+    @EnvironmentObject var settingManager: SettingManager
     @StateObject var vm: RoverViewModel
     
-    var currentTintColor: Color { colorManager.getTintColor(roverType: vm.rover)}
+    var currentTintColor: Color { settingManager.getTintColor(roverType: vm.rover)}
     
     init(rover: RoverType, shouldScroolToTop: Binding<Bool>, dataService: JSONDataService){
         self._vm = StateObject(wrappedValue: RoverViewModel(rover: rover,
@@ -32,28 +32,11 @@ struct RoverView: View {
                     
                     RoverInformationView
                     
-                    Section(header: SectionHeader, footer: SectionFooter) {
-                        if vm.roverImages.isEmpty {
-                            RoundedRectangle(cornerRadius: 16)
-                                .foregroundColor(Color(UIColor.secondarySystemBackground))
-                                .frame(height:300)
-                                .frame(maxWidth: .infinity)
-                                .padding([.horizontal])
-                                .redacted(reason: .placeholder)
-                        }
-                        ForEach(vm.roverImages, id: \.id) { photo in
-                            ImageView(photo: photo, showCameraInfo: true)
-                                .cornerRadius(16)
-                                .frame(maxWidth: .infinity, minHeight: 250)
-                                .padding([.horizontal])
-                                .onTapGesture { vm.selectedImage = photo }
-                        }
-                    }
+                    ImageSectionView
                     .sheet(isPresented: $vm.showingFilterViewSheet) {
                         FilterView(roverVM: vm, tintColor: currentTintColor)
                     }
                 }
-                
                 
                 Spacer().frame(height: 100)
             }
@@ -69,6 +52,45 @@ struct RoverView: View {
         }
     }
 }
+
+//MARK: Image
+extension RoverView {
+    private var ImageSectionView: some View {
+        Section(header: SectionHeader, footer: SectionFooter) {
+            if vm.roverImages.isEmpty && !vm.isLoaded {
+                RoundedRectangle(cornerRadius: 16)
+                    .foregroundColor(Color(UIColor.secondarySystemBackground))
+                    .frame(height:300)
+                    .frame(maxWidth: .infinity)
+                    .padding([.horizontal])
+                    .redacted(reason: .placeholder)
+            }
+            
+            let oneColumns = [GridItem(.flexible(maximum: .infinity))]
+            let twoColumns = [GridItem(.flexible(maximum: .infinity)),
+                              GridItem(.flexible(maximum: .infinity))]
+            
+            LazyVGrid(columns: settingManager.gridDesign == .oneColumn ? oneColumns : twoColumns,
+                      alignment: .leading, spacing: 10) {
+                ForEach(vm.roverImages, id: \.id) { photo in
+                    ImageView(photo: photo, showCameraInfo: true)
+                        .cornerRadius(16)
+                        .onTapGesture { vm.selectedImage = photo }
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+    
+    private var RoverImageView: some View {
+        Image(vm.rover.rawValue.lowercased())
+            .resizable()
+            .scaledToFit()
+            .frame(maxWidth: .infinity, maxHeight: 300)
+            .padding(.leading)
+    }
+}
+
 
 extension RoverView {
     private var PageHeader: some View {
@@ -109,13 +131,7 @@ extension RoverView {
         }
     }
     
-    private var RoverImageView: some View {
-        Image(vm.rover.rawValue.lowercased())
-            .resizable()
-            .scaledToFit()
-            .frame(maxWidth: .infinity, maxHeight: 300)
-            .padding(.leading)
-    }
+   
     
     private var RoverInformationView: some View {
         Group {
@@ -160,6 +176,16 @@ extension RoverView {
             HStack {
                 TitleView("Photos")
                 Spacer()
+                
+                Button {
+                    settingManager.changeGrid()
+                } label: {
+                    Image(systemName: settingManager.gridDesign == .oneColumn ? "rectangle.grid.2x2" : "rectangle.grid.1x2")
+                        .font(.title)
+                        .tint(currentTintColor)
+                        .padding()
+                }
+                
                 Button {
                     vm.showingFilterViewSheet.toggle()
                 } label: {

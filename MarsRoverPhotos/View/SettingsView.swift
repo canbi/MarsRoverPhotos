@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @EnvironmentObject var colorManager: ColorManager
+    @EnvironmentObject var settingManager: SettingManager
     @StateObject var vm: SettingsViewModel = SettingsViewModel()
     @Environment(\.dismiss) var dismiss
     
@@ -33,7 +33,7 @@ struct SettingsView: View {
             }
             .overlay(ApplySettingsButton, alignment: .bottom)
             .onAppear {
-                vm.setup(colorManager)
+                vm.setup(settingManager)
             }
         }
     }

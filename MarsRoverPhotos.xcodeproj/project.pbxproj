@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		36127444286741D80076C55B /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36127443286741D80076C55B /* ColorManager.swift */; };
+		36127444286741D80076C55B /* SettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36127443286741D80076C55B /* SettingManager.swift */; };
 		361F03732862E1D100F98BA9 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F03722862E1D100F98BA9 /* Date.swift */; };
 		3687C1CE286250CA004616D4 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C1CD286250CA004616D4 /* FilterView.swift */; };
 		3687C1D0286250DF004616D4 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C1CF286250DF004616D4 /* FilterViewModel.swift */; };
@@ -47,7 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		36127443286741D80076C55B /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		36127443286741D80076C55B /* SettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingManager.swift; sourceTree = "<group>"; };
 		361F03722862E1D100F98BA9 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		3687C1CD286250CA004616D4 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		3687C1CF286250DF004616D4 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
@@ -213,7 +213,7 @@
 				36F8B3D828610031000902D1 /* LocalFileManager.swift */,
 				36F8B3D02860F52B000902D1 /* NetworkingManager.swift */,
 				36EE95C82864301D000B6CC8 /* ShareSheet.swift */,
-				36127443286741D80076C55B /* ColorManager.swift */,
+				36127443286741D80076C55B /* SettingManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -352,7 +352,7 @@
 				36F8B3F82861D79D000902D1 /* ZoomButton.swift in Sources */,
 				36F8B3D32860F588000902D1 /* JSONDataService.swift in Sources */,
 				36F8B3EF28619752000902D1 /* CustomTabBarView.swift in Sources */,
-				36127444286741D80076C55B /* ColorManager.swift in Sources */,
+				36127444286741D80076C55B /* SettingManager.swift in Sources */,
 				36F8B3CE2860F45E000902D1 /* RoverViewModel.swift in Sources */,
 				36F8B3D12860F52B000902D1 /* NetworkingManager.swift in Sources */,
 				36F8B3E928619481000902D1 /* Binding.swift in Sources */,

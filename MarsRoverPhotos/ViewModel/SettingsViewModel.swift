@@ -8,12 +8,12 @@
 import SwiftUI
 
 class SettingsViewModel: ObservableObject {
-    var colorManager: ColorManager?
+    var settingManager: SettingManager?
     @Published var selectedTheme: Themes = .olympus
     
     var isAnythingChanged: Bool { !isThemeSame }
     
-    var isThemeSame: Bool { selectedTheme == colorManager?.theme ?? .olympus }
+    var isThemeSame: Bool { selectedTheme == settingManager?.theme ?? .olympus }
     
     let personalURL = URL(string: "https://canbi.me")!
     let twitterURL = URL(string: "https://twitter.com/Canbiw")!
@@ -22,17 +22,17 @@ class SettingsViewModel: ObservableObject {
     init(){
     }
     
-    func setup(_ colorManager: ColorManager) {
-        self.colorManager = colorManager
-        self._selectedTheme = Published(initialValue: colorManager.theme)
+    func setup(_ settingManager: SettingManager) {
+        self.settingManager = settingManager
+        self._selectedTheme = Published(initialValue: settingManager.theme)
       }
     
     func applySettings(){
-        if let colorManager = colorManager {
-            colorManager.theme = selectedTheme
-            colorManager.tabCuriosity = selectedTheme.curiosityColor
-            colorManager.tabOpportunity = selectedTheme.opportunityColor
-            colorManager.tabSpirit = selectedTheme.spiritColor
+        if let settingManager = settingManager {
+            settingManager.theme = selectedTheme
+            settingManager.tabCuriosity = selectedTheme.curiosityColor
+            settingManager.tabOpportunity = selectedTheme.opportunityColor
+            settingManager.tabSpirit = selectedTheme.spiritColor
         }
     }
 }
