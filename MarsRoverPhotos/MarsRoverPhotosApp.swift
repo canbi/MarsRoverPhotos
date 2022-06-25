@@ -9,12 +9,13 @@ import SwiftUI
 
 @main
 struct MarsRoverPhotosApp: App {
+    @StateObject private var cdDataService = CoreDataDataService(moc: CoreDataController().container.viewContext)
     @StateObject var settingManager: SettingManager = SettingManager()
     @State private var tabSelection: NavBarItem = .curiosity
     @State var shouldScrollToTop: Bool = false
-    var curiosityDataService = JSONDataService()
-    var opportunityDataService = JSONDataService()
-    var spiritDataService = JSONDataService()
+    var curiosityDataService = JSONDataService(.curiosity)
+    var opportunityDataService = JSONDataService(.opportunity)
+    var spiritDataService = JSONDataService(.spirit)
 
     var body: some Scene {
         WindowGroup {
@@ -41,6 +42,7 @@ struct MarsRoverPhotosApp: App {
                                      localSelection: .curiosity, scrollToTop: $shouldScrollToTop)
                 }
             }
+            .environmentObject(cdDataService)
             .environmentObject(settingManager)
         }
     }

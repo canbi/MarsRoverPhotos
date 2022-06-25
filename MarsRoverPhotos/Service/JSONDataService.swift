@@ -9,13 +9,57 @@ import Foundation
 import Combine
 
 class JSONDataService: ObservableObject {
-    static var previewInstance = JSONDataService()
+    static var previewInstance = JSONDataService(.curiosity)
     
+    var roverType: RoverType
     @Published var allPhotos: [Photo] = []
-    @Published var manifest: PhotoManifest!
+    @Published var manifest: PhotoManifest! {
+        didSet {
+            let isManifestSaved = UserDefaults.standard.bool(forKey: isManifestSavedKey)
+            if !isManifestSaved {
+                saveManifestToUserDefaults()
+            }
+        }
+    }
+    
+    init(_ roverType: RoverType){
+        self.roverType = roverType
+    }
     
     var photoSubscription: AnyCancellable?
     var manifestSubscription: AnyCancellable?
+    
+    var isManifestSavedKey: String { "isManifestSavedFor\(roverType.rawValue)" }
+    
+    func saveManifestToUserDefaults(){
+        let localManifest = PhotoManifest(name: manifest.name,
+                                          status: manifest.status,
+                                          landingDate: manifest.landingDate,
+                                          launchDate: manifest.launchDate,
+                                          maxSol: manifest.maxSol,
+                                          maxDate: manifest.maxDate,
+                                          totalPhotos: manifest.totalPhotos,
+                                          photos: [])
+        let defaults = UserDefaults.standard
+        
+        defaults.set(true, forKey: isManifestSavedKey)
+        
+        if let encoded = try? JSONEncoder().encode(localManifest) {
+            defaults.set(encoded, forKey: roverType.rawValue)
+        }
+    }
+    
+    func loadManifestFromUserDefaults() -> PhotoManifest? {
+        var returnedManifest: PhotoManifest? = nil
+        
+        if let savedManifest = UserDefaults.standard.object(forKey: "SavedPerson") as? Data {
+            let decoder = JSONDecoder()
+            if let loadedManifest = try? decoder.decode(PhotoManifest.self, from: savedManifest) {
+                returnedManifest = loadedManifest
+            }
+        }
+        return returnedManifest
+    }
     
     func getPhotosBySol(rover: RoverType, sol: Int, cameraType: CameraName, sortingType: SortingTypes) {
         let endpoint = Endpoint.getPhotos(rover: rover, sol: sol, cameraType: cameraType)

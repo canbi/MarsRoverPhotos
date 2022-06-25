@@ -24,5 +24,6 @@ The app uses [NASA Open APIs](https://api.nasa.gov/index.html#browseAPI)
 - [x]  Settings page
 - [x]  Theme color settings
 - [x]  Double tap on tab bar scrolls to top
-- []  Image Favorites tab
+- []  Image Favorites
+- []  Save Rover manifest for offline usage 
 - []  Offline usage capability with CoreData and Directory File
