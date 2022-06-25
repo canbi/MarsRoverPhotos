@@ -10,14 +10,16 @@ import SwiftUI
 struct RoverView: View {
     @EnvironmentObject var coreDataService: CoreDataDataService
     @EnvironmentObject var settingManager: SettingManager
+    @ObservedObject var networkMonitor: NetworkMonitor = NetworkMonitor()
     @StateObject var vm: RoverViewModel
+    @Binding var shouldScrollToTop: Bool
     
     var currentTintColor: Color { settingManager.getTintColor(roverType: vm.rover)}
     
     init(rover: RoverType, shouldScroolToTop: Binding<Bool>, dataService: JSONDataService){
         self._vm = StateObject(wrappedValue: RoverViewModel(rover: rover,
-                                                            shouldScrollToTop: shouldScroolToTop,
                                                             dataService: dataService))
+        self._shouldScrollToTop = shouldScroolToTop
     }
     
     var body: some View {
@@ -29,7 +31,7 @@ struct RoverView: View {
                             SettingsView(tintColor: currentTintColor)
                         }
                         .onAppear{
-                            vm.setup(coreDataService: coreDataService)
+                            vm.setup(coreDataService: coreDataService, networkMonitor: networkMonitor)
                         }
                     
                     RoverImageView
@@ -48,12 +50,12 @@ struct RoverView: View {
                 DetailView(photo: photo, manifest: vm.roverManifest!, roverVM: vm)
             }
             .navigationDestination(for: $vm.selectedOfflineImage) { photo in
-                DetailView(cdPhoto: photo, manifest: vm.roverManifest!, roverVM: vm)
+                DetailView(cdPhoto: photo, manifest: vm.roverManifest ?? vm.getLocalRoverManifestData(), roverVM: vm)
             }
-            .onChange(of: vm.shouldScrollToTop) { _ in
+            .onChange(of: shouldScrollToTop) { _ in
                 withAnimation {
                    reader.scrollTo("top", anchor: .top)
-                    vm.shouldScrollToTop = false
+                    shouldScrollToTop = false
                 }
             }
         }
@@ -64,7 +66,7 @@ struct RoverView: View {
 extension RoverView {
     private var ImageSectionView: some View {
         Section(header: SectionHeader, footer: SectionFooter) {
-            if vm.roverImages.isEmpty && !vm.isLoaded {
+            if vm.roverImages.isEmpty && !vm.isLoaded && networkMonitor.isConnected {
                 RoundedRectangle(cornerRadius: 16)
                     .foregroundColor(Color(UIColor.secondarySystemBackground))
                     .frame(height:300)
@@ -150,6 +152,17 @@ extension RoverView {
         }
     }
     
+    private func Title2View(_ title: String) -> some View {
+        HStack {
+            Text(title)
+                .foregroundColor(currentTintColor)
+                .font(.title2)
+                .fontWeight(.bold)
+                .padding(.leading)
+            Spacer()
+        }
+    }
+
     private func SubtitleView(_ subtitle: String) -> some View {
         HStack {
             Text(subtitle)
@@ -162,40 +175,91 @@ extension RoverView {
     
     private var RoverInformationView: some View {
         Group {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 95), spacing: 10)]) {
-                CustomGroupBox(iconName: "sun.max.fill",
-                               title: "Max Sol",
-                               subtitle: String(vm.roverManifest?.maxSol ?? 0),
-                               titleColor: currentTintColor)
-                
-                CustomGroupBox(iconName: "calendar",
-                               title: "Max Date",
-                               subtitle: "\(vm.roverManifest?.maxDate.formatted(.dateTime.day().month().year()) ?? "")",
-                               titleColor: currentTintColor)
-                
-                CustomGroupBox(iconName: "photo.on.rectangle.angled",
-                               title: "Total Photos",
-                               subtitle: String(vm.roverManifest?.totalPhotos ?? 0),
-                               titleColor: currentTintColor)
-                
-                CustomGroupBox(iconName: "heart.fill",
-                               title: "Status",
-                               subtitle: vm.roverManifest?.status.capitalized,
-                               titleColor: currentTintColor)
-                
-                CustomGroupBox(iconName: "airplane.departure",
-                               title: "Launch Date",
-                               subtitle: "\(vm.roverManifest?.launchDate.formatted(.dateTime.day().month().year()) ?? "")",
-                               titleColor: currentTintColor)
-                
-                CustomGroupBox(iconName: "airplane.arrival",
-                               title: "Landing Date",
-                               subtitle: "\(vm.roverManifest?.landingDate.formatted(.dateTime.day().month().year()) ?? "")",
-                               titleColor: currentTintColor)
+            if networkMonitor.isConnected {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 95), spacing: 10)]) {
+                    CustomGroupBox(iconName: "sun.max.fill",
+                                   title: "Max Sol",
+                                   subtitle: String(vm.roverManifest?.maxSol ?? 0),
+                                   titleColor: currentTintColor)
+                    
+                    CustomGroupBox(iconName: "calendar",
+                                   title: "Max Date",
+                                   subtitle: "\(vm.roverManifest?.maxDate.formatted(.dateTime.day().month().year()) ?? "")",
+                                   titleColor: currentTintColor)
+                    
+                    CustomGroupBox(iconName: "photo.on.rectangle.angled",
+                                   title: "Total Photos",
+                                   subtitle: String(vm.roverManifest?.totalPhotos ?? 0),
+                                   titleColor: currentTintColor)
+                    
+                    CustomGroupBox(iconName: "heart.fill",
+                                   title: "Status",
+                                   subtitle: vm.roverManifest?.status.capitalized,
+                                   titleColor: currentTintColor)
+                    
+                    CustomGroupBox(iconName: "airplane.departure",
+                                   title: "Launch Date",
+                                   subtitle: "\(vm.roverManifest?.launchDate.formatted(.dateTime.day().month().year()) ?? "")",
+                                   titleColor: currentTintColor)
+                    
+                    CustomGroupBox(iconName: "airplane.arrival",
+                                   title: "Landing Date",
+                                   subtitle: "\(vm.roverManifest?.landingDate.formatted(.dateTime.day().month().year()) ?? "")",
+                                   titleColor: currentTintColor)
+                }
+                .padding(.horizontal)
+                .redacted(reason: vm.roverManifest == nil ? .placeholder : [])
+            } else {
+                let localManifestData = vm.getLocalRoverManifestData()
+                if let localManifestData = localManifestData {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 95), spacing: 10)]) {
+                        CustomGroupBox(iconName: "sun.max.fill",
+                                       title: "Max Sol",
+                                       subtitle: String(localManifestData.maxSol),
+                                       titleColor: currentTintColor)
+                        
+                        CustomGroupBox(iconName: "calendar",
+                                       title: "Max Date",
+                                       subtitle: "\(localManifestData.maxDate.formatted(.dateTime.day().month().year()))",
+                                       titleColor: currentTintColor)
+                        
+                        CustomGroupBox(iconName: "photo.on.rectangle.angled",
+                                       title: "Total Photos",
+                                       subtitle: String(localManifestData.totalPhotos),
+                                       titleColor: currentTintColor)
+                        
+                        CustomGroupBox(iconName: "heart.fill",
+                                       title: "Status",
+                                       subtitle: localManifestData.status.capitalized,
+                                       titleColor: currentTintColor)
+                        
+                        CustomGroupBox(iconName: "airplane.departure",
+                                       title: "Launch Date",
+                                       subtitle: "\(localManifestData.launchDate.formatted(.dateTime.day().month().year()))",
+                                       titleColor: currentTintColor)
+                        
+                        CustomGroupBox(iconName: "airplane.arrival",
+                                       title: "Landing Date",
+                                       subtitle: "\(localManifestData.landingDate.formatted(.dateTime.day().month().year()))",
+                                       titleColor: currentTintColor)
+                    }
+                    .padding(.horizontal)
+                    if let localSaveDate = localManifestData.localSaveDate {
+                        HStack{
+                            Spacer()
+                            Text("Last update \(localSaveDate.formatted(.dateTime.day().month().year()))")
+                                .font(.caption)
+                                .padding(.trailing)
+                        }
+                    }
+                }
+                else {
+                    Text("No internet connection.")
+                }
             }
-            .padding(.horizontal)
+            
         }
-        .redacted(reason: vm.roverManifest == nil ? .placeholder : [])
+        
     }
     
     private var SectionHeader: some View {
@@ -206,6 +270,7 @@ extension RoverView {
                 Spacer()
                 
                 Button {
+                    guard networkMonitor.isConnected else { return }
                     vm.showingOnlyFavorites.toggle()
                 } label: {
                     Image(systemName: vm.showingOnlyFavorites ? "heart.fill" : "heart")
@@ -260,12 +325,17 @@ extension RoverView {
         Group {
             if vm.roverImages.isEmpty && vm.isLoaded {
                 VStack{
-                    TitleView("Nothing")
+                    Title2View("Nothing")
                     SubtitleView("There are no available photos. Change filters to explore!")
+                }
+            } else if vm.favoritePhotos.isEmpty && vm.showingOnlyFavorites {
+                VStack{
+                    Title2View("Nothing")
+                    SubtitleView("There are no favorite photos. Explore and favorite photos!")
                 }
             } else if vm.isLoaded {
                 VStack{
-                    TitleView("Done")
+                    Title2View("Done")
                     SubtitleView("You have visited all the available photos. Change filters to explore!")
                 }
             }

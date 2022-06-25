@@ -15,7 +15,7 @@ struct DetailView: View {
     
     var tintColor: Color { settingManager.getTintColor(roverType: vm.roverType) }
     
-    init(photo: Photo? = nil, cdPhoto: CDPhotos? = nil, manifest: PhotoManifest, roverVM: RoverViewModel){
+    init(photo: Photo? = nil, cdPhoto: CDPhotos? = nil, manifest: PhotoManifest?, roverVM: RoverViewModel){
         self._vm = StateObject(wrappedValue: DetailViewModel(photo: photo,cdPhoto: cdPhoto, manifest: manifest, roverVM: roverVM))
     }
     
@@ -110,20 +110,23 @@ extension DetailView {
                                          subtitle: photo.wrappedRoverType.rawValue,
                                          titleColor: tintColor)
                 
-                CustomGroupHorizontalBox(iconName: "heart.fill",
-                                         title: "Rover Status",
-                                         subtitle: vm.manifest.status,
-                                         titleColor: tintColor)
+                if let manifest = vm.manifest {
+                    CustomGroupHorizontalBox(iconName: "heart.fill",
+                                             title: "Rover Status",
+                                             subtitle: manifest.status,
+                                             titleColor: tintColor)
+                    
+                    CustomGroupHorizontalBox(iconName: "airplane.departure",
+                                             title: "Launch Date",
+                                             subtitle: "\(manifest.launchDate.formatted(.dateTime.day().month().year()))",
+                                             titleColor: tintColor)
+                    
+                    CustomGroupHorizontalBox(iconName: "airplane.arrival",
+                                             title: "Landing Date",
+                                             subtitle: "\(manifest.landingDate.formatted(.dateTime.day().month().year()))",
+                                             titleColor: tintColor)
+                }
                 
-                CustomGroupHorizontalBox(iconName: "airplane.departure",
-                                         title: "Launch Date",
-                                         subtitle: "\(vm.manifest.launchDate.formatted(.dateTime.day().month().year()))",
-                                         titleColor: tintColor)
-                
-                CustomGroupHorizontalBox(iconName: "airplane.arrival",
-                                         title: "Landing Date",
-                                         subtitle: "\(vm.manifest.landingDate.formatted(.dateTime.day().month().year()))",
-                                         titleColor: tintColor)
                 
                 CustomGroupHorizontalBox(iconName: "calendar",
                                          title: "Taken Sol",
@@ -165,16 +168,17 @@ extension DetailView {
                                          title: "Rover Status",
                                          subtitle: photo.rover.status.capitalized,
                                          titleColor: tintColor)
-                
-                CustomGroupHorizontalBox(iconName: "airplane.departure",
-                                         title: "Launch Date",
-                                         subtitle: "\(vm.manifest.launchDate.formatted(.dateTime.day().month().year()))",
-                                         titleColor: tintColor)
-                
-                CustomGroupHorizontalBox(iconName: "airplane.arrival",
-                                         title: "Landing Date",
-                                         subtitle: "\(vm.manifest.landingDate.formatted(.dateTime.day().month().year()))",
-                                         titleColor: tintColor)
+                if let manifest = vm.manifest {
+                    CustomGroupHorizontalBox(iconName: "airplane.departure",
+                                             title: "Launch Date",
+                                             subtitle: "\(manifest.launchDate.formatted(.dateTime.day().month().year()))",
+                                             titleColor: tintColor)
+                    
+                    CustomGroupHorizontalBox(iconName: "airplane.arrival",
+                                             title: "Landing Date",
+                                             subtitle: "\(manifest.landingDate.formatted(.dateTime.day().month().year()))",
+                                             titleColor: tintColor)
+                }
                 
                 CustomGroupHorizontalBox(iconName: "calendar",
                                          title: "Taken Sol",
@@ -206,7 +210,6 @@ struct DetailView_Previews: PreviewProvider {
         DetailView(photo: .previewData, cdPhoto: CDPhotos(),
                    manifest: .previewData,
                    roverVM: RoverViewModel(rover: .spirit,
-                                           shouldScrollToTop: .constant(false),
                                            dataService: .previewInstance))
     }
 }

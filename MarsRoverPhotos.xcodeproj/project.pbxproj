@@ -17,6 +17,7 @@
 		365A5D2B2867954A00A3A6DA /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A5D2A2867954A00A3A6DA /* ImageSaver.swift */; };
 		365A5D2F2867AA2500A3A6DA /* ImageOfflineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A5D2E2867AA2500A3A6DA /* ImageOfflineView.swift */; };
 		365A5D312867AA2F00A3A6DA /* ImageOfflineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A5D302867AA2F00A3A6DA /* ImageOfflineViewModel.swift */; };
+		365A5D332867B3A900A3A6DA /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A5D322867B3A800A3A6DA /* NetworkMonitor.swift */; };
 		3687C1CE286250CA004616D4 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C1CD286250CA004616D4 /* FilterView.swift */; };
 		3687C1D0286250DF004616D4 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C1CF286250DF004616D4 /* FilterViewModel.swift */; };
 		369B9D0E2863B20A00C9BF1D /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B9D0D2863B20A00C9BF1D /* Endpoint.swift */; };
@@ -65,6 +66,7 @@
 		365A5D2A2867954A00A3A6DA /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		365A5D2E2867AA2500A3A6DA /* ImageOfflineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOfflineView.swift; sourceTree = "<group>"; };
 		365A5D302867AA2F00A3A6DA /* ImageOfflineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOfflineViewModel.swift; sourceTree = "<group>"; };
+		365A5D322867B3A800A3A6DA /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		3687C1CD286250CA004616D4 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		3687C1CF286250DF004616D4 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		369B9D0D2863B20A00C9BF1D /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				36127443286741D80076C55B /* SettingManager.swift */,
 				365A5D1E286766CD00A3A6DA /* CoreDataController.swift */,
 				365A5D2A2867954A00A3A6DA /* ImageSaver.swift */,
+				365A5D322867B3A800A3A6DA /* NetworkMonitor.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				36F8B3EF28619752000902D1 /* CustomTabBarView.swift in Sources */,
 				36127444286741D80076C55B /* SettingManager.swift in Sources */,
 				36F8B3CE2860F45E000902D1 /* RoverViewModel.swift in Sources */,
+				365A5D332867B3A900A3A6DA /* NetworkMonitor.swift in Sources */,
 				365A5D312867AA2F00A3A6DA /* ImageOfflineViewModel.swift in Sources */,
 				36F8B3D12860F52B000902D1 /* NetworkingManager.swift in Sources */,
 				36F8B3E928619481000902D1 /* Binding.swift in Sources */,

@@ -16,7 +16,8 @@ class JSONDataService: ObservableObject {
     @Published var manifest: PhotoManifest! {
         didSet {
             let isManifestSaved = UserDefaults.standard.bool(forKey: isManifestSavedKey)
-            if !isManifestSaved {
+            let lastSaveDate = loadManifestFromUserDefaults()?.localSaveDate ?? .distantPast
+            if !isManifestSaved || Calendar(identifier: .gregorian).numberOfDaysBetween(lastSaveDate, and: .now) > 1 {
                 saveManifestToUserDefaults()
             }
         }
@@ -53,7 +54,7 @@ class JSONDataService: ObservableObject {
     func loadManifestFromUserDefaults() -> PhotoManifest? {
         var returnedManifest: PhotoManifest? = nil
         
-        if let savedManifest = UserDefaults.standard.object(forKey: "SavedPerson") as? Data {
+        if let savedManifest = UserDefaults.standard.object(forKey: roverType.rawValue) as? Data {
             let decoder = JSONDecoder()
             if let loadedManifest = try? decoder.decode(PhotoManifest.self, from: savedManifest) {
                 returnedManifest = loadedManifest

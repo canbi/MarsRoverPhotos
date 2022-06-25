@@ -128,7 +128,6 @@ extension FilterView {
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
         FilterView(roverVM: RoverViewModel(rover: .curiosity,
-                                           shouldScrollToTop: .constant(false),
                                            dataService: .previewInstance),
                    tintColor: .red)
     }

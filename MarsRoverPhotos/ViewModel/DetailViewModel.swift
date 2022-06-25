@@ -12,7 +12,7 @@ import UIKit
 class DetailViewModel: ObservableObject {
     let photo: Photo?
     let cdPhoto: CDPhotos?
-    let manifest: PhotoManifest
+    let manifest: PhotoManifest?
     let roverType: RoverType
     var roverVM: RoverViewModel
     private let fileManager: LocalFileManagerImage = .instance
@@ -36,7 +36,7 @@ class DetailViewModel: ObservableObject {
     @Published var showShareSheet = false
     @Published var isFavorited = false
     
-    init(photo: Photo?, cdPhoto: CDPhotos?, manifest: PhotoManifest, roverVM: RoverViewModel){
+    init(photo: Photo?, cdPhoto: CDPhotos?, manifest: PhotoManifest?, roverVM: RoverViewModel){
         self.photo = photo
         self.cdPhoto = cdPhoto
         self.manifest = manifest

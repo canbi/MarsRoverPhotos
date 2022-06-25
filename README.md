@@ -27,3 +27,4 @@ The app uses [NASA Open APIs](https://api.nasa.gov/index.html#browseAPI)
 - [x]  Image Favorites
 - [x]  Save Rover manifest with UserDefaults for offline usage 
 - [x]  Offline usage capability with CoreData and Directory File
+- [x]  Offline UI State

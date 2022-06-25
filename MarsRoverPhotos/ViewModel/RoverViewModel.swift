@@ -25,11 +25,13 @@ enum DateTypes: String, CaseIterable, Identifiable {
 
 class RoverViewModel: ObservableObject {
     let rover: RoverType
+    var networkMonitor: NetworkMonitor? = nil
     
     // Data
     private var dataService: JSONDataService
     @Published var roverImages: [Photo] = [] {
         didSet {
+            showingOnlyFavorites = false
             earthDate = roverImages.first?.earthDate ?? earthDate
             sol = roverImages.first?.sol ?? sol
         }
@@ -49,7 +51,6 @@ class RoverViewModel: ObservableObject {
     @Published var showingSettingsViewSheet: Bool = false
     @Published var showingOnlyFavorites: Bool = false
     @Published var isLoaded: Bool = false
-    @Binding var shouldScrollToTop: Bool
     
     // Filters
     @Published var sorting: SortingTypes = .ascending
@@ -58,18 +59,23 @@ class RoverViewModel: ObservableObject {
     @Published var earthDate: Date = .now
     @Published var selectedCameraType: CameraName = .all
     
-    init(rover: RoverType, shouldScrollToTop: Binding<Bool>, dataService: JSONDataService){
+    init(rover: RoverType, dataService: JSONDataService){
         self.rover = rover
         self.dataService = dataService
-        self._shouldScrollToTop = shouldScrollToTop
         addSubscribers()
         dataService.getInformation(of: rover)
         dataService.getPhotosBySol(rover: rover, sol: sol, cameraType: .all, sortingType: .ascending)
     }
     
-    func setup(coreDataService: CoreDataDataService){
+    func setup(coreDataService: CoreDataDataService, networkMonitor: NetworkMonitor){
         self.coreDataService = coreDataService
         favoritePhotos = coreDataService.accessPhotos(for: rover)
+        self.networkMonitor = networkMonitor
+        self.showingOnlyFavorites = true
+        if networkMonitor.isConnected {
+            self.showingOnlyFavorites = false
+            networkMonitor.stopMonitoring()
+        }
     }
     
     func filterImagesByEarthDate(_ date: Date, cameraType: CameraName, sortingType: SortingTypes){
@@ -117,5 +123,9 @@ class RoverViewModel: ObservableObject {
     
     func updateFavorites(){
         favoritePhotos = coreDataService.accessPhotos(for: rover)
+    }
+    
+    func getLocalRoverManifestData() -> PhotoManifest? {
+        dataService.loadManifestFromUserDefaults()
     }
 }
