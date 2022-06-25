@@ -14,11 +14,19 @@ struct SettingsView: View {
     
     let tintColor: Color
     
+    init(tintColor: Color){
+        self.tintColor = tintColor
+        UITableView.appearance().contentInset.top = -20
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(tintColor)]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(tintColor)]
+    }
+    
     var body: some View {
         NavigationView {
             List {
                 ColorSettingsSection
                 DeveloperSection
+                Color.clear.listRowBackground(Color.clear)
             }
             .font(.headline)
             .accentColor(tintColor)
@@ -57,7 +65,7 @@ extension SettingsView {
     }
     
     private var ColorSettingsSection: some View {
-        Section(header: Text("Color Settings")){
+        Section(header: Text("Color Settings".uppercased())){
             ForEach(Themes.allCases) { theme in
                 HStack {
                     Text(theme.rawValue)
@@ -71,6 +79,7 @@ extension SettingsView {
                     .clipShape(Circle())
                     .frame(width: 30, height: 30)
                 }
+                .contentShape(Rectangle())
                 .onTapGesture {
                     vm.selectedTheme = theme
                 }

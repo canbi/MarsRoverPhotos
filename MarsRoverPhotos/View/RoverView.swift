@@ -79,6 +79,7 @@ extension RoverView {
                 }
             }
             .padding(.horizontal)
+            .animation(.default, value: settingManager.gridDesign)
         }
     }
     
@@ -115,7 +116,7 @@ extension RoverView {
             Text(title)
                 .foregroundColor(currentTintColor)
                 .font(.largeTitle)
-                .fontWeight(.semibold)
+                .fontWeight(.bold)
                 .padding(.leading)
             Spacer()
         }
@@ -130,8 +131,6 @@ extension RoverView {
             Spacer()
         }
     }
-    
-   
     
     private var RoverInformationView: some View {
         Group {

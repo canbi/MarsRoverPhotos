@@ -17,6 +17,10 @@ struct FilterView: View {
     init(roverVM: RoverViewModel, tintColor: Color){
         self.tintColor = tintColor
         self._vm = StateObject(wrappedValue: FilterViewModel(roverVM: roverVM))
+        
+        UITableView.appearance().contentInset.top = -20
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(tintColor)]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(tintColor)]
     }
     
     var body: some View {
@@ -25,6 +29,7 @@ struct FilterView: View {
                 ImageSortingSection
                 DateSection
                 CameraSection
+                Color.clear.listRowBackground(Color.clear)
             }
             .font(.headline)
             .accentColor(tintColor)
@@ -111,10 +116,10 @@ extension FilterView {
             Picker("Camera Type", selection: $vm.selectedCameraType) {
                 ForEach(vm.roverVM.rover.cameraAvability) { type in
                     Text(type.rawValue)
-                        .navigationBarHidden(true)
                 }
             }
-            .pickerStyle(.automatic)
+            .labelsHidden()
+            .pickerStyle(.inline)
         }
     }
 }
