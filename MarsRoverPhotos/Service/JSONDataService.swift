@@ -39,7 +39,8 @@ class JSONDataService: ObservableObject {
                                           maxSol: manifest.maxSol,
                                           maxDate: manifest.maxDate,
                                           totalPhotos: manifest.totalPhotos,
-                                          photos: [])
+                                          photos: [],
+                                          localSaveDate: .now)
         let defaults = UserDefaults.standard
         
         defaults.set(true, forKey: isManifestSavedKey)

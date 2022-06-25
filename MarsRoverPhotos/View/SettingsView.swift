@@ -91,7 +91,6 @@ extension SettingsView {
     
     private var SaveAndFavoriteSection: some View {
         Section(header: Text("Save Settings".uppercased())){
-            Toggle("Save for Offline when favorited", isOn: $vm.saveForOfflineSelection)
             Toggle("Save to Photos when favorited", isOn: $vm.saveToPhotoSelection)
         }
     }

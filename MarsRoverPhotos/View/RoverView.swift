@@ -47,6 +47,9 @@ struct RoverView: View {
             .navigationDestination(for: $vm.selectedImage) { photo in
                 DetailView(photo: photo, manifest: vm.roverManifest!, roverVM: vm)
             }
+            .navigationDestination(for: $vm.selectedOfflineImage) { photo in
+                DetailView(cdPhoto: photo, manifest: vm.roverManifest!, roverVM: vm)
+            }
             .onChange(of: vm.shouldScrollToTop) { _ in
                 withAnimation {
                    reader.scrollTo("top", anchor: .top)
@@ -78,8 +81,15 @@ extension RoverView {
                       alignment: .leading, spacing: 10) {
                 
                 if vm.showingOnlyFavorites {
-                    ForEach(vm.favoritePhotos, id: \.id) { photo in
-                        //TODO
+                    ForEach(vm.favoritePhotos, id: \.wrappedId) { photo in
+                        ImageOfflineView(photo: photo, showCameraInfo: true)
+                            .overlay(Image(systemName: "heart.fill")
+                                .foregroundColor(.red)
+                                .imageScale(settingManager.gridDesign == .oneColumn ? .large : .medium)
+                                .padding([.top,.trailing], 6),
+                                     alignment: .topTrailing)
+                            .cornerRadius(16)
+                            .onTapGesture { vm.selectedOfflineImage = photo }
                     }
                 }
                 else {
@@ -95,13 +105,9 @@ extension RoverView {
                             .onTapGesture { vm.selectedImage = photo }
                     }
                 }
-                
-                
-                
             }
             .padding(.horizontal)
             .animation(.easeInOut, value: settingManager.gridDesign)
-            .animation(.easeInOut, value: vm.showingOnlyFavorites)
         }
     }
     

@@ -44,6 +44,7 @@ class RoverViewModel: ObservableObject {
     
     // Controls
     @Published var selectedImage: Photo? = nil
+    @Published var selectedOfflineImage: CDPhotos? = nil
     @Published var showingFilterViewSheet: Bool = false
     @Published var showingSettingsViewSheet: Bool = false
     @Published var showingOnlyFavorites: Bool = false

@@ -23,6 +23,7 @@ extension CDPhotos {
     @NSManaged public var earthDate: Date?
     @NSManaged public var cameraName: String?
     
+    var wrappedId: Int { Int(id) }
     var wrappedRoverType: RoverType { RoverType(rawValue: roverName ?? "") ?? .curiosity }
     var wrappedCameraType: CameraName { CameraName(rawValue: cameraName ?? "") ?? .entry }
 

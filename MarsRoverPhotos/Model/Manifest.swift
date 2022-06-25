@@ -24,6 +24,7 @@ struct PhotoManifest: Codable {
     let maxDate: Date
     let totalPhotos: Int
     let photos: [ManifestPhoto]
+    let localSaveDate: Date?
 
     enum CodingKeys: String, CodingKey {
         case name
@@ -34,6 +35,7 @@ struct PhotoManifest: Codable {
         case maxDate = "max_date"
         case totalPhotos = "total_photos"
         case photos
+        case localSaveDate
     }
     
     static var previewData: PhotoManifest {
@@ -44,7 +46,8 @@ struct PhotoManifest: Codable {
                      maxSol: 12,
                      maxDate: .now,
                      totalPhotos: 12,
-                     photos: [])
+                     photos: [],
+                     localSaveDate: nil)
     }
 }
 

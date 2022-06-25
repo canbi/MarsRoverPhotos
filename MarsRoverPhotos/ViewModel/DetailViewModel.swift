@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 class DetailViewModel: ObservableObject {
-    let photo: Photo
+    let photo: Photo?
+    let cdPhoto: CDPhotos?
     let manifest: PhotoManifest
     let roverType: RoverType
     var roverVM: RoverViewModel
@@ -23,7 +24,11 @@ class DetailViewModel: ObservableObject {
     var coreDataObject: CDPhotos?
     
     var imageShareName: String {
-        "\(photo.rover.name.rawValue) \(photo.camera.name.rawValue) \(photo.earthDate.formatted(.dateTime.year().month().day()))"
+        if let photo = photo {
+            return "\(photo.rover.name.rawValue) \(photo.camera.name.rawValue) \(photo.earthDate.formatted(.dateTime.year().month().day()))"
+        } else {
+            return "\(cdPhoto!.wrappedRoverType.rawValue) \(cdPhoto!.wrappedCameraType.rawValue)"
+        }
     }
     
     @Published var clickedImage: UIImage? = nil
@@ -31,17 +36,30 @@ class DetailViewModel: ObservableObject {
     @Published var showShareSheet = false
     @Published var isFavorited = false
     
-    init(photo: Photo, manifest: PhotoManifest, roverVM: RoverViewModel){
+    init(photo: Photo?, cdPhoto: CDPhotos?, manifest: PhotoManifest, roverVM: RoverViewModel){
         self.photo = photo
+        self.cdPhoto = cdPhoto
         self.manifest = manifest
-        self.roverType = RoverType(rawValue: photo.rover.name.rawValue) ?? .curiosity
+        
+        if let photo = photo {
+            self.roverType = RoverType(rawValue: photo.rover.name.rawValue) ?? .curiosity
+        } else {
+            self.roverType = cdPhoto?.wrappedRoverType ?? .curiosity
+        }
+        
         self.roverVM = roverVM
     }
     
     func setup(settingManager: SettingManager, coreDataService: CoreDataDataService){
         self.settingManager = settingManager
         self.coreDataService = coreDataService
-        self.coreDataObject = coreDataService.getPhoto(in: roverVM.favoritePhotos, id: photo.id)
+        
+        if let photo = photo {
+            self.coreDataObject = coreDataService.getPhoto(in: roverVM.favoritePhotos, id: photo.id)
+        } else {
+            self.coreDataObject = cdPhoto
+        }
+        
         self.isFavorited = self.coreDataObject != nil
         
     }
@@ -52,12 +70,16 @@ class DetailViewModel: ObservableObject {
     }
     
     func getImage() -> UIImage? {
-        fileManager.getImage(name: String(photo.id))
+        if let photo = photo {
+            return fileManager.getImage(name: String(photo.id))
+        } else {
+            return fileManagerForFavorites.getImage(name: String(cdPhoto!.wrappedId))
+        }
     }
     
-    func favoriteButton(){
+    func favoriteButton(dismissAction: @escaping () -> Void){
         if isFavorited {
-            removeFavorite()
+            removeFavorite(dismissAction: dismissAction)
         } else {
             setFavorite()
         }
@@ -65,26 +87,32 @@ class DetailViewModel: ObservableObject {
     }
     
     func setFavorite(){
-        self.coreDataObject =  coreDataService.savePhoto(for: roverType, photo: photo)
-        isFavorited.toggle()
-        
-        if settingManager.favoritesAlsoSaveToPhotos {
-            saveToPhotos(photo: photo)
-        }
-        
-        if settingManager.favoritesAlsoSaveForOffline {
+        if let photo = photo {
+            self.coreDataObject =  coreDataService.savePhoto(for: roverType, photo: photo)
+            isFavorited.toggle()
+            
             saveForOffline(photo: photo)
+            
+            if settingManager.favoritesAlsoSaveToPhotos {
+                saveToPhotos(photo: photo)
+            }
         }
     }
     
-    func removeFavorite(){
-        if let coreDataObject = coreDataObject {
-            coreDataService.deletePhoto(photo: coreDataObject)
+    func removeFavorite(dismissAction: @escaping () -> Void){
+        if let photo = photo {
+            if let coreDataObject = coreDataObject {
+                coreDataService.deletePhoto(photo: coreDataObject)
+                isFavorited.toggle()
+            }
+            
+            let result = fileManagerForFavorites.deleteItem(name: String(photo.id), type: fileManagerForFavorites.type)
+            print("\(result) + photo deleting from directory")
+        } else {
+            coreDataService.deletePhoto(photo: coreDataObject!)
             isFavorited.toggle()
+            dismissAction()
         }
-        
-        let result = fileManagerForFavorites.deleteItem(name: String(photo.id), type: fileManagerForFavorites.type)
-        print("\(result) + photo deleting from directory")
     }
     
     func saveToPhotos(photo: Photo){
