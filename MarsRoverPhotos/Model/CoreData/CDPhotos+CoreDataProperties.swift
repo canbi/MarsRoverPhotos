@@ -11,11 +11,11 @@ import CoreData
 
 
 extension CDPhotos {
-
+    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CDPhotos> {
         return NSFetchRequest<CDPhotos>(entityName: "CDPhotos")
     }
-
+    
     @NSManaged public var id: Int32
     @NSManaged public var roverName: String?
     @NSManaged public var addFavoritesDate: Date?
@@ -26,9 +26,9 @@ extension CDPhotos {
     var wrappedId: Int { Int(id) }
     var wrappedRoverType: RoverType { RoverType(rawValue: roverName ?? "") ?? .curiosity }
     var wrappedCameraType: CameraName { CameraName(rawValue: cameraName ?? "") ?? .entry }
-
+    
 }
 
 extension CDPhotos : Identifiable {
-
+    
 }

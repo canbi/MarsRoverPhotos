@@ -12,7 +12,20 @@ struct Endpoint {
     var queryItems: [URLQueryItem]
     
     static let apiKey = "uQPlVSrS0oUIfSchWEDkY05YMg4ipTEau5YpXw0k"
-    
+
+    var url: URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.nasa.gov"
+        components.path = path
+        components.queryItems = queryItems
+        
+        return components.url
+    }
+}
+
+// MARK: - Functions
+extension Endpoint {
     static func getPhotos(rover: RoverType, sol: Int, cameraType: CameraName) -> Endpoint {
         Endpoint(
             path: "/mars-photos/api/v1/rovers/\(rover.rawValue.lowercased())/photos",
@@ -44,15 +57,5 @@ struct Endpoint {
             path: "/mars-photos/api/v1/manifests/\(rover.rawValue.lowercased())",
             queryItems: [URLQueryItem(name: "api_key", value: apiKey)]
         )
-    }
-    
-    var url: URL? {
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = "api.nasa.gov"
-        components.path = path
-        components.queryItems = queryItems
-
-        return components.url
     }
 }

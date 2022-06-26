@@ -9,14 +9,17 @@ import SwiftUI
 
 class SettingsViewModel: ObservableObject {
     var settingManager: SettingManager?
+    
+    // Settings
     @Published var selectedTheme: Themes = .olympus
     @Published var saveToPhotoSelection: Bool = false
     
+    // Control
     var isAnythingChanged: Bool { !isThemeSame || !isSaveToPhotoSame }
-    
     var isThemeSame: Bool { selectedTheme == settingManager?.theme ?? .olympus }
     var isSaveToPhotoSame: Bool { saveToPhotoSelection == settingManager?.favoritesAlsoSaveToPhotos ?? false }
     
+    // Constant
     let personalURL = URL(string: "https://canbi.me")!
     let twitterURL = URL(string: "https://twitter.com/Canbiw")!
     let githubURL = URL(string: "https://github.com/canbi")!

@@ -13,7 +13,7 @@ struct Rover: Codable {
     let landingDate: Date
     let launchDate: Date
     let status: String
-
+    
     enum CodingKeys: String, CodingKey {
         case id, name
         case landingDate = "landing_date"
@@ -27,19 +27,5 @@ struct Rover: Codable {
                      landingDate: Date.now,
                      launchDate: Date.now,
                      status: "dummy")
-    }
-}
-
-enum RoverType: String, Codable {
-    case curiosity = "Curiosity"
-    case opportunity = "Opportunity"
-    case spirit = "Spirit"
-
-    var cameraAvability: [CameraName] {
-        switch self {
-        case .curiosity: return [.all, .fhaz, .rhaz, .mast, .chemcam, .mahli, .mardi, .navcam]
-        case .opportunity: return [.all, .fhaz, .rhaz, .navcam, .pancam, .minites]
-        case .spirit: return [.all, .fhaz, .rhaz, .navcam, .pancam, .minites]
-        }
     }
 }

@@ -9,14 +9,19 @@ import SwiftUI
 
 @main
 struct MarsRoverPhotosApp: App {
+    // Environment
     @StateObject private var cdDataService = CoreDataDataService(moc: CoreDataController().container.viewContext)
     @StateObject var settingManager: SettingManager = SettingManager()
+    
+    // Control
     @State private var tabSelection: NavBarItem = .curiosity
     @State var shouldScrollToTop: Bool = false
+    
+    // Service
     var curiosityDataService = JSONDataService(.curiosity)
     var opportunityDataService = JSONDataService(.opportunity)
     var spiritDataService = JSONDataService(.spirit)
-
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {

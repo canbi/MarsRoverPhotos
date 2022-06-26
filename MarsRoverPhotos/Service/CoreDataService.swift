@@ -56,7 +56,10 @@ class CoreDataDataService: ObservableObject {
             favoritesSpirit = getPhotos(for: .spirit)
         }
     }
-    
+}
+
+// MARK: - Photo Functions
+extension CoreDataDataService {
     func accessPhotos(for roverType: RoverType) -> [CDPhotos] {
         switch roverType {
         case .curiosity: return favoritesCuriosity

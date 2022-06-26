@@ -39,7 +39,7 @@ struct FilterView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     BackButton(color: tintColor) { dismiss() }
-                    .padding(.leading, -24)
+                        .padding(.leading, -24)
                 }
             }
             .overlay(ApplyFilterButton, alignment: .bottom)
@@ -47,6 +47,7 @@ struct FilterView: View {
     }
 }
 
+// MARK: Button
 extension FilterView {
     private var ApplyFilterButton: some View {
         Button(action: {
@@ -63,12 +64,15 @@ extension FilterView {
         .opacity(vm.isAnythingChanged ? 1 : 0)
         .disabled(vm.isAnythingChanged ? false : true)
     }
-    
+}
+
+// MARK: Sections
+extension FilterView {
     private var ImageSortingSection: some View {
         Section(header: Text("Image Sorting".uppercased())) {
             VStack(alignment: .leading) {
                 Picker("", selection: $vm.sortingType) {
-                    ForEach(SortingTypes.allCases) { type in
+                    ForEach(SortingType.allCases) { type in
                         Text(type.rawValue)
                     }
                 }
@@ -83,7 +87,7 @@ extension FilterView {
         Section(header: Text("Date Filter".uppercased())) {
             VStack(alignment: .leading) {
                 Picker("", selection: $vm.selectedDateType) {
-                    ForEach(DateTypes.allCases) { type in
+                    ForEach(DateType.allCases) { type in
                         Text(type.rawValue)
                     }
                 }
@@ -124,7 +128,7 @@ extension FilterView {
     }
 }
 
-
+// MARK: - Preview
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
         FilterView(roverVM: RoverViewModel(rover: .curiosity,

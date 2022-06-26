@@ -39,9 +39,9 @@ struct RoverView: View {
                     RoverInformationView
                     
                     ImageSectionView
-                    .sheet(isPresented: $vm.showingFilterViewSheet) {
-                        FilterView(roverVM: vm, tintColor: currentTintColor)
-                    }
+                        .sheet(isPresented: $vm.showingFilterViewSheet) {
+                            FilterView(roverVM: vm, tintColor: currentTintColor)
+                        }
                 }
                 
                 Spacer().frame(height: 100)
@@ -54,7 +54,7 @@ struct RoverView: View {
             }
             .onChange(of: shouldScrollToTop) { _ in
                 withAnimation {
-                   reader.scrollTo("top", anchor: .top)
+                    reader.scrollTo("top", anchor: .top)
                     shouldScrollToTop = false
                 }
             }
@@ -62,17 +62,12 @@ struct RoverView: View {
     }
 }
 
-//MARK: Image
+// MARK: - Image
 extension RoverView {
     private var ImageSectionView: some View {
         Section(header: SectionHeader, footer: SectionFooter) {
             if vm.roverImages.isEmpty && !vm.isLoaded && networkMonitor.isConnected {
-                RoundedRectangle(cornerRadius: 16)
-                    .foregroundColor(Color(UIColor.secondarySystemBackground))
-                    .frame(height:300)
-                    .frame(maxWidth: .infinity)
-                    .padding([.horizontal])
-                    .redacted(reason: .placeholder)
+                RedactedEmptyImageView
             }
             
             let oneColumns = [GridItem(.flexible(maximum: .infinity))]
@@ -83,34 +78,51 @@ extension RoverView {
                       alignment: .leading, spacing: 10) {
                 
                 if vm.showingOnlyFavorites {
-                    ForEach(vm.favoritePhotos, id: \.wrappedId) { photo in
-                        ImageOfflineView(photo: photo, showCameraInfo: true)
-                            .overlay(Image(systemName: "heart.fill")
-                                .foregroundColor(.red)
-                                .imageScale(settingManager.gridDesign == .oneColumn ? .large : .medium)
-                                .padding([.top,.trailing], 6),
-                                     alignment: .topTrailing)
-                            .cornerRadius(16)
-                            .onTapGesture { vm.selectedOfflineImage = photo }
-                    }
+                    FavoriteImagesView
                 }
                 else {
-                    ForEach(vm.roverImages, id: \.id) { photo in
-                        ImageView(photo: photo, showCameraInfo: true)
-                            .overlay(Image(systemName: "heart.fill")
-                                .foregroundColor(.red)
-                                .imageScale(settingManager.gridDesign == .oneColumn ? .large : .medium)
-                                .opacity(coreDataService.isFavorited(in: vm.favoritePhotos, id: photo.id) ? 1 : 0)
-                                .padding([.top,.trailing], 6),
-                                     alignment: .topTrailing)
-                            .cornerRadius(16)
-                            .onTapGesture { vm.selectedImage = photo }
-                    }
+                    MainImagesView
                 }
             }
-            .padding(.horizontal)
-            .animation(.easeInOut, value: settingManager.gridDesign)
+                      .padding(.horizontal)
+                      .animation(.easeInOut, value: settingManager.gridDesign)
         }
+    }
+    
+    private var MainImagesView: some View {
+        ForEach(vm.roverImages, id: \.id) { photo in
+            ImageView(photo: photo, showCameraInfo: true)
+                .overlay(Image(systemName: "heart.fill")
+                    .foregroundColor(.red)
+                    .imageScale(settingManager.gridDesign == .oneColumn ? .large : .medium)
+                    .opacity(coreDataService.isFavorited(in: vm.favoritePhotos, id: photo.id) ? 1 : 0)
+                    .padding([.top,.trailing], 6),
+                         alignment: .topTrailing)
+                .cornerRadius(16)
+                .onTapGesture { vm.selectedImage = photo }
+        }
+    }
+    
+    private var FavoriteImagesView: some View {
+        ForEach(vm.favoritePhotos, id: \.wrappedId) { photo in
+            ImageOfflineView(photo: photo, showCameraInfo: true)
+                .overlay(Image(systemName: "heart.fill")
+                    .foregroundColor(.red)
+                    .imageScale(settingManager.gridDesign == .oneColumn ? .large : .medium)
+                    .padding([.top,.trailing], 6),
+                         alignment: .topTrailing)
+                .cornerRadius(16)
+                .onTapGesture { vm.selectedOfflineImage = photo }
+        }
+    }
+    
+    private var RedactedEmptyImageView: some View {
+        RoundedRectangle(cornerRadius: 16)
+            .foregroundColor(Color(UIColor.secondarySystemBackground))
+            .frame(height:300)
+            .frame(maxWidth: .infinity)
+            .padding([.horizontal])
+            .redacted(reason: .placeholder)
     }
     
     private var RoverImageView: some View {
@@ -122,90 +134,23 @@ extension RoverView {
     }
 }
 
-
+// MARK: - Section
 extension RoverView {
     private var PageHeader: some View {
         HStack {
             TitleView(vm.rover.rawValue)
             Spacer()
-            Button {
-                vm.showingSettingsViewSheet.toggle()
-            } label: {
-                Image(systemName: "gear")
-                    .font(.title)
-                    .tint(currentTintColor)
-                    .padding()
-            }
+            SettingsButton
         }
         .padding(.top, 44)
         .id("top")
-    }
-    
-    private func TitleView(_ title: String) -> some View {
-        HStack {
-            Text(title)
-                .foregroundColor(currentTintColor)
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding(.leading)
-            Spacer()
-        }
-    }
-    
-    private func Title2View(_ title: String) -> some View {
-        HStack {
-            Text(title)
-                .foregroundColor(currentTintColor)
-                .font(.title2)
-                .fontWeight(.bold)
-                .padding(.leading)
-            Spacer()
-        }
-    }
-
-    private func SubtitleView(_ subtitle: String) -> some View {
-        HStack {
-            Text(subtitle)
-                .foregroundColor(currentTintColor)
-                .font(.body)
-                .padding(.leading)
-            Spacer()
-        }
     }
     
     private var RoverInformationView: some View {
         Group {
             if networkMonitor.isConnected {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 95), spacing: 10)]) {
-                    CustomGroupBox(iconName: "sun.max.fill",
-                                   title: "Max Sol",
-                                   subtitle: String(vm.roverManifest?.maxSol ?? 0),
-                                   titleColor: currentTintColor)
-                    
-                    CustomGroupBox(iconName: "calendar",
-                                   title: "Max Date",
-                                   subtitle: "\(vm.roverManifest?.maxDate.formatted(.dateTime.day().month().year()) ?? "")",
-                                   titleColor: currentTintColor)
-                    
-                    CustomGroupBox(iconName: "photo.on.rectangle.angled",
-                                   title: "Total Photos",
-                                   subtitle: String(vm.roverManifest?.totalPhotos ?? 0),
-                                   titleColor: currentTintColor)
-                    
-                    CustomGroupBox(iconName: "heart.fill",
-                                   title: "Status",
-                                   subtitle: vm.roverManifest?.status.capitalized,
-                                   titleColor: currentTintColor)
-                    
-                    CustomGroupBox(iconName: "airplane.departure",
-                                   title: "Launch Date",
-                                   subtitle: "\(vm.roverManifest?.launchDate.formatted(.dateTime.day().month().year()) ?? "")",
-                                   titleColor: currentTintColor)
-                    
-                    CustomGroupBox(iconName: "airplane.arrival",
-                                   title: "Landing Date",
-                                   subtitle: "\(vm.roverManifest?.landingDate.formatted(.dateTime.day().month().year()) ?? "")",
-                                   titleColor: currentTintColor)
+                    OnlineGroupBoxes
                 }
                 .padding(.horizontal)
                 .redacted(reason: vm.roverManifest == nil ? .placeholder : [])
@@ -213,53 +158,95 @@ extension RoverView {
                 let localManifestData = vm.getLocalRoverManifestData()
                 if let localManifestData = localManifestData {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 95), spacing: 10)]) {
-                        CustomGroupBox(iconName: "sun.max.fill",
-                                       title: "Max Sol",
-                                       subtitle: String(localManifestData.maxSol),
-                                       titleColor: currentTintColor)
-                        
-                        CustomGroupBox(iconName: "calendar",
-                                       title: "Max Date",
-                                       subtitle: "\(localManifestData.maxDate.formatted(.dateTime.day().month().year()))",
-                                       titleColor: currentTintColor)
-                        
-                        CustomGroupBox(iconName: "photo.on.rectangle.angled",
-                                       title: "Total Photos",
-                                       subtitle: String(localManifestData.totalPhotos),
-                                       titleColor: currentTintColor)
-                        
-                        CustomGroupBox(iconName: "heart.fill",
-                                       title: "Status",
-                                       subtitle: localManifestData.status.capitalized,
-                                       titleColor: currentTintColor)
-                        
-                        CustomGroupBox(iconName: "airplane.departure",
-                                       title: "Launch Date",
-                                       subtitle: "\(localManifestData.launchDate.formatted(.dateTime.day().month().year()))",
-                                       titleColor: currentTintColor)
-                        
-                        CustomGroupBox(iconName: "airplane.arrival",
-                                       title: "Landing Date",
-                                       subtitle: "\(localManifestData.landingDate.formatted(.dateTime.day().month().year()))",
-                                       titleColor: currentTintColor)
+                        OfflineGroupBoxes(localManifestData)
                     }
                     .padding(.horizontal)
                     if let localSaveDate = localManifestData.localSaveDate {
-                        HStack{
-                            Spacer()
-                            Text("Last update \(localSaveDate.formatted(.dateTime.day().month().year()))")
-                                .font(.caption)
-                                .padding(.trailing)
-                        }
+                        OfflineLastUpdateText(localSaveDate)
                     }
                 }
                 else {
                     Text("No internet connection.")
                 }
             }
-            
         }
-        
+    }
+    
+    private func OfflineLastUpdateText(_ localSaveDate: Date) -> some View {
+        HStack{
+            Spacer()
+            Text("Last update \(localSaveDate.formatted(.dateTime.day().month().year()))")
+                .font(.caption)
+                .padding(.trailing)
+        }
+    }
+    
+    private func OfflineGroupBoxes(_ localManifestData: PhotoManifest) -> some View {
+        Group {
+            CustomGroupBox(iconName: "sun.max.fill",
+                           title: "Max Sol",
+                           subtitle: String(localManifestData.maxSol),
+                           titleColor: currentTintColor)
+            
+            CustomGroupBox(iconName: "calendar",
+                           title: "Max Date",
+                           subtitle: "\(localManifestData.maxDate.formatted(.dateTime.day().month().year()))",
+                           titleColor: currentTintColor)
+            
+            CustomGroupBox(iconName: "photo.on.rectangle.angled",
+                           title: "Total Photos",
+                           subtitle: String(localManifestData.totalPhotos),
+                           titleColor: currentTintColor)
+            
+            CustomGroupBox(iconName: "heart.fill",
+                           title: "Status",
+                           subtitle: localManifestData.status.capitalized,
+                           titleColor: currentTintColor)
+            
+            CustomGroupBox(iconName: "airplane.departure",
+                           title: "Launch Date",
+                           subtitle: "\(localManifestData.launchDate.formatted(.dateTime.day().month().year()))",
+                           titleColor: currentTintColor)
+            
+            CustomGroupBox(iconName: "airplane.arrival",
+                           title: "Landing Date",
+                           subtitle: "\(localManifestData.landingDate.formatted(.dateTime.day().month().year()))",
+                           titleColor: currentTintColor)
+        }
+    }
+    
+    private var OnlineGroupBoxes: some View {
+        Group {
+            CustomGroupBox(iconName: "sun.max.fill",
+                           title: "Max Sol",
+                           subtitle: String(vm.roverManifest?.maxSol ?? 0),
+                           titleColor: currentTintColor)
+            
+            CustomGroupBox(iconName: "calendar",
+                           title: "Max Date",
+                           subtitle: "\(vm.roverManifest?.maxDate.formatted(.dateTime.day().month().year()) ?? "")",
+                           titleColor: currentTintColor)
+            
+            CustomGroupBox(iconName: "photo.on.rectangle.angled",
+                           title: "Total Photos",
+                           subtitle: String(vm.roverManifest?.totalPhotos ?? 0),
+                           titleColor: currentTintColor)
+            
+            CustomGroupBox(iconName: "heart.fill",
+                           title: "Status",
+                           subtitle: vm.roverManifest?.status.capitalized,
+                           titleColor: currentTintColor)
+            
+            CustomGroupBox(iconName: "airplane.departure",
+                           title: "Launch Date",
+                           subtitle: "\(vm.roverManifest?.launchDate.formatted(.dateTime.day().month().year()) ?? "")",
+                           titleColor: currentTintColor)
+            
+            CustomGroupBox(iconName: "airplane.arrival",
+                           title: "Landing Date",
+                           subtitle: "\(vm.roverManifest?.landingDate.formatted(.dateTime.day().month().year()) ?? "")",
+                           titleColor: currentTintColor)
+        }
     }
     
     private var SectionHeader: some View {
@@ -269,48 +256,15 @@ extension RoverView {
                 
                 Spacer()
                 
-                Button {
-                    guard networkMonitor.isConnected else { return }
-                    vm.showingOnlyFavorites.toggle()
-                } label: {
-                    Image(systemName: vm.showingOnlyFavorites ? "heart.fill" : "heart")
-                        .font(.title)
-                        .tint(currentTintColor)
-                        .padding(.vertical)
-                        .padding(.horizontal, 8)
-                }
+                FavoritesButton
                 
-                Button {
-                    settingManager.changeGrid()
-                } label: {
-                    Image(systemName: settingManager.gridDesign == .oneColumn ? "rectangle.grid.2x2" : "rectangle.grid.1x2")
-                        .font(.title)
-                        .tint(currentTintColor)
-                        .padding(.vertical)
-                        .padding(.horizontal, 8)
-                }
+                GridButton
                 
-                Button {
-                    vm.showingFilterViewSheet.toggle()
-                } label: {
-                    Image(systemName: "line.3.horizontal.decrease.circle")
-                        .font(.title)
-                        .tint(currentTintColor)
-                        .padding(.vertical)
-                        .padding(.horizontal, 8)
-                }
+                FilterButton
             }
             Group {
-                if !vm.roverImages.isEmpty {
-                    Group{
-                        Text(vm.selectedDateType == .sol ? "Sol \(String(vm.sol))" : "Earth Date \(vm.earthDate.formatted(.dateTime.day().month().year()))") + Text(", \(vm.selectedCameraType.rawValue),  \(vm.sorting.rawValue)")
-                    }
-                    .padding(.horizontal,6)
-                    .padding(.vertical,4)
-                    .background(
-                        RoundedRectangle(cornerRadius: 6)
-                            .fill(Color(UIColor.secondarySystemBackground))
-                    )
+                if !vm.roverImages.isEmpty{
+                    CurrentFiltersBanner
                 }
             }
             .font(.caption)
@@ -318,7 +272,20 @@ extension RoverView {
             .padding(.top, -10)
         }
         .padding(.top, 30)
-        .padding(.bottom)
+        .padding(.bottom, 8)
+    }
+    
+    private var CurrentFiltersBanner: some View {
+        Group{
+            Text(vm.selectedDateType == .sol ? "Sol \(String(vm.sol))" : "Earth Date \(vm.earthDate.formatted(.dateTime.day().month().year()))") + Text(", \(vm.selectedCameraType.rawValue),  \(vm.sorting.rawValue)")
+        }
+        .padding(.horizontal,6)
+        .padding(.vertical,4)
+        .background(
+            RoundedRectangle(cornerRadius: 6)
+                .fill(Color(UIColor.secondarySystemBackground))
+        )
+        .opacity(vm.showingOnlyFavorites ? 0 : 1)
     }
     
     private var SectionFooter: some View {
@@ -346,6 +313,93 @@ extension RoverView {
     }
 }
 
+// MARK: - Texts
+extension RoverView {
+    private func TitleView(_ title: String) -> some View {
+        HStack {
+            Text(title)
+                .foregroundColor(currentTintColor)
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .padding(.leading)
+            Spacer()
+        }
+    }
+    
+    private func Title2View(_ title: String) -> some View {
+        HStack {
+            Text(title)
+                .foregroundColor(currentTintColor)
+                .font(.title2)
+                .fontWeight(.bold)
+                .padding(.leading)
+            Spacer()
+        }
+    }
+    
+    private func SubtitleView(_ subtitle: String) -> some View {
+        HStack {
+            Text(subtitle)
+                .foregroundColor(currentTintColor)
+                .font(.body)
+                .padding(.leading)
+            Spacer()
+        }
+    }
+}
+
+// MARK: - Buttons
+extension RoverView {
+    private var FilterButton: some View {
+        Button {
+            vm.showingFilterViewSheet.toggle()
+        } label: {
+            Image(systemName: "line.3.horizontal.decrease.circle")
+                .font(.title)
+                .tint(currentTintColor)
+                .padding(.vertical)
+                .padding(.horizontal, 8)
+        }
+    }
+    
+    private var GridButton: some View {
+        Button {
+            settingManager.changeGrid()
+        } label: {
+            Image(systemName: settingManager.gridDesign == .oneColumn ? "rectangle.grid.2x2" : "rectangle.grid.1x2")
+                .font(.title)
+                .tint(currentTintColor)
+                .padding(.vertical)
+                .padding(.horizontal, 8)
+        }
+    }
+    
+    private var FavoritesButton: some View {
+        Button {
+            guard networkMonitor.isConnected else { return }
+            vm.showingOnlyFavorites.toggle()
+        } label: {
+            Image(systemName: vm.showingOnlyFavorites ? "heart.fill" : "heart")
+                .font(.title)
+                .tint(currentTintColor)
+                .padding(.vertical)
+                .padding(.horizontal, 8)
+        }
+    }
+    
+    private var SettingsButton: some View {
+        Button {
+            vm.showingSettingsViewSheet.toggle()
+        } label: {
+            Image(systemName: "gear")
+                .font(.title)
+                .tint(currentTintColor)
+                .padding()
+        }
+    }
+}
+
+// MARK: - Preview
 struct RoverView_Previews: PreviewProvider {
     static var previews: some View {
         RoverView(rover: .curiosity, shouldScroolToTop: .constant(false), dataService: .previewInstance)

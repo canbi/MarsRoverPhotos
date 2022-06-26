@@ -10,13 +10,16 @@ import SwiftUI
 import UIKit
 
 class ImageViewModel: ObservableObject {
-    @Published var image: UIImage? = nil
-    @Published var isLoading: Bool = false
+    private let photo: Photo
     var cameraName: CameraName { photo.camera.name }
     var roverType: RoverType { photo.rover.name }
     let showCameraInfo: Bool
     
-    private let photo: Photo
+    // Control
+    @Published var isLoading: Bool = false
+    
+    // Data
+    @Published var image: UIImage? = nil
     private let imageDataService: ImageDataService
     private var cancellables = Set<AnyCancellable>()
     

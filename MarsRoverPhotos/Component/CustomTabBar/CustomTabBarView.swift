@@ -28,7 +28,7 @@ struct CustomTabBarView: View {
 
 struct CustomTabBarView_Previews: PreviewProvider {
     static let tabs: [NavBarItem] = [.curiosity, .opportunity, .spirit]
-
+    
     static var previews: some View {
         VStack {
             Spacer()

@@ -29,7 +29,7 @@ struct DetailView: View {
                     .layoutPriority(1000)
                 
                 PhotoInformationView
-                    
+                
             } else {
                 ImageOfflineView(photo: vm.cdPhoto!)
                     .frame(maxWidth: .infinity)
@@ -45,7 +45,13 @@ struct DetailView: View {
                     ImageZoomView(image: vm.clickedImage!, tintColor: tintColor)
                 })
             
-            ShareButton 
+            ShareButton
+                .sheet(isPresented: $vm.showShareSheet) {
+                    let photo = vm.getImage()!
+                    let itemSource = ShareActivityItemSource(shareText: vm.imageShareName, shareImage: photo)
+                    ShareSheet(activityItems: [photo, itemSource])
+                        .ignoresSafeArea()
+                }
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
@@ -57,6 +63,7 @@ struct DetailView: View {
     }
 }
 
+// MARK: - Buttons
 extension DetailView {
     private var ImageTopButtons: some View {
         HStack(spacing: 0) {
@@ -66,16 +73,20 @@ extension DetailView {
             
             Spacer()
             
-            Button{
-                vm.favoriteButton {dismiss()}
-            } label: {
-                Image(systemName: vm.isFavorited ? "heart.fill" : "heart")
-                    .font(.system(size: 30))
-                    .foregroundColor(vm.isFavorited ? .red : .white)
-            }
-            .padding(.top, 32)
-            .padding(.trailing)
+            FavoritesButton
         }
+    }
+    
+    private var FavoritesButton: some View {
+        Button{
+            vm.favoriteButton {dismiss()}
+        } label: {
+            Image(systemName: vm.isFavorited ? "heart.fill" : "heart")
+                .font(.system(size: 30))
+                .foregroundColor(vm.isFavorited ? .red : .white)
+        }
+        .padding(.top, 32)
+        .padding(.trailing)
     }
     
     
@@ -93,15 +104,13 @@ extension DetailView {
             .background(RoundedRectangle(cornerRadius: 16).foregroundColor(tintColor))
             .padding()
             
-        }).sheet(isPresented: $vm.showShareSheet) {
-            let photo = vm.getImage()!
-            let itemSource = ShareActivityItemSource(shareText: vm.imageShareName, shareImage: photo)
-            ShareSheet(activityItems: [photo, itemSource])
-                .ignoresSafeArea()
-        }
+        })
         .padding(.bottom)
     }
-    
+}
+
+// MARK: - Rover Information
+extension DetailView {
     private var PhotoInformationOfflineView: some View {
         VStack {
             if let photo = vm.cdPhoto {
@@ -149,7 +158,6 @@ extension DetailView {
                                          title: "Camera Name",
                                          subtitle: photo.wrappedCameraType.fullName.rawValue,
                                          titleColor: tintColor)
-                
             }
         }
         .padding()
@@ -205,6 +213,7 @@ extension DetailView {
     }
 }
 
+// MARK: - Preview
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(photo: .previewData, cdPhoto: CDPhotos(),

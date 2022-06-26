@@ -15,6 +15,9 @@ class DetailViewModel: ObservableObject {
     let manifest: PhotoManifest?
     let roverType: RoverType
     var roverVM: RoverViewModel
+    var imageShareName: String { getImageShareName() }
+    
+    // Utility
     private let fileManager: LocalFileManagerImage = .instance
     private let fileManagerForFavorites: LocalFileManagerImage = LocalFileManagerImage(folderName: "favorites",
                                                                                        appFolder: .documentDirectory)
@@ -22,15 +25,8 @@ class DetailViewModel: ObservableObject {
     var settingManager: SettingManager!
     var coreDataService: CoreDataDataService!
     var coreDataObject: CDPhotos?
-    
-    var imageShareName: String {
-        if let photo = photo {
-            return "\(photo.rover.name.rawValue) \(photo.camera.name.rawValue) \(photo.earthDate.formatted(.dateTime.year().month().day()))"
-        } else {
-            return "\(cdPhoto!.wrappedRoverType.rawValue) \(cdPhoto!.wrappedCameraType.rawValue)"
-        }
-    }
-    
+
+    // Control
     @Published var clickedImage: UIImage? = nil
     @Published var showingZoomImageView: Bool = false
     @Published var showShareSheet = false
@@ -49,7 +45,10 @@ class DetailViewModel: ObservableObject {
         
         self.roverVM = roverVM
     }
-    
+}
+
+// MARK: - Setup Functions
+extension DetailViewModel {
     func setup(settingManager: SettingManager, coreDataService: CoreDataDataService){
         self.settingManager = settingManager
         self.coreDataService = coreDataService
@@ -64,6 +63,17 @@ class DetailViewModel: ObservableObject {
         
     }
     
+    private func getImageShareName() -> String {
+        if let photo = photo {
+            return "\(photo.rover.name.rawValue) \(photo.camera.name.rawValue) \(photo.earthDate.formatted(.dateTime.year().month().day()))"
+        } else {
+            return "\(cdPhoto!.wrappedRoverType.rawValue) \(cdPhoto!.wrappedCameraType.rawValue)"
+        }
+    }
+}
+
+// MARK: - Photo Functions
+extension DetailViewModel {
     func zoomImage(){
         clickedImage = getImage()
         showingZoomImageView.toggle()
@@ -130,5 +140,4 @@ class DetailViewModel: ObservableObject {
             print("\(result) + manual photo saving")
         }
     }
-
 }

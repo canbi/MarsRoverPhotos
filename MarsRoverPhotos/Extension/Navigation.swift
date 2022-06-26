@@ -12,7 +12,7 @@ import SwiftUI
 struct NavigationStackModifier<Item, Destination: View>: ViewModifier {
     let item: Binding<Item?>
     let destination: (Item) -> Destination
-
+    
     func body(content: Content) -> some View {
         content.background(NavigationLink(isActive: item.mappedToBool()) {
             if let item = item.wrappedValue {
@@ -40,7 +40,7 @@ extension UINavigationController: UIGestureRecognizerDelegate {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self
     }
-
+    
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return viewControllers.count > 1
     }

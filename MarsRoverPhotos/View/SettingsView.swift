@@ -37,7 +37,7 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     BackButton(color: tintColor) { dismiss() }
-                    .padding(.leading, -24)
+                        .padding(.leading, -24)
                 }
             }
             .overlay(ApplySettingsButton, alignment: .bottom)
@@ -48,6 +48,7 @@ struct SettingsView: View {
     }
 }
 
+// MARK: Button
 extension SettingsView {
     private var ApplySettingsButton: some View {
         Button(action: {
@@ -64,7 +65,10 @@ extension SettingsView {
         .opacity(vm.isAnythingChanged ? 1 : 0)
         .disabled(vm.isAnythingChanged ? false : true)
     }
-    
+}
+
+// MARK: Sections
+extension SettingsView {
     private var ColorSettingsSection: some View {
         Section(header: Text("Color Settings".uppercased())){
             ForEach(Themes.allCases) { theme in
@@ -111,6 +115,7 @@ extension SettingsView {
     }
 }
 
+// MARK: - Preview
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView(tintColor: .red)

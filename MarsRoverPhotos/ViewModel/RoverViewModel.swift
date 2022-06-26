@@ -8,21 +8,6 @@
 import Combine
 import SwiftUI
 
-enum SortingTypes: String,CaseIterable, Identifiable {
-    case ascending = "Ascending"
-    case descending = "Descending"
-    case random = "Random"
-    
-    var id: Self { self }
-}
-
-enum DateTypes: String, CaseIterable, Identifiable {
-    case sol = "Martian Sol"
-    case earthDate = "Earth Date"
-    
-    var id: Self { self }
-}
-
 class RoverViewModel: ObservableObject {
     let rover: RoverType
     var networkMonitor: NetworkMonitor? = nil
@@ -53,9 +38,9 @@ class RoverViewModel: ObservableObject {
     @Published var isLoaded: Bool = false
     
     // Filters
-    @Published var sorting: SortingTypes = .ascending
+    @Published var sorting: SortingType = .ascending
     @Published var sol: Int = 1000
-    @Published var selectedDateType: DateTypes = .sol
+    @Published var selectedDateType: DateType = .sol
     @Published var earthDate: Date = .now
     @Published var selectedCameraType: CameraName = .all
     
@@ -66,7 +51,10 @@ class RoverViewModel: ObservableObject {
         dataService.getInformation(of: rover)
         dataService.getPhotosBySol(rover: rover, sol: sol, cameraType: .all, sortingType: .ascending)
     }
-    
+}
+
+// MARK: - Setup Functions
+extension RoverViewModel {
     func setup(coreDataService: CoreDataDataService, networkMonitor: NetworkMonitor){
         self.coreDataService = coreDataService
         favoritePhotos = coreDataService.accessPhotos(for: rover)
@@ -75,35 +63,6 @@ class RoverViewModel: ObservableObject {
         if networkMonitor.isConnected {
             self.showingOnlyFavorites = false
             networkMonitor.stopMonitoring()
-        }
-    }
-    
-    func filterImagesByEarthDate(_ date: Date, cameraType: CameraName, sortingType: SortingTypes){
-        earthDate = date
-        selectedDateType = .earthDate
-        selectedCameraType = cameraType
-        sorting = sortingType
-        dataService.getPhotosByEarthDate(rover: rover, earthDate: date, cameraType: cameraType, sortingType: sortingType)
-    }
-    
-    func filterImagesByMartianSol(_ martianSol: Int, cameraType: CameraName, sortingType: SortingTypes){
-        sol = martianSol
-        selectedDateType = .sol
-        selectedCameraType = cameraType
-        sorting = sortingType
-        dataService.getPhotosBySol(rover: rover, sol: martianSol, cameraType: cameraType, sortingType: sortingType)
-    }
-    
-    func filterImagesBySorting(_ sortingType: SortingTypes){
-        sorting = sortingType
-        
-        switch sorting {
-        case .ascending:
-            roverImages.sort{ $0 < $1}
-        case .descending:
-            roverImages.sort{ $0 > $1}
-        case .random:
-            roverImages.shuffle()
         }
     }
     
@@ -120,11 +79,46 @@ class RoverViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+}
+
+// MARK: - Photo Functions
+extension RoverViewModel {
+    func filterImagesByEarthDate(_ date: Date, cameraType: CameraName, sortingType: SortingType){
+        earthDate = date
+        selectedDateType = .earthDate
+        selectedCameraType = cameraType
+        sorting = sortingType
+        dataService.getPhotosByEarthDate(rover: rover, earthDate: date, cameraType: cameraType, sortingType: sortingType)
+    }
+    
+    func filterImagesByMartianSol(_ martianSol: Int, cameraType: CameraName, sortingType: SortingType){
+        sol = martianSol
+        selectedDateType = .sol
+        selectedCameraType = cameraType
+        sorting = sortingType
+        dataService.getPhotosBySol(rover: rover, sol: martianSol, cameraType: cameraType, sortingType: sortingType)
+    }
+    
+    func filterImagesBySorting(_ sortingType: SortingType){
+        sorting = sortingType
+        
+        switch sorting {
+        case .ascending:
+            roverImages.sort{ $0 < $1}
+        case .descending:
+            roverImages.sort{ $0 > $1}
+        case .random:
+            roverImages.shuffle()
+        }
+    }
     
     func updateFavorites(){
         favoritePhotos = coreDataService.accessPhotos(for: rover)
     }
-    
+}
+
+//MARK: - Manifest Functions
+extension RoverViewModel {
     func getLocalRoverManifestData() -> PhotoManifest? {
         dataService.loadManifestFromUserDefaults()
     }

@@ -54,8 +54,8 @@ class LocalFileManager {
     func deleteItem(name: String, type: String) -> String {
         guard let path = getPathFor(name: name, type: type)?.path,
               FileManager.default.fileExists(atPath: path) else {
-                  return "Error getting path."
-              }
+            return "Error getting path."
+        }
         
         do {
             try FileManager.default.removeItem(atPath: path)
@@ -67,9 +67,9 @@ class LocalFileManager {
     
     func defaultURL() -> URL? {
         guard let path = FileManager
-                .default
-                .urls(for: appFolder, in: .userDomainMask)
-                .first?
+            .default
+            .urls(for: appFolder, in: .userDomainMask)
+            .first?
             .appendingPathComponent(folderName) else { return nil }
         return path
     }
@@ -84,9 +84,9 @@ class LocalFileManagerJSON: LocalFileManager, ObservableObject {
             guard
                 let data = try? JSONEncoder().encode(data),
                 let path = getPathFor(name: name, type: type) else {
-                    print("Error getting data.")
-                    return
-                }
+                print("Error getting data.")
+                return
+            }
             
             
             try data.write(to: path ,options: [.atomic, .completeFileProtection])
@@ -99,9 +99,9 @@ class LocalFileManagerJSON: LocalFileManager, ObservableObject {
     func getJSON<T: Codable>(name: String, dataType: T) -> T? {
         guard let filename = getPathFor(name: name, type: type),
               FileManager.default.fileExists(atPath: filename.path) else {
-                  print("Error getting path.")
-                  return nil
-              }
+            print("Error getting path.")
+            return nil
+        }
         
         do {
             let data = try Data(contentsOf: filename)
@@ -127,8 +127,8 @@ class LocalFileManagerImage: LocalFileManager, ObservableObject {
         guard
             let data = image.jpegData(compressionQuality: compressionQuality),
             let path = getPathFor(name: name, type: type) else {
-                return "Error getting data."
-            }
+            return "Error getting data."
+        }
         
         do {
             try data.write(to: path,options: [.atomic, .completeFileProtection])
@@ -141,9 +141,9 @@ class LocalFileManagerImage: LocalFileManager, ObservableObject {
     func getImage(name: String) -> UIImage? {
         guard let path = getPathFor(name: name, type: type)?.path,
               FileManager.default.fileExists(atPath: path) else {
-                  print("Error getting path.")
-                  return nil
-              }
+            print("Error getting path.")
+            return nil
+        }
         
         return UIImage(contentsOfFile: path)
     }

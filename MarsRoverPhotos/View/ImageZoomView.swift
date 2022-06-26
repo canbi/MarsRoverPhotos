@@ -12,7 +12,7 @@ import PDFKit
 //https://stackoverflow.com/a/67577296
 struct PhotoDetailView: UIViewRepresentable {
     let image: UIImage
-
+    
     func makeUIView(context: Context) -> PDFView {
         let view = PDFView()
         view.document = PDFDocument()
@@ -21,7 +21,7 @@ struct PhotoDetailView: UIViewRepresentable {
         view.autoScales = true
         return view
     }
-
+    
     func updateUIView(_ uiView: PDFView, context: Context) {
         // empty
     }

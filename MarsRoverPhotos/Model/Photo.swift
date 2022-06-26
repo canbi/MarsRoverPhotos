@@ -18,7 +18,7 @@ struct Photo: Codable {
     let imgSrc: String
     let earthDate: Date
     let rover: Rover
-
+    
     enum CodingKeys: String, CodingKey {
         case id, sol, camera
         case imgSrc = "img_src"

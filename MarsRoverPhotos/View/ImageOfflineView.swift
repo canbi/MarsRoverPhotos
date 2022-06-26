@@ -13,7 +13,6 @@ struct ImageOfflineView: View {
     
     var currentTintColor: Color { settingManager.getTintColor(roverType: vm.roverType) }
     
-    
     init(photo: CDPhotos, showCameraInfo: Bool = false){
         self._vm = StateObject(wrappedValue: ImageOfflineViewModel(photo: photo, showCameraInfo: showCameraInfo))
     }

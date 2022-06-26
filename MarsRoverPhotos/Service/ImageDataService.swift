@@ -23,7 +23,10 @@ class ImageDataService {
         self.imageName = String(photo.id)
         getImage()
     }
-    
+}
+
+// MARK: - Functions
+extension ImageDataService {
     private func getImage() {
         if let savedImage = fileManager.getImage(name: imageName) {
             image = savedImage
@@ -49,5 +52,3 @@ class ImageDataService {
             })
     }
 }
-
-

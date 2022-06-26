@@ -8,13 +8,18 @@
 import SwiftUI
 
 class ImageOfflineViewModel: ObservableObject {
-    @Published var image: UIImage? = nil
-    @Published var isLoading: Bool = false
+    private let photo: CDPhotos
+    let showCameraInfo: Bool
     var cameraName: CameraName { photo.wrappedCameraType }
     var roverType: RoverType { photo.wrappedRoverType }
-    let showCameraInfo: Bool
     
-    private let photo: CDPhotos
+    // Control
+    @Published var isLoading: Bool = false
+    
+    // Data
+    @Published var image: UIImage? = nil
+    
+    //Utility
     private let fileManagerForFavorites: LocalFileManagerImage = LocalFileManagerImage(folderName: "favorites",
                                                                                        appFolder: .documentDirectory)
     

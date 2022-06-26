@@ -7,19 +7,7 @@
 
 import SwiftUI
 
-enum GridDesign: String, CaseIterable, Identifiable {
-    case oneColumn = "One Column"
-    case twoColumn = "Two Column"
-    
-    var id: Self { self }
-}
-
 class SettingManager: ObservableObject {
-    static private let themeKey: String = "themeKey"
-    static private let saveToPhotosKey: String = "saveToPhotosKey"
-    static private let saveForOfflineKey: String = "saveForOfflineKey"
-    static private let gridDesignKey: String = "gridDesignKey"
-    
     private let defaults = UserDefaults.standard
     
     var theme: Themes {
@@ -49,7 +37,7 @@ class SettingManager: ObservableObject {
     
     init(){
         self.theme = Themes(rawValue: (defaults.string(forKey: SettingManager.themeKey) ?? "")) ?? .olympus
-            
+        
         self._gridDesign = Published(initialValue: GridDesign(rawValue: (defaults.string(forKey: SettingManager.gridDesignKey) ?? "")) ?? .oneColumn)
         self._favoritesAlsoSaveToPhotos = Published(initialValue: defaults.bool(forKey: SettingManager.saveToPhotosKey))
         self._favoritesAlsoSaveForOffline = Published(initialValue: defaults.bool(forKey: SettingManager.saveForOfflineKey))
@@ -58,7 +46,10 @@ class SettingManager: ObservableObject {
         self._tabOpportunity = Published(initialValue: theme.opportunityColor)
         self._tabSpirit = Published(initialValue: theme.spiritColor)
     }
-    
+}
+
+// MARK: Functions
+extension SettingManager {
     func getTintColor(roverType: RoverType) -> Color{
         switch roverType {
         case .curiosity: return tabCuriosity
@@ -70,4 +61,12 @@ class SettingManager: ObservableObject {
     func changeGrid(){
         gridDesign = gridDesign == .oneColumn ? .twoColumn : .oneColumn
     }
+}
+
+// MARK: Keys
+extension SettingManager {
+    static private let themeKey: String = "themeKey"
+    static private let saveToPhotosKey: String = "saveToPhotosKey"
+    static private let saveForOfflineKey: String = "saveForOfflineKey"
+    static private let gridDesignKey: String = "gridDesignKey"
 }

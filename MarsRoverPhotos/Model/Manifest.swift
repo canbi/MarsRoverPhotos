@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Welcome
 struct Manifest: Codable {
     let photoManifest: PhotoManifest
-
+    
     enum CodingKeys: String, CodingKey {
         case photoManifest = "photo_manifest"
     }
@@ -25,7 +25,7 @@ struct PhotoManifest: Codable {
     let totalPhotos: Int
     let photos: [ManifestPhoto]
     let localSaveDate: Date?
-
+    
     enum CodingKeys: String, CodingKey {
         case name
         case landingDate = "landing_date"
@@ -57,7 +57,7 @@ struct ManifestPhoto: Codable {
     let earthDate: String
     let totalPhotos: Int
     let cameras: [CameraName]
-
+    
     enum CodingKeys: String, CodingKey {
         case sol
         case earthDate = "earth_date"
