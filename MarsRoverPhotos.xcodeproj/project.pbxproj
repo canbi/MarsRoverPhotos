@@ -196,6 +196,7 @@
 		36B168DD28684210008C1A9E /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				36EE95CB28643219000B6CC8 /* Themes.swift */,
 				36B168DE28684219008C1A9E /* RoverType.swift */,
 				36B168E02868423F008C1A9E /* CameraName.swift */,
 				36B168E228684247008C1A9E /* CameraFullName.swift */,
@@ -258,7 +259,6 @@
 			children = (
 				36F8B3DE28610735000902D1 /* Info.plist */,
 				36F8B3E52861944D000902D1 /* Extension */,
-				36EE95CA2864320D000B6CC8 /* Protocols */,
 				36F8B3D42860FF03000902D1 /* Utilities */,
 				36F8B3CF2860F51E000902D1 /* Service */,
 				36B447AA2860A79F00D8DDA8 /* Model */,
@@ -303,14 +303,6 @@
 			path = CustomGroupBoxes;
 			sourceTree = "<group>";
 		};
-		36EE95CA2864320D000B6CC8 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				36EE95CB28643219000B6CC8 /* Themes.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		36F8B3C92860F434000902D1 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,9 +333,9 @@
 		36F8B3CF2860F51E000902D1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				369B9D0D2863B20A00C9BF1D /* Endpoint.swift */,
 				36F8B3D22860F588000902D1 /* JSONDataService.swift */,
 				36F8B3D62860FF1A000902D1 /* ImageDataService.swift */,
-				369B9D0D2863B20A00C9BF1D /* Endpoint.swift */,
 				365A5D202867673800A3A6DA /* CoreDataService.swift */,
 			);
 			path = Service;

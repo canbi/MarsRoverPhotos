@@ -11,6 +11,7 @@ import SwiftUI
 class RoverViewModel: ObservableObject {
     let rover: RoverType
     var networkMonitor: NetworkMonitor? = nil
+    var scrollViewProxy: ScrollViewProxy? = nil
     
     // Data
     private var dataService: JSONDataService

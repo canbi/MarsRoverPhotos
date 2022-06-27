@@ -4,6 +4,9 @@ This app was developed by Can Bi. It uses SwiftUI and is written 100% in Swift. 
 ### NASA API
 The app uses [NASA Open APIs](https://api.nasa.gov/index.html#browseAPI) and shows Mars photos taken by Curiosity, Opportunity and Spirit rovers. 
 
+### Want to try out?
+Join with [TestFlight External Tester Invite](https://testflight.apple.com/join/H9dVecAs). The invite expire in September, 2022
+
 ### Implemented Features
 - [x]  Main Data Structure
 - [x]  Manifest Data Structure

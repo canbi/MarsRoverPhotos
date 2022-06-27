@@ -16,7 +16,7 @@ enum Themes: String, CaseIterable, Identifiable  {
         switch self {
         case .olympus: return .red
         case .ascraeus: return .red
-        case .arsia: return .primary
+        case .arsia: return .orange
         }
     }
     

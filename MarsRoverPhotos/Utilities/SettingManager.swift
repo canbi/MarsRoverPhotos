@@ -29,18 +29,12 @@ class SettingManager: ObservableObject {
             defaults.set(favoritesAlsoSaveToPhotos, forKey: SettingManager.saveToPhotosKey)
         }
     }
-    @Published var favoritesAlsoSaveForOffline: Bool = false{
-        didSet {
-            defaults.set(favoritesAlsoSaveForOffline, forKey: SettingManager.saveForOfflineKey)
-        }
-    }
     
     init(){
         self.theme = Themes(rawValue: (defaults.string(forKey: SettingManager.themeKey) ?? "")) ?? .olympus
         
         self._gridDesign = Published(initialValue: GridDesign(rawValue: (defaults.string(forKey: SettingManager.gridDesignKey) ?? "")) ?? .oneColumn)
         self._favoritesAlsoSaveToPhotos = Published(initialValue: defaults.bool(forKey: SettingManager.saveToPhotosKey))
-        self._favoritesAlsoSaveForOffline = Published(initialValue: defaults.bool(forKey: SettingManager.saveForOfflineKey))
         
         self._tabCuriosity = Published(initialValue: theme.curiosityColor)
         self._tabOpportunity = Published(initialValue: theme.opportunityColor)

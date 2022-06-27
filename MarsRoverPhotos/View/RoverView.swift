@@ -58,6 +58,9 @@ struct RoverView: View {
                     shouldScrollToTop = false
                 }
             }
+            .onAppear {
+                vm.scrollViewProxy = reader
+            }
         }
     }
 }
@@ -365,6 +368,12 @@ extension RoverView {
     private var GridButton: some View {
         Button {
             settingManager.changeGrid()
+            if let scrollViewProxy = vm.scrollViewProxy {
+                withAnimation {
+                    scrollViewProxy.scrollTo("top")
+                }
+                
+            }
         } label: {
             Image(systemName: settingManager.gridDesign == .oneColumn ? "rectangle.grid.2x2" : "rectangle.grid.1x2")
                 .font(.title)
