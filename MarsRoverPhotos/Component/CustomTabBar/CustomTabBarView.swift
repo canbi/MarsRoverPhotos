@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CustomTabBarView: View {
     @EnvironmentObject var settingManager: SettingManager
+    let maxWidth: CGFloat = 700
     let tabs: [NavBarItem]
     @Binding var selection: NavBarItem
     @Namespace private var namespace
@@ -23,6 +24,7 @@ struct CustomTabBarView: View {
                     localSelection = value
                 }
             })
+            .frame(maxWidth: maxWidth)
     }
 }
 

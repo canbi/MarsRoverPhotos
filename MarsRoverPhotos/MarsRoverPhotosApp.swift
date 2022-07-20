@@ -47,6 +47,7 @@ struct MarsRoverPhotosApp: App {
                                      localSelection: .curiosity, scrollToTop: $shouldScrollToTop)
                 }
             }
+            .navigationViewStyle(StackNavigationViewStyle())
             .environmentObject(cdDataService)
             .environmentObject(settingManager)
         }

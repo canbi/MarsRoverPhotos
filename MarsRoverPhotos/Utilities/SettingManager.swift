@@ -9,6 +9,7 @@ import SwiftUI
 
 class SettingManager: ObservableObject {
     private let defaults = UserDefaults.standard
+    var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
     
     var theme: Themes {
         didSet {

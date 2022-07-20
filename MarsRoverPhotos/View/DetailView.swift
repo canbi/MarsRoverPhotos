@@ -13,6 +13,11 @@ struct DetailView: View {
     @StateObject var vm: DetailViewModel
     @Environment(\.dismiss) var dismiss
     
+    let oneColumns = [GridItem(.flexible(maximum: .infinity))]
+    let twoColumns = [GridItem(.flexible(maximum: .infinity)),
+                      GridItem(.flexible(maximum: .infinity))]
+    
+    let maxWidth: CGFloat = 700
     var tintColor: Color { settingManager.getTintColor(roverType: vm.roverType) }
     
     init(photo: Photo? = nil, cdPhoto: CDPhotos? = nil, manifest: PhotoManifest?, roverVM: RoverViewModel){
@@ -106,13 +111,14 @@ extension DetailView {
             
         })
         .padding(.bottom)
+        .frame(maxWidth: maxWidth)
     }
 }
 
 // MARK: - Rover Information
 extension DetailView {
     private var PhotoInformationOfflineView: some View {
-        VStack {
+        LazyVGrid(columns: settingManager.idiom == .pad ? twoColumns : oneColumns, alignment: .center, spacing: 10) {
             if let photo = vm.cdPhoto {
                 CustomGroupHorizontalBox(iconName: "sun.max.fill",
                                          title: "Rover",
@@ -165,7 +171,7 @@ extension DetailView {
     
     
     private var PhotoInformationView: some View {
-        VStack {
+        LazyVGrid(columns: settingManager.idiom == .pad ? twoColumns : oneColumns, alignment: .center, spacing: 10) {
             if let photo = vm.photo {
                 CustomGroupHorizontalBox(iconName: "sun.max.fill",
                                          title: "Rover",

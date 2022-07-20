@@ -24,6 +24,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             List {
+                GridSettingsSection
                 ColorSettingsSection
                 SaveAndFavoriteSection
                 DeveloperSection
@@ -94,13 +95,34 @@ extension SettingsView {
         }
     }
     
+    private var GridSettingsSection: some View {
+        Section(header: Text("Grid Settings".uppercased())){
+            ForEach(GridDesign.allCases) { grid in
+                HStack {
+                    Text(grid.rawValue)
+                        .foregroundColor(vm.selectedGrid == grid ? tintColor : nil)
+                    Spacer()
+                    
+                    Image(systemName: grid.iconName)
+                        .font(.title2)
+                        .padding(.vertical)
+                        .padding(.horizontal, 8)
+                        .foregroundColor(vm.selectedGrid == grid ? tintColor : nil)
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    vm.selectedGrid = grid
+                }
+            }
+        }
+    }
+    
     private var SaveAndFavoriteSection: some View {
         Section(header: Text("Save Settings".uppercased())){
             Toggle("Save to Photos when favorited", isOn: $vm.saveToPhotoSelection)
         }
     }
-    
-    
+
     private var DeveloperSection: some View {
         Section(header: Text("Developer")) {
             Text("This app was developed by Can Bi. It uses SwiftUI and is written 100% in Swift. The project benefits from multi-threading, publishers/subscribers, and data persistance.")

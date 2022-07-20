@@ -12,12 +12,14 @@ class SettingsViewModel: ObservableObject {
     
     // Settings
     @Published var selectedTheme: Themes = .olympus
+    @Published var selectedGrid: GridDesign = .oneColumn
     @Published var saveToPhotoSelection: Bool = false
     
     // Control
-    var isAnythingChanged: Bool { !isThemeSame || !isSaveToPhotoSame }
+    var isAnythingChanged: Bool { !isThemeSame || !isSaveToPhotoSame || !isSameGrid }
     var isThemeSame: Bool { selectedTheme == settingManager?.theme ?? .olympus }
     var isSaveToPhotoSame: Bool { saveToPhotoSelection == settingManager?.favoritesAlsoSaveToPhotos ?? false }
+    var isSameGrid: Bool { selectedGrid == settingManager?.gridDesign ?? .oneColumn }
     
     // Constant
     let personalURL = URL(string: "https://canbi.me")!
@@ -31,6 +33,7 @@ class SettingsViewModel: ObservableObject {
         self.settingManager = settingManager
         self._selectedTheme = Published(initialValue: settingManager.theme)
         self._saveToPhotoSelection = Published(initialValue: settingManager.favoritesAlsoSaveToPhotos)
+        self._selectedGrid = Published(initialValue: settingManager.gridDesign)
     }
     
     func applySettings(){
@@ -40,6 +43,7 @@ class SettingsViewModel: ObservableObject {
             settingManager.tabOpportunity = selectedTheme.opportunityColor
             settingManager.tabSpirit = selectedTheme.spiritColor
             settingManager.favoritesAlsoSaveToPhotos = saveToPhotoSelection
+            settingManager.gridDesign = selectedGrid
         }
     }
 }

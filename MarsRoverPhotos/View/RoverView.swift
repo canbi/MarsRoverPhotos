@@ -14,6 +14,10 @@ struct RoverView: View {
     @StateObject var vm: RoverViewModel
     @Binding var shouldScrollToTop: Bool
     
+    let oneColumns = [GridItem(.adaptive(minimum: 95), spacing: 10)]
+    let threeColumns = [GridItem(.adaptive(minimum: 95), spacing: 10),
+                      GridItem(.adaptive(minimum: 95), spacing: 10),
+                      GridItem(.adaptive(minimum: 95), spacing: 10)]
     var currentTintColor: Color { settingManager.getTintColor(roverType: vm.rover)}
     
     init(rover: RoverType, shouldScroolToTop: Binding<Bool>, dataService: JSONDataService){
@@ -34,9 +38,7 @@ struct RoverView: View {
                             vm.setup(coreDataService: coreDataService, networkMonitor: networkMonitor)
                         }
                     
-                    RoverImageView
-                    
-                    RoverInformationView
+                    RoverSection
                     
                     ImageSectionView
                         .sheet(isPresented: $vm.showingFilterViewSheet) {
@@ -149,10 +151,26 @@ extension RoverView {
         .id("top")
     }
     
+    private var RoverSection: some View {
+        Group {
+            if settingManager.idiom == .pad {
+                HStack {
+                    RoverImageView
+                    RoverInformationView
+                }
+            } else {
+                VStack {
+                    RoverImageView
+                    RoverInformationView
+                }
+            }
+        }
+    }
+    
     private var RoverInformationView: some View {
         Group {
             if networkMonitor.isConnected {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 95), spacing: 10)]) {
+                LazyVGrid(columns: settingManager.idiom == .pad ? threeColumns : oneColumns) {
                     OnlineGroupBoxes
                 }
                 .padding(.horizontal)
@@ -160,10 +178,11 @@ extension RoverView {
             } else {
                 let localManifestData = vm.getLocalRoverManifestData()
                 if let localManifestData = localManifestData {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 95), spacing: 10)]) {
+                    LazyVGrid(columns: settingManager.idiom == .pad ? threeColumns : oneColumns) {
                         OfflineGroupBoxes(localManifestData)
                     }
                     .padding(.horizontal)
+                    
                     if let localSaveDate = localManifestData.localSaveDate {
                         OfflineLastUpdateText(localSaveDate)
                     }
@@ -261,9 +280,9 @@ extension RoverView {
                 
                 FavoritesButton
                 
-                GridButton
-                
                 FilterButton
+
+                    .padding(.trailing, 8)
             }
             Group {
                 if !vm.roverImages.isEmpty{
@@ -365,24 +384,6 @@ extension RoverView {
         }
     }
     
-    private var GridButton: some View {
-        Button {
-            settingManager.changeGrid()
-            if let scrollViewProxy = vm.scrollViewProxy {
-                withAnimation {
-                    scrollViewProxy.scrollTo("top")
-                }
-                
-            }
-        } label: {
-            Image(systemName: settingManager.gridDesign == .oneColumn ? "rectangle.grid.2x2" : "rectangle.grid.1x2")
-                .font(.title)
-                .tint(currentTintColor)
-                .padding(.vertical)
-                .padding(.horizontal, 8)
-        }
-    }
-    
     private var FavoritesButton: some View {
         Button {
             guard networkMonitor.isConnected else { return }
@@ -403,7 +404,8 @@ extension RoverView {
             Image(systemName: "gear")
                 .font(.title)
                 .tint(currentTintColor)
-                .padding()
+                .padding(.vertical)
+                .padding(.horizontal, 8)
         }
     }
 }
