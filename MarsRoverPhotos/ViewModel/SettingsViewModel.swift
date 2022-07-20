@@ -23,6 +23,7 @@ class SettingsViewModel: ObservableObject {
     let personalURL = URL(string: "https://canbi.me")!
     let twitterURL = URL(string: "https://twitter.com/Canbiw")!
     let githubURL = URL(string: "https://github.com/canbi")!
+    let apiURL = URL(string: "https://api.nasa.gov/index.html#browseAPI")!
     
     init(){}
     

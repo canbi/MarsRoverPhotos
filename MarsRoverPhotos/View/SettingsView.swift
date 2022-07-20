@@ -27,6 +27,7 @@ struct SettingsView: View {
                 ColorSettingsSection
                 SaveAndFavoriteSection
                 DeveloperSection
+                APISection
                 Color.clear.listRowBackground(Color.clear)
             }
             .font(.headline)
@@ -111,6 +112,18 @@ extension SettingsView {
             Link("Visit Website 🖥️", destination: vm.personalURL)
             Link("Contact me on Twitter 🐦", destination: vm.twitterURL)
             Link("See my public projects on GitHub 👨‍💻", destination: vm.githubURL)
+        }
+    }
+    
+    private var APISection: some View {
+        Section(header: Text("API")) {
+            Text("Mars Rover Photos API is designed to collect image data gathered by NASA's Curiosity, Opportunity, and Spirit rovers on Mars and make it more easily available to other developers, educators, and citizen scientists.")
+                .font(.callout)
+                .fontWeight(.medium)
+                .foregroundColor(.primary)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.vertical)
+            Link("Visit APIs Website 🖥️", destination: vm.apiURL)
         }
     }
 }
