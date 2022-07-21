@@ -14,10 +14,9 @@ struct RoverView: View {
     @StateObject var vm: RoverViewModel
     @Binding var shouldScrollToTop: Bool
     
-    let oneColumns = [GridItem(.adaptive(minimum: 95), spacing: 10)]
-    let threeColumns = [GridItem(.adaptive(minimum: 95), spacing: 10),
-                      GridItem(.adaptive(minimum: 95), spacing: 10),
-                      GridItem(.adaptive(minimum: 95), spacing: 10)]
+    let infoColumns =  [GridItem(.flexible(maximum: .infinity),alignment: .leading),
+                        GridItem(.flexible(maximum: .infinity)),
+                        GridItem(.flexible(maximum: .infinity),alignment: .trailing)]
     var currentTintColor: Color { settingManager.getTintColor(roverType: vm.rover)}
     
     init(rover: RoverType, shouldScroolToTop: Binding<Bool>, dataService: JSONDataService){
@@ -168,7 +167,7 @@ extension RoverView {
     private var RoverInformationView: some View {
         Group {
             if networkMonitor.isConnected {
-                LazyVGrid(columns: settingManager.idiom == .pad ? threeColumns : oneColumns) {
+                LazyVGrid(columns: infoColumns) {
                     OnlineGroupBoxes
                 }
                 .padding(.horizontal)
@@ -176,7 +175,7 @@ extension RoverView {
             } else {
                 let localManifestData = vm.getLocalRoverManifestData()
                 if let localManifestData = localManifestData {
-                    LazyVGrid(columns: settingManager.idiom == .pad ? threeColumns : oneColumns) {
+                    LazyVGrid(columns: infoColumns) {
                         OfflineGroupBoxes(localManifestData)
                     }
                     .padding(.horizontal)
@@ -279,7 +278,7 @@ extension RoverView {
                 FavoritesButton
                 
                 FilterButton
-
+                
                     .padding(.trailing, 8)
             }
             Group {
