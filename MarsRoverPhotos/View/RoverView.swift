@@ -34,9 +34,6 @@ struct RoverView: View {
                         .sheet(isPresented: $vm.showingSettingsViewSheet) {
                             SettingsView(tintColor: currentTintColor)
                         }
-                        .onAppear{
-                            vm.setup(coreDataService: coreDataService, networkMonitor: networkMonitor)
-                        }
                     
                     RoverSection
                     
@@ -47,6 +44,10 @@ struct RoverView: View {
                 }
                 
                 Spacer().frame(height: 100)
+            }
+            .onAppear{
+                vm.setup(coreDataService: coreDataService, networkMonitor: networkMonitor)
+                vm.scrollViewProxy = reader
             }
             .navigationDestination(for: $vm.selectedImage) { photo in
                 DetailView(photo: photo, manifest: vm.roverManifest!, roverVM: vm)
@@ -59,9 +60,6 @@ struct RoverView: View {
                     reader.scrollTo("top", anchor: .top)
                     shouldScrollToTop = false
                 }
-            }
-            .onAppear {
-                vm.scrollViewProxy = reader
             }
         }
     }
@@ -388,6 +386,7 @@ extension RoverView {
         Button {
             guard networkMonitor.isConnected else { return }
             vm.showingOnlyFavorites.toggle()
+            shouldScrollToTop.toggle()
         } label: {
             Image(systemName: vm.showingOnlyFavorites ? "heart.fill" : "heart")
                 .font(.title)
