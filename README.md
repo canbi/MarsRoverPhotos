@@ -31,6 +31,8 @@ Join with [TestFlight External Tester Invite](https://testflight.apple.com/join/
 - [x]  Offline usage capability with CoreData and Directory File
 - [x]  Offline UI State
 - [x]  App icon and Launch Screen
+- [x]  iPad version
+- [x]  Widget
 
 ### Dark UI Screenshots
 <img src="Screenshots/dark-1.png" width="200"/><img src="Screenshots/dark-2.png" width="200"/><img src="Screenshots/dark-3.png" width="200"/> <img src="Screenshots/dark-4.png" width="200"/><img src="Screenshots/dark-5.png" width="200"/><img src="Screenshots/dark-6.png" width="200"/><img src="Screenshots/dark-7.png" width="200"/><img src="Screenshots/dark-8.png" width="200"/><img src="Screenshots/dark-9.png" width="200"/><img src="Screenshots/dark-10.png" width="200"/><img src="Screenshots/dark-11.png" width="200"/> 

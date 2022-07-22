@@ -19,8 +19,7 @@ class DetailViewModel: ObservableObject {
     
     // Utility
     private let fileManager: LocalFileManagerImage = .instance
-    private let fileManagerForFavorites: LocalFileManagerImage = LocalFileManagerImage(folderName: "favorites",
-                                                                                       appFolder: .documentDirectory)
+    private let fileManagerForFavorites: LocalFileManagerImage = LocalFileManagerImage(folderName: "favorites")
     //CoreData
     var settingManager: SettingManager!
     var coreDataService: CoreDataDataService!

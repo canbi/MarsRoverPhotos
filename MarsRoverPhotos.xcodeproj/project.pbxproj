@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3606A48D288A718600016717 /* TimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3606A48C288A718600016717 /* TimelineProvider.swift */; };
+		3606A491288A71AF00016717 /* TimelineEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3606A490288A71AF00016717 /* TimelineEntry.swift */; };
+		3606A493288A71D800016717 /* MarsWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3606A492288A71D800016717 /* MarsWidgetView.swift */; };
 		36127444286741D80076C55B /* SettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36127443286741D80076C55B /* SettingManager.swift */; };
 		361F03732862E1D100F98BA9 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361F03722862E1D100F98BA9 /* Date.swift */; };
 		365A5D18286765E300A3A6DA /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 365A5D16286765E300A3A6DA /* CoreDataModel.xcdatamodeld */; };
@@ -18,9 +21,25 @@
 		365A5D2F2867AA2500A3A6DA /* ImageOfflineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A5D2E2867AA2500A3A6DA /* ImageOfflineView.swift */; };
 		365A5D312867AA2F00A3A6DA /* ImageOfflineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A5D302867AA2F00A3A6DA /* ImageOfflineViewModel.swift */; };
 		365A5D332867B3A900A3A6DA /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A5D322867B3A800A3A6DA /* NetworkMonitor.swift */; };
+		365F0BD8288AA87200C5C545 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3D828610031000902D1 /* LocalFileManager.swift */; };
 		3687C1CE286250CA004616D4 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C1CD286250CA004616D4 /* FilterView.swift */; };
 		3687C1D0286250DF004616D4 /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3687C1CF286250DF004616D4 /* FilterViewModel.swift */; };
+		369B83AB288A73A200CE42F3 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 365A5D16286765E300A3A6DA /* CoreDataModel.xcdatamodeld */; };
+		369B83AC288A73A400CE42F3 /* CDPhotos+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A5D26286769D500A3A6DA /* CDPhotos+CoreDataClass.swift */; };
+		369B83AD288A73A600CE42F3 /* CDPhotos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A5D27286769D500A3A6DA /* CDPhotos+CoreDataProperties.swift */; };
+		369B83AE288A73AC00CE42F3 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365A5D1E286766CD00A3A6DA /* CoreDataController.swift */; };
+		369B83B1288A73D700CE42F3 /* CoreDataWidgetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B83B0288A73D700CE42F3 /* CoreDataWidgetService.swift */; };
+		369B83B2288A786300CE42F3 /* RoverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B168DE28684219008C1A9E /* RoverType.swift */; };
+		369B83B3288A786700CE42F3 /* CameraName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B168E02868423F008C1A9E /* CameraName.swift */; };
+		369B83B4288A787100CE42F3 /* CameraFullName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B168E228684247008C1A9E /* CameraFullName.swift */; };
 		369B9D0E2863B20A00C9BF1D /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369B9D0D2863B20A00C9BF1D /* Endpoint.swift */; };
+		36AC053A288A6B35009FA1F2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36AC0539288A6B35009FA1F2 /* WidgetKit.framework */; };
+		36AC053C288A6B35009FA1F2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36AC053B288A6B35009FA1F2 /* SwiftUI.framework */; };
+		36AC053F288A6B35009FA1F2 /* MarsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AC053E288A6B35009FA1F2 /* MarsWidget.swift */; };
+		36AC0542288A6B35009FA1F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36AC0541288A6B35009FA1F2 /* Assets.xcassets */; };
+		36AC0544288A6B35009FA1F2 /* MarsWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 36AC0540288A6B35009FA1F2 /* MarsWidget.intentdefinition */; };
+		36AC0545288A6B35009FA1F2 /* MarsWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 36AC0540288A6B35009FA1F2 /* MarsWidget.intentdefinition */; };
+		36AC0548288A6B35009FA1F2 /* MarsWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 36AC0537288A6B35009FA1F2 /* MarsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		36B168DC28683AD0008C1A9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36B168DB28683AD0008C1A9E /* LaunchScreen.storyboard */; };
 		36B168DF28684219008C1A9E /* RoverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B168DE28684219008C1A9E /* RoverType.swift */; };
 		36B168E12868423F008C1A9E /* CameraName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B168E02868423F008C1A9E /* CameraName.swift */; };
@@ -54,6 +73,8 @@
 		36B447A12860A6F700D8DDA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36B447A02860A6F700D8DDA8 /* Assets.xcassets */; };
 		36B447A42860A6F700D8DDA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36B447A32860A6F700D8DDA8 /* Preview Assets.xcassets */; };
 		36B447B02860A9A100D8DDA8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 36B447AF2860A9A100D8DDA8 /* README.md */; };
+		36DA3FD2288ABA8B00EC57AF /* CustomGrupBoxSuperMini.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DA3FD1288ABA8B00EC57AF /* CustomGrupBoxSuperMini.swift */; };
+		36DA3FD3288ABAB600EC57AF /* CustomGrupBoxSuperMini.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DA3FD1288ABA8B00EC57AF /* CustomGrupBoxSuperMini.swift */; };
 		36EC39D1286730FA003751D2 /* CustomGroupBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EC39D0286730FA003751D2 /* CustomGroupBox.swift */; };
 		36EC39D328673120003751D2 /* CustomGroupHorizontalBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EC39D228673120003751D2 /* CustomGroupHorizontalBox.swift */; };
 		36EC39D528673444003751D2 /* CustomGrupBoxMini.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EC39D428673444003751D2 /* CustomGrupBoxMini.swift */; };
@@ -84,7 +105,34 @@
 		36F8B3FA2861D8C3000902D1 /* ImageZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F8B3F92861D8C3000902D1 /* ImageZoomView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		36AC0546288A6B35009FA1F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 36B447912860A6F600D8DDA8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 36AC0536288A6B35009FA1F2;
+			remoteInfo = MarsWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		36AC0549288A6B35009FA1F2 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				36AC0548288A6B35009FA1F2 /* MarsWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		3606A48C288A718600016717 /* TimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineProvider.swift; sourceTree = "<group>"; };
+		3606A490288A71AF00016717 /* TimelineEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineEntry.swift; sourceTree = "<group>"; };
+		3606A492288A71D800016717 /* MarsWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarsWidgetView.swift; sourceTree = "<group>"; };
 		36127443286741D80076C55B /* SettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingManager.swift; sourceTree = "<group>"; };
 		361F03722862E1D100F98BA9 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		365A5D17286765E300A3A6DA /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -96,9 +144,19 @@
 		365A5D2E2867AA2500A3A6DA /* ImageOfflineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOfflineView.swift; sourceTree = "<group>"; };
 		365A5D302867AA2F00A3A6DA /* ImageOfflineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOfflineViewModel.swift; sourceTree = "<group>"; };
 		365A5D322867B3A800A3A6DA /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		365A9DA2288A972D00C095A7 /* MarsRoverPhotos.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MarsRoverPhotos.entitlements; sourceTree = "<group>"; };
+		365A9DA3288A973800C095A7 /* MarsWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MarsWidgetExtension.entitlements; sourceTree = "<group>"; };
 		3687C1CD286250CA004616D4 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		3687C1CF286250DF004616D4 /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
+		369B83B0288A73D700CE42F3 /* CoreDataWidgetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataWidgetService.swift; sourceTree = "<group>"; };
 		369B9D0D2863B20A00C9BF1D /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		36AC0537288A6B35009FA1F2 /* MarsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MarsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		36AC0539288A6B35009FA1F2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		36AC053B288A6B35009FA1F2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		36AC053E288A6B35009FA1F2 /* MarsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarsWidget.swift; sourceTree = "<group>"; };
+		36AC0540288A6B35009FA1F2 /* MarsWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = MarsWidget.intentdefinition; sourceTree = "<group>"; };
+		36AC0541288A6B35009FA1F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		36AC0543288A6B35009FA1F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36B168DB28683AD0008C1A9E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		36B168DE28684219008C1A9E /* RoverType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoverType.swift; sourceTree = "<group>"; };
 		36B168E02868423F008C1A9E /* CameraName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraName.swift; sourceTree = "<group>"; };
@@ -133,6 +191,7 @@
 		36B447A02860A6F700D8DDA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		36B447A32860A6F700D8DDA8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		36B447AF2860A9A100D8DDA8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		36DA3FD1288ABA8B00EC57AF /* CustomGrupBoxSuperMini.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGrupBoxSuperMini.swift; sourceTree = "<group>"; };
 		36EC39D0286730FA003751D2 /* CustomGroupBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGroupBox.swift; sourceTree = "<group>"; };
 		36EC39D228673120003751D2 /* CustomGroupHorizontalBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGroupHorizontalBox.swift; sourceTree = "<group>"; };
 		36EC39D428673444003751D2 /* CustomGrupBoxMini.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGrupBoxMini.swift; sourceTree = "<group>"; };
@@ -165,6 +224,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		36AC0534288A6B35009FA1F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36AC053C288A6B35009FA1F2 /* SwiftUI.framework in Frameworks */,
+				36AC053A288A6B35009FA1F2 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		36B447962860A6F600D8DDA8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -183,6 +251,29 @@
 				365A5D27286769D500A3A6DA /* CDPhotos+CoreDataProperties.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		36AC0538288A6B35009FA1F2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				36AC0539288A6B35009FA1F2 /* WidgetKit.framework */,
+				36AC053B288A6B35009FA1F2 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		36AC053D288A6B35009FA1F2 /* MarsWidget */ = {
+			isa = PBXGroup;
+			children = (
+				36AC053E288A6B35009FA1F2 /* MarsWidget.swift */,
+				3606A48C288A718600016717 /* TimelineProvider.swift */,
+				3606A490288A71AF00016717 /* TimelineEntry.swift */,
+				3606A492288A71D800016717 /* MarsWidgetView.swift */,
+				36AC0540288A6B35009FA1F2 /* MarsWidget.intentdefinition */,
+				36AC0541288A6B35009FA1F2 /* Assets.xcassets */,
+				36AC0543288A6B35009FA1F2 /* Info.plist */,
+			);
+			path = MarsWidget;
 			sourceTree = "<group>";
 		};
 		36B168DA28683AA1008C1A9E /* LaunchScreen */ = {
@@ -239,9 +330,12 @@
 		36B447902860A6F600D8DDA8 = {
 			isa = PBXGroup;
 			children = (
+				365A9DA3288A973800C095A7 /* MarsWidgetExtension.entitlements */,
 				36B168EA28684C51008C1A9E /* Screenshots */,
 				36B447AF2860A9A100D8DDA8 /* README.md */,
 				36B4479B2860A6F600D8DDA8 /* MarsRoverPhotos */,
+				36AC053D288A6B35009FA1F2 /* MarsWidget */,
+				36AC0538288A6B35009FA1F2 /* Frameworks */,
 				36B4479A2860A6F600D8DDA8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -250,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				36B447992860A6F600D8DDA8 /* MarsRoverPhotos.app */,
+				36AC0537288A6B35009FA1F2 /* MarsWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -257,6 +352,7 @@
 		36B4479B2860A6F600D8DDA8 /* MarsRoverPhotos */ = {
 			isa = PBXGroup;
 			children = (
+				365A9DA2288A972D00C095A7 /* MarsRoverPhotos.entitlements */,
 				36F8B3DE28610735000902D1 /* Info.plist */,
 				36F8B3E52861944D000902D1 /* Extension */,
 				36F8B3D42860FF03000902D1 /* Utilities */,
@@ -299,6 +395,7 @@
 				36EC39D0286730FA003751D2 /* CustomGroupBox.swift */,
 				36EC39D228673120003751D2 /* CustomGroupHorizontalBox.swift */,
 				36EC39D428673444003751D2 /* CustomGrupBoxMini.swift */,
+				36DA3FD1288ABA8B00EC57AF /* CustomGrupBoxSuperMini.swift */,
 			);
 			path = CustomGroupBoxes;
 			sourceTree = "<group>";
@@ -337,6 +434,7 @@
 				36F8B3D22860F588000902D1 /* JSONDataService.swift */,
 				36F8B3D62860FF1A000902D1 /* ImageDataService.swift */,
 				365A5D202867673800A3A6DA /* CoreDataService.swift */,
+				369B83B0288A73D700CE42F3 /* CoreDataWidgetService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -397,6 +495,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		36AC0536288A6B35009FA1F2 /* MarsWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 36AC054C288A6B35009FA1F2 /* Build configuration list for PBXNativeTarget "MarsWidgetExtension" */;
+			buildPhases = (
+				36AC0533288A6B35009FA1F2 /* Sources */,
+				36AC0534288A6B35009FA1F2 /* Frameworks */,
+				36AC0535288A6B35009FA1F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MarsWidgetExtension;
+			productName = MarsWidgetExtension;
+			productReference = 36AC0537288A6B35009FA1F2 /* MarsWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		36B447982860A6F600D8DDA8 /* MarsRoverPhotos */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 36B447A72860A6F700D8DDA8 /* Build configuration list for PBXNativeTarget "MarsRoverPhotos" */;
@@ -404,10 +519,12 @@
 				36B447952860A6F600D8DDA8 /* Sources */,
 				36B447962860A6F600D8DDA8 /* Frameworks */,
 				36B447972860A6F600D8DDA8 /* Resources */,
+				36AC0549288A6B35009FA1F2 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				36AC0547288A6B35009FA1F2 /* PBXTargetDependency */,
 			);
 			name = MarsRoverPhotos;
 			packageProductDependencies = (
@@ -423,9 +540,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1330;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
+					36AC0536288A6B35009FA1F2 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
 					36B447982860A6F600D8DDA8 = {
 						CreatedOnToolsVersion = 13.3;
 					};
@@ -447,11 +567,20 @@
 			projectRoot = "";
 			targets = (
 				36B447982860A6F600D8DDA8 /* MarsRoverPhotos */,
+				36AC0536288A6B35009FA1F2 /* MarsWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		36AC0535288A6B35009FA1F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36AC0542288A6B35009FA1F2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		36B447972860A6F600D8DDA8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -488,6 +617,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		36AC0533288A6B35009FA1F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3606A493288A71D800016717 /* MarsWidgetView.swift in Sources */,
+				369B83B3288A786700CE42F3 /* CameraName.swift in Sources */,
+				369B83AD288A73A600CE42F3 /* CDPhotos+CoreDataProperties.swift in Sources */,
+				3606A48D288A718600016717 /* TimelineProvider.swift in Sources */,
+				369B83B2288A786300CE42F3 /* RoverType.swift in Sources */,
+				36DA3FD3288ABAB600EC57AF /* CustomGrupBoxSuperMini.swift in Sources */,
+				369B83AC288A73A400CE42F3 /* CDPhotos+CoreDataClass.swift in Sources */,
+				369B83AB288A73A200CE42F3 /* CoreDataModel.xcdatamodeld in Sources */,
+				369B83AE288A73AC00CE42F3 /* CoreDataController.swift in Sources */,
+				369B83B1288A73D700CE42F3 /* CoreDataWidgetService.swift in Sources */,
+				369B83B4288A787100CE42F3 /* CameraFullName.swift in Sources */,
+				36AC053F288A6B35009FA1F2 /* MarsWidget.swift in Sources */,
+				36AC0544288A6B35009FA1F2 /* MarsWidget.intentdefinition in Sources */,
+				3606A491288A71AF00016717 /* TimelineEntry.swift in Sources */,
+				365F0BD8288AA87200C5C545 /* LocalFileManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		36B447952860A6F600D8DDA8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -525,6 +676,7 @@
 				36F8B3D32860F588000902D1 /* JSONDataService.swift in Sources */,
 				36F8B3EF28619752000902D1 /* CustomTabBarView.swift in Sources */,
 				36127444286741D80076C55B /* SettingManager.swift in Sources */,
+				36DA3FD2288ABA8B00EC57AF /* CustomGrupBoxSuperMini.swift in Sources */,
 				36F8B3CE2860F45E000902D1 /* RoverViewModel.swift in Sources */,
 				365A5D332867B3A900A3A6DA /* NetworkMonitor.swift in Sources */,
 				365A5D312867AA2F00A3A6DA /* ImageOfflineViewModel.swift in Sources */,
@@ -533,6 +685,7 @@
 				36EC39D328673120003751D2 /* CustomGroupHorizontalBox.swift in Sources */,
 				36F8B3E728619462000902D1 /* Navigation.swift in Sources */,
 				36B168E7286843DA008C1A9E /* SortingType.swift in Sources */,
+				36AC0545288A6B35009FA1F2 /* MarsWidget.intentdefinition in Sources */,
 				36F8B3FA2861D8C3000902D1 /* ImageZoomView.swift in Sources */,
 				36F8B3C12860AD48000902D1 /* Photo.swift in Sources */,
 				36F8B3C52860B14C000902D1 /* Rover.swift in Sources */,
@@ -546,7 +699,73 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		36AC0547288A6B35009FA1F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 36AC0536288A6B35009FA1F2 /* MarsWidgetExtension */;
+			targetProxy = 36AC0546288A6B35009FA1F2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		36AC054A288A6B35009FA1F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MarsWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = 32L9LV3KSY;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MarsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MarsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.canbi.MarsRoverPhotos.MarsWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		36AC054B288A6B35009FA1F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MarsWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = 32L9LV3KSY;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MarsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MarsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.canbi.MarsRoverPhotos.MarsWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		36B447A52860A6F700D8DDA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -664,10 +883,12 @@
 		36B447A82860A6F700D8DDA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MarsRoverPhotos/MarsRoverPhotos.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"MarsRoverPhotos/Preview Content\"";
 				DEVELOPMENT_TEAM = 32L9LV3KSY;
 				ENABLE_PREVIEWS = YES;
@@ -679,6 +900,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait";
@@ -698,10 +920,12 @@
 		36B447A92860A6F700D8DDA8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MarsRoverPhotos/MarsRoverPhotos.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"MarsRoverPhotos/Preview Content\"";
 				DEVELOPMENT_TEAM = 32L9LV3KSY;
 				ENABLE_PREVIEWS = YES;
@@ -713,6 +937,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait";
@@ -732,6 +957,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		36AC054C288A6B35009FA1F2 /* Build configuration list for PBXNativeTarget "MarsWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				36AC054A288A6B35009FA1F2 /* Debug */,
+				36AC054B288A6B35009FA1F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		36B447942860A6F600D8DDA8 /* Build configuration list for PBXProject "MarsRoverPhotos" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

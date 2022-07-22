@@ -20,8 +20,7 @@ class ImageOfflineViewModel: ObservableObject {
     @Published var image: UIImage? = nil
     
     //Utility
-    private let fileManagerForFavorites: LocalFileManagerImage = LocalFileManagerImage(folderName: "favorites",
-                                                                                       appFolder: .documentDirectory)
+    private let fileManagerForFavorites: LocalFileManagerImage = LocalFileManagerImage(folderName: "favorites")
     
     init(photo: CDPhotos, showCameraInfo: Bool){
         self.photo = photo

@@ -77,7 +77,7 @@ extension CoreDataDataService {
         do {
             returnedPhotos = try self.moc.fetch(fetchRequest) as [CDPhotos]
         } catch let error {
-            print("error FetchRequest spirit \(error)")
+            print("error FetchRequest \(roverType.rawValue) \(error)")
             returnedPhotos = []
         }
         

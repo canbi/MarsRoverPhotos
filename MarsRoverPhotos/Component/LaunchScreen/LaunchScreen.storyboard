@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,21 +13,20 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mars" translatesAutoresizingMaskIntoConstraints="NO" id="Bkj-fg-HdC">
-                                <rect key="frame" x="0.0" y="0.0" width="1121" height="2226"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mars" translatesAutoresizingMaskIntoConstraints="NO" id="Bkj-fg-HdC">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mars Rovers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qf9-Fb-gYR">
-                                <rect key="frame" x="400.5" y="783" width="223" height="47"/>
+                                <rect key="frame" x="95.666666666666686" y="468" width="223" height="47"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="39"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rover" translatesAutoresizingMaskIntoConstraints="NO" id="fRn-Cw-b0l">
-                                <rect key="frame" x="402" y="573" width="220" height="220"/>
+                                <rect key="frame" x="97" y="258" width="220" height="220"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="220" id="iMf-Cr-AbQ"/>
@@ -40,14 +39,18 @@
                         <constraints>
                             <constraint firstItem="fRn-Cw-b0l" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="67b-AQ-4Sb"/>
                             <constraint firstItem="qf9-Fb-gYR" firstAttribute="top" secondItem="fRn-Cw-b0l" secondAttribute="bottom" constant="-10" id="AEd-Q4-Veg"/>
+                            <constraint firstItem="Bkj-fg-HdC" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="O5g-QB-fKE"/>
+                            <constraint firstAttribute="bottom" secondItem="Bkj-fg-HdC" secondAttribute="bottom" id="aPq-fz-tal"/>
+                            <constraint firstItem="Bkj-fg-HdC" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="fod-4q-FTX"/>
                             <constraint firstItem="qf9-Fb-gYR" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="hIo-Cl-CnZ"/>
+                            <constraint firstItem="Bkj-fg-HdC" firstAttribute="trailing" secondItem="Bcu-3y-fUS" secondAttribute="trailing" id="kzX-CC-Cng"/>
                             <constraint firstItem="fRn-Cw-b0l" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="rW3-eQ-hE9"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52.1484375" y="374.67057101024886"/>
+            <point key="canvasLocation" x="49.756097560975611" y="373.72881355932208"/>
         </scene>
     </scenes>
     <resources>

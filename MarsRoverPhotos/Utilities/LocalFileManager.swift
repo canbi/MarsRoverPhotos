@@ -13,20 +13,23 @@ import SwiftUI
 
 class LocalFileManager {
     let folderName: String
-    var appFolder: FileManager.SearchPathDirectory
+    var appFolder: FileManager.SearchPathDirectory?
     
-    init(folderName: String, appFolder: FileManager.SearchPathDirectory){
+    init(folderName: String, appFolder: FileManager.SearchPathDirectory? = nil){
         self.folderName = folderName
         self.appFolder = appFolder
-        createFolderIfNeeded()
+        createFolderIfNeeded(url: defaultURL())
+        createFolderIfNeeded(url: hostAppURL())
     }
     
-    func createFolderIfNeeded() {
-        guard let url = defaultURL() else { return }
+    func createFolderIfNeeded(url: URL?) {
+        guard let url = url else { return }
         
         if !FileManager.default.fileExists(atPath: url.path) {
             do {
-                try FileManager.default.createDirectory(atPath: url.path, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.createDirectory(atPath: url.path,
+                                                        withIntermediateDirectories: true,
+                                                        attributes: nil)
                 print("Success creating folder.")
             } catch let error {
                 print("Error creating folder. \(error)")
@@ -47,6 +50,11 @@ class LocalFileManager {
     
     
     func getPathFor(name: String, type: String) -> URL? {
+        if appFolder != nil {
+            guard let url = hostAppURL() else { return nil }
+            return url.appendingPathComponent("\(name).\(type)")
+        }
+        
         guard let url = defaultURL() else { return nil }
         return url.appendingPathComponent("\(name).\(type)")
     }
@@ -66,6 +74,16 @@ class LocalFileManager {
     }
     
     func defaultURL() -> URL? {
+        guard let path = FileManager
+            .default
+            .containerURL(forSecurityApplicationGroupIdentifier: "group.com.MarsRovers")?
+            .appendingPathComponent(folderName) else { return nil }
+        return path
+    }
+    
+    func hostAppURL() -> URL? {
+        guard let appFolder = appFolder else { return nil }
+        
         guard let path = FileManager
             .default
             .urls(for: appFolder, in: .userDomainMask)
@@ -131,7 +149,7 @@ class LocalFileManagerImage: LocalFileManager, ObservableObject {
         }
         
         do {
-            try data.write(to: path,options: [.atomic, .completeFileProtection])
+            try data.write(to: path, options: [.atomic, .completeFileProtection])
             return "Success saving!"
         } catch let error {
             return "Error saving. \(error)"
