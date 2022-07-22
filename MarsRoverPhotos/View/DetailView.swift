@@ -25,38 +25,40 @@ struct DetailView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0){
-            if let photo = vm.photo {
-                ImageView(photo: photo)
-                    .frame(maxWidth: .infinity)
-                    .overlay(alignment: .bottomTrailing) { ZoomButton(action: vm.zoomImage) }
-                    .overlay(alignment: .top) { ImageTopButtons }
-                    .layoutPriority(1000)
-                
-                PhotoInformationView
-                
-            } else {
-                ImageOfflineView(photo: vm.cdPhoto!)
-                    .frame(maxWidth: .infinity)
-                    .overlay(alignment: .bottomTrailing) { ZoomButton(action: vm.zoomImage) }
-                    .overlay(alignment: .top) { ImageTopButtons }
-                    .layoutPriority(1000)
-                
-                PhotoInformationOfflineView
-            }
-            
-            Spacer()
-                .sheet(isPresented: $vm.showingZoomImageView, content: {
-                    ImageZoomView(image: vm.clickedImage!, tintColor: tintColor)
-                })
-            
-            ShareButton
-                .sheet(isPresented: $vm.showShareSheet) {
-                    let photo = vm.getImage()!
-                    let itemSource = ShareActivityItemSource(shareText: vm.imageShareName, shareImage: photo)
-                    ShareSheet(activityItems: [photo, itemSource])
-                        .ignoresSafeArea()
+        ScrollView {
+            VStack(spacing: 0){
+                if let photo = vm.photo {
+                    ImageView(photo: photo)
+                        .frame(maxWidth: .infinity)
+                        .overlay(alignment: .bottomTrailing) { ZoomButton(action: vm.zoomImage) }
+                        .overlay(alignment: .top) { ImageTopButtons }
+                        .layoutPriority(1000)
+                    
+                    PhotoInformationView
+                    
+                } else {
+                    ImageOfflineView(photo: vm.cdPhoto!)
+                        .frame(maxWidth: .infinity)
+                        .overlay(alignment: .bottomTrailing) { ZoomButton(action: vm.zoomImage) }
+                        .overlay(alignment: .top) { ImageTopButtons }
+                        .layoutPriority(1000)
+                    
+                    PhotoInformationOfflineView
                 }
+                
+                Spacer()
+                    .sheet(isPresented: $vm.showingZoomImageView, content: {
+                        ImageZoomView(image: vm.clickedImage!, tintColor: tintColor)
+                    })
+                
+                ShareButton
+                    .sheet(isPresented: $vm.showShareSheet) {
+                        let photo = vm.getImage()!
+                        let itemSource = ShareActivityItemSource(shareText: vm.imageShareName, shareImage: photo)
+                        ShareSheet(activityItems: [photo, itemSource])
+                            .ignoresSafeArea()
+                    }
+            }
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
@@ -65,6 +67,7 @@ struct DetailView: View {
         .onAppear {
             vm.setup(settingManager: settingManager, coreDataService: coreDataService)
         }
+        
     }
 }
 

@@ -39,7 +39,7 @@ struct MarsWidgetEntryView : View {
                     Image(systemName: "heart")
                         .imageScale(.large)
                     
-                    Text("1You don't have any favorites in this selection")
+                    Text("You don't have any favorites in this selection")
                         .multilineTextAlignment(.center)
                 }
                 .padding()
